@@ -2053,8 +2053,8 @@
 
     /* Apple emoji img sizing */
     .tab-emoji img {
-      width: 32px;
-      height: 32px;
+      width: 26px;
+      height: 26px;
       display: block;
       pointer-events: none;
     }
@@ -2197,6 +2197,7 @@
       height: 100%;
       justify-content: center;
       cursor: pointer;
+      position: relative;
     }
 
     .search-field:hover {
@@ -2204,8 +2205,47 @@
       border-radius: 40px;
     }
 
-    /* Text input field should have text cursor */
+    /* Make labels not intercept clicks */
+    .search-field .search-field-label {
+      pointer-events: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Make custom select button fill entire field */
+    .search-field.custom-select-wrap .custom-select-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0 28px;
+      padding-top: 24px;
+    }
+
+    .search-field.custom-select-wrap .custom-select-val {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .search-field.custom-select-wrap .custom-select-arrow {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Text input field should have text cursor and fill area */
     .search-field input[type="text"] {
+      cursor: text;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Problem field - make entire area clickable */
+    .search-field.problem-field-wrap {
       cursor: text;
     }
 
@@ -2217,10 +2257,30 @@
 
     .search-field.active {
       background: #FFFFFF !important;
-      border-radius: 40px;
+      border-radius: 32px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
       z-index: 1;
-      transform: scale(1.02);
+    }
+
+    /* Timeline field + search button wrapper - use pseudo-element for white bg */
+    .search-bar.has-active #timeline-wrap.active {
+      background: transparent !important;
+      box-shadow: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-bar.has-active #timeline-wrap.active::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: -8px;
+      right: -75px;
+      bottom: -9px;
+      background: #FFFFFF;
+      border-radius: 40px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+      z-index: -1;
     }
 
     .search-field.active+.search-divider {
@@ -2271,34 +2331,38 @@
       height: 32px;
     }
 
-    /* Search button */
+    /* Search button - Airbnb style integrated */
     .search-submit {
-      width: 52px;
-      height: 52px;
-      margin: 7px;
-      background: #222222;
-      border-radius: 26px;
+      width: auto;
+      height: 48px;
+      padding: 0 16px;
+      margin: 9px;
+      background: linear-gradient(to right, #E61E4D, #E31C5F, #D70466);
+      border-radius: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       flex-shrink: 0;
-      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                  padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                  background 0.2s ease,
-                  transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       overflow: hidden;
+      position: relative;
+      z-index: 2;
     }
 
     .search-submit:hover {
-      background: #444444;
       transform: scale(1.04);
+      box-shadow: 0 2px 8px rgba(227, 28, 95, 0.4);
+    }
+
+    .search-submit svg {
+      flex-shrink: 0;
     }
 
     .search-submit-text {
-      display: none;
+      display: block;
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       color: white;
       white-space: nowrap;
@@ -2307,8 +2371,8 @@
     /* Expanded search button when timeline is active */
     .search-submit.expanded {
       width: auto;
-      padding: 0 20px 0 16px;
-      border-radius: 26px;
+      padding: 0 24px 0 16px;
+      border-radius: 24px;
     }
 
     .search-submit.expanded .search-submit-text {
@@ -2603,7 +2667,15 @@
       background: #BBBBBB;
     }
 
-    /* Mobile — nav-cta already hidden by base media query, hamburger already shown */
+    /* Mobile — nav-cta and user menu hidden, hamburger restored */
+    @media (max-width: 768px) {
+      .nav-user-menu {
+        display: none !important;
+      }
+      .nav-cta {
+        display: none !important;
+      }
+    }
 
     /* ── Compact nav pill (scroll state) ─────────── */
     .nav-compact {
@@ -3184,9 +3256,6 @@
 
         <div class="nav-right">
           <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="nav-cta">Book a call</a>
-          <button class="hamburger" id="hamburger" aria-label="Open menu">
-            <span></span><span></span><span></span>
-          </button>
         </div>
       </nav>
 
@@ -3312,14 +3381,13 @@
           <div class="search-field custom-select-wrap" id="industry-wrap">
             <span class="search-field-label">Industry</span>
             <button class="custom-select-btn" id="industry-btn" type="button">
-              <span class="custom-select-val" id="industry-val">Any</span>
+              <span class="custom-select-val" id="industry-val">Select yours</span>
               <svg class="custom-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
             </button>
             <div class="custom-select-panel" id="industry-panel">
-              <div class="custom-select-option selected" data-val="">Any</div>
               <div class="custom-select-option" data-val="E-commerce">E-commerce</div>
               <div class="custom-select-option" data-val="Healthcare">Healthcare</div>
               <div class="custom-select-option" data-val="Finance">Finance</div>
@@ -3339,18 +3407,17 @@
           <div class="search-field custom-select-wrap" id="timeline-wrap">
             <span class="search-field-label">Timeline</span>
             <button class="custom-select-btn" id="timeline-btn" type="button">
-              <span class="custom-select-val" id="timeline-val">When?</span>
+              <span class="custom-select-val" id="timeline-val">Select yours</span>
               <svg class="custom-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
             </button>
             <div class="custom-select-panel" id="timeline-panel">
-              <div class="custom-select-option selected" data-val="">When?</div>
               <div class="custom-select-option" data-val="ASAP">ASAP</div>
-              <div class="custom-select-option" data-val="1–3 months">1–3 months</div>
-              <div class="custom-select-option" data-val="3–6 months">3–6 months</div>
-              <div class="custom-select-option" data-val="Just exploring">Just exploring</div>
+              <div class="custom-select-option" data-val="1 to 2 Weeks">1 to 2 Weeks</div>
+              <div class="custom-select-option" data-val="3 to 4 Weeks">3 to 4 Weeks</div>
+              <div class="custom-select-option" data-val="4 to 6 Weeks">4 to 6 Weeks</div>
             </div>
             <!-- hidden value for JS compatibility -->
             <input type="hidden" id="search-timeline" value="">
@@ -3390,14 +3457,6 @@
         </div>
       </div>
 
-      <!-- Mobile menu -->
-      <div class="mobile-menu" id="mobile-menu">
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#proof">Proof</a>
-        <a href="#about">About</a>
-        <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="mobile-cta">Book a call →</a>
-      </div>
 
 
       <!-- ══════════════════════════════════════════════
@@ -3855,14 +3914,13 @@
         <label class="mob-field-label">Industry</label>
         <div class="mob-select-wrap" id="mob-industry-wrap">
           <button class="mob-select-btn" type="button" id="mob-industry-btn">
-            <span id="mob-industry-val">Any</span>
+            <span id="mob-industry-val">Select yours</span>
             <svg class="mob-select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
               <path d="M1 1.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                 stroke-linejoin="round" />
             </svg>
           </button>
           <div class="mob-select-panel" id="mob-industry-panel">
-            <div class="mob-select-option selected" data-val="">Any</div>
             <div class="mob-select-option" data-val="E-commerce">E-commerce</div>
             <div class="mob-select-option" data-val="Healthcare">Healthcare</div>
             <div class="mob-select-option" data-val="Finance">Finance</div>
@@ -3880,18 +3938,17 @@
         <label class="mob-field-label">Timeline</label>
         <div class="mob-select-wrap" id="mob-timeline-wrap">
           <button class="mob-select-btn" type="button" id="mob-timeline-btn">
-            <span id="mob-timeline-val">Any</span>
+            <span id="mob-timeline-val">Select yours</span>
             <svg class="mob-select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
               <path d="M1 1.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                 stroke-linejoin="round" />
             </svg>
           </button>
           <div class="mob-select-panel" id="mob-timeline-panel">
-            <div class="mob-select-option selected" data-val="">Any</div>
             <div class="mob-select-option" data-val="ASAP">ASAP</div>
-            <div class="mob-select-option" data-val="1–3 months">1–3 months</div>
-            <div class="mob-select-option" data-val="3–6 months">3–6 months</div>
-            <div class="mob-select-option" data-val="Just exploring">Just exploring</div>
+            <div class="mob-select-option" data-val="1 to 2 Weeks">1 to 2 Weeks</div>
+            <div class="mob-select-option" data-val="3 to 4 Weeks">3 to 4 Weeks</div>
+            <div class="mob-select-option" data-val="4 to 6 Weeks">4 to 6 Weeks</div>
           </div>
           <input type="hidden" id="mob-timeline" value="" />
         </div>
@@ -4009,17 +4066,6 @@
       mobResultBook.addEventListener('click', closeMobModal);
     }
 
-    // ── Hamburger menu ──────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (hamburger) hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
-
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
 
     // ── Scroll reveal ───────────────────────────────
     const observer = new IntersectionObserver((entries) => {
@@ -4124,8 +4170,8 @@
 
     function syncCompactLabels() {
       compactFields[0].textContent = problemInput?.value?.trim() || 'Tell us your problem';
-      compactFields[1].textContent = industrySelect?.value || 'Any industry';
-      compactFields[2].textContent = timelineSelect?.value || 'Any timeline';
+      compactFields[1].textContent = industrySelect?.value || 'Select yours';
+      compactFields[2].textContent = timelineSelect?.value || 'Select yours';
     }
     if (problemInput) problemInput.addEventListener('input', syncCompactLabels);
 
@@ -4138,14 +4184,23 @@
       const hidden = document.getElementById(hiddenId);
       if (!wrap) return;
 
-      btn.addEventListener('click', e => {
+      // Click anywhere on the field to open dropdown
+      function openDropdown(e) {
+        // Don't trigger if clicking inside the panel
+        if (panel.contains(e.target)) return;
         e.stopPropagation();
         const isOpen = wrap.classList.contains('open');
         document.querySelectorAll('.custom-select-wrap.open').forEach(el => el.classList.remove('open'));
+        // Close problem suggestions
+        document.getElementById('problem-wrap')?.classList.remove('open');
         if (!isOpen) {
           wrap.classList.add('open');
         }
-      });
+      }
+
+      // Add click handler to entire wrap element
+      wrap.addEventListener('click', openDropdown);
+      btn.addEventListener('click', openDropdown);
 
       panel.querySelectorAll('.custom-select-option').forEach(opt => {
         opt.addEventListener('click', () => {
@@ -4167,14 +4222,23 @@
     // ── Active-field highlight (Airbnb style) ────────
     const searchBarEl = document.querySelector('.search-bar');
     const allFields = searchBarEl ? searchBarEl.querySelectorAll('.search-field') : [];
+    const searchSubmitBtn = document.getElementById('search-submit');
+    const timelineWrapEl = document.getElementById('timeline-wrap');
 
     function activateField(field) {
       allFields.forEach(f => f.classList.remove('active'));
       if (field) {
         field.classList.add('active');
         searchBarEl.classList.add('has-active');
+        // Expand search button when timeline field is active
+        if (field === timelineWrapEl) {
+          searchSubmitBtn?.classList.add('expanded');
+        } else {
+          searchSubmitBtn?.classList.remove('expanded');
+        }
       } else {
         searchBarEl.classList.remove('has-active');
+        searchSubmitBtn?.classList.remove('expanded');
       }
     }
 
@@ -4184,6 +4248,15 @@
     const problemPanel = document.getElementById('problem-panel');
 
     if (problemInputEl && problemWrap) {
+      // Click anywhere on the field to focus input and show suggestions
+      problemWrap.addEventListener('click', (e) => {
+        // Don't trigger if clicking inside the panel
+        if (problemPanel && problemPanel.contains(e.target)) return;
+        // Close other dropdowns
+        document.querySelectorAll('.custom-select-wrap.open').forEach(el => el.classList.remove('open'));
+        problemInputEl.focus();
+      });
+
       // Show suggestions on focus
       problemInputEl.addEventListener('focus', () => {
         activateField(problemInputEl.closest('.search-field'));
