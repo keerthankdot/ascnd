@@ -1992,11 +1992,13 @@
     .nav-tab {
       color: #222222;
       border-bottom-color: transparent;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       letter-spacing: 0;
-      padding: 10px 20px 10px;
-      gap: 8px;
+      padding: 12px 24px 10px;
+      gap: 4px;
+      flex-direction: column;
+      align-items: center;
     }
 
     .nav-tab:hover {
@@ -2005,8 +2007,40 @@
 
     .nav-tab.active {
       color: #222222;
-      border-bottom-color: #222222;
+      border-bottom-color: transparent;
       font-weight: 700;
+    }
+
+    /* Sliding indicator for nav tabs */
+    .nav-tabs {
+      position: relative;
+    }
+
+    .nav-tabs-indicator {
+      position: absolute;
+      bottom: 0;
+      height: 2px;
+      background: #222222;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      border-radius: 1px;
+    }
+
+    /* Nav tab hover effect */
+    .nav-tab {
+      transition: color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+    }
+
+    .nav-tab:hover {
+      transform: translateY(-1px);
+    }
+
+    .nav-tab:not(.active) {
+      opacity: 0.7;
+    }
+
+    .nav-tab:not(.active):hover {
+      opacity: 1;
     }
 
     /* Emoji icon in tab */
@@ -2029,23 +2063,71 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
-    /* Book a call — pill button */
+    /* Book a call — text link like Airbnb */
     .nav-cta {
-      background: #222222;
-      color: #FFFFFF;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 10px 24px;
-      border-radius: 20px;
-      transition: background 0.2s, transform 0.2s;
+      background: transparent;
+      color: #222222;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 12px;
+      border-radius: 22px;
+      transition: background 0.2s;
+      text-decoration: none;
     }
 
     .nav-cta:hover {
-      background: #444444;
-      transform: translateY(-1px);
+      background: #F7F7F7;
+    }
+
+    /* User menu pill - Airbnb style */
+    .nav-user-menu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 5px 5px 5px 12px;
+      border: 1px solid #DDDDDD;
+      border-radius: 22px;
+      background: #FFFFFF;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+
+    .nav-user-menu:hover {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+    }
+
+    .nav-hamburger-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .nav-hamburger-icon span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: #222222;
+      border-radius: 1px;
+    }
+
+    .nav-user-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #717171;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .nav-user-avatar svg {
+      width: 20px;
+      height: 20px;
+      fill: #FFFFFF;
     }
 
     /* Hamburger — desktop hidden by base CSS, mobile shown by base media query */
@@ -2082,17 +2164,31 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10), 0 8px 20px rgba(0, 0, 0, 0.10);
     }
 
-    /* Transitions for active-field effect */
+    /* Transitions for active-field effect - Airbnb premium feel */
     .search-bar {
-      transition: background 0.2s, box-shadow 0.2s;
+      transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                  box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .search-field {
-      transition: background 0.2s, box-shadow 0.2s;
+      transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .search-divider {
-      transition: opacity 0.15s;
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Smooth label transitions */
+    .search-field-label {
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .search-field.active .search-field-label {
+      transform: translateY(-1px);
     }
 
     /* Each field — Airbnb proportions */
@@ -2100,11 +2196,17 @@
       padding: 0 28px;
       height: 100%;
       justify-content: center;
+      cursor: pointer;
     }
 
     .search-field:hover {
       background: #F0F0F0;
       border-radius: 40px;
+    }
+
+    /* Text input field should have text cursor */
+    .search-field input[type="text"] {
+      cursor: text;
     }
 
     /* Airbnb active-field effect */
@@ -2118,6 +2220,7 @@
       border-radius: 40px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
       z-index: 1;
+      transform: scale(1.02);
     }
 
     .search-field.active+.search-divider {
@@ -2174,16 +2277,42 @@
       height: 52px;
       margin: 7px;
       background: #222222;
-      border-radius: 50%;
+      border-radius: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       flex-shrink: 0;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  background 0.2s ease,
+                  transform 0.2s ease;
+      overflow: hidden;
     }
 
     .search-submit:hover {
       background: #444444;
       transform: scale(1.04);
+    }
+
+    .search-submit-text {
+      display: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      white-space: nowrap;
+    }
+
+    /* Expanded search button when timeline is active */
+    .search-submit.expanded {
+      width: auto;
+      padding: 0 20px 0 16px;
+      border-radius: 26px;
+    }
+
+    .search-submit.expanded .search-submit-text {
+      display: block;
     }
 
     /* Result card */
@@ -2312,11 +2441,10 @@
     }
 
     .custom-select-panel {
-      display: none;
       position: absolute;
       top: calc(100% + 8px);
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(-8px) scale(0.96);
       background: #FFFFFF;
       border: 1px solid #E0E0E0;
       border-radius: 16px;
@@ -2324,23 +2452,19 @@
       padding: 8px;
       min-width: 200px;
       z-index: 9999;
-      animation: dropIn 0.18s ease forwards;
-    }
-
-    @keyframes dropIn {
-      from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-6px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  visibility 0.2s;
     }
 
     .custom-select-wrap.open .custom-select-panel {
-      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0) scale(1);
     }
 
     .custom-select-option {
@@ -2360,6 +2484,123 @@
 
     .custom-select-option.selected {
       font-weight: 700;
+    }
+
+    /* ── Problem suggestions dropdown (Airbnb style) ─── */
+    .problem-field-wrap {
+      position: relative;
+    }
+
+    .problem-suggestions-panel {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: -28px;
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      padding: 16px 0;
+      width: 480px;
+      max-height: 420px;
+      overflow-y: auto;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-8px) scale(0.98);
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  visibility 0.2s;
+    }
+
+    .problem-field-wrap.open .problem-suggestions-panel {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .suggestions-section {
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+
+    .suggestions-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .suggestions-section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #717171;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 8px 16px 6px;
+    }
+
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .suggestion-item:hover {
+      background: #F5F5F5;
+    }
+
+    .suggestion-icon {
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F7F7F7;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .suggestion-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .suggestion-main {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #222222;
+    }
+
+    .suggestion-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #717171;
+    }
+
+    /* Scrollbar styling for suggestions panel */
+    .problem-suggestions-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .problem-suggestions-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .problem-suggestions-panel::-webkit-scrollbar-thumb {
+      background: #DDDDDD;
+      border-radius: 3px;
+    }
+
+    .problem-suggestions-panel::-webkit-scrollbar-thumb:hover {
+      background: #BBBBBB;
     }
 
     /* Mobile — nav-cta already hidden by base media query, hamburger already shown */
@@ -2937,10 +3178,12 @@
             <span>About</span>
           </a>
 
+          <!-- Sliding indicator -->
+          <div class="nav-tabs-indicator" id="nav-tabs-indicator"></div>
         </div>
 
         <div class="nav-right">
-          <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="nav-cta">Book a call →</a>
+          <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="nav-cta">Book a call</a>
           <button class="hamburger" id="hamburger" aria-label="Open menu">
             <span></span><span></span><span></span>
           </button>
@@ -2953,11 +3196,114 @@
       <div class="search-strip" id="search-strip">
         <div class="search-bar">
 
-          <!-- Field 1: Problem (free text) -->
-          <div class="search-field" style="flex:2;">
+          <!-- Field 1: Problem (free text with suggestions dropdown) -->
+          <div class="search-field problem-field-wrap" id="problem-wrap" style="flex:2;">
             <span class="search-field-label">Tell us your problem</span>
             <input type="text" id="search-problem" placeholder="e.g. we waste hours on manual reports..."
               autocomplete="off" />
+
+            <!-- Airbnb-style suggestions dropdown -->
+            <div class="problem-suggestions-panel" id="problem-panel">
+              <div class="suggestions-section">
+                <div class="suggestions-section-title">Operations & Efficiency</div>
+                <div class="suggestion-item" data-problem="We spend hours on manual data entry">
+                  <span class="suggestion-icon">📝</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Manual data entry</span>
+                    <span class="suggestion-sub">Automate repetitive input tasks</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="We waste time generating reports manually">
+                  <span class="suggestion-icon">📊</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Report generation</span>
+                    <span class="suggestion-sub">Auto-generate insights & dashboards</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="Document processing takes too long">
+                  <span class="suggestion-icon">📄</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Document processing</span>
+                    <span class="suggestion-sub">Extract data from PDFs, invoices, receipts</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="suggestions-section">
+                <div class="suggestions-section-title">Customer Service</div>
+                <div class="suggestion-item" data-problem="We can't handle support ticket volume">
+                  <span class="suggestion-icon">🎫</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">High ticket volume</span>
+                    <span class="suggestion-sub">AI-powered ticket triage & responses</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="We need 24/7 customer support">
+                  <span class="suggestion-icon">🤖</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">24/7 availability</span>
+                    <span class="suggestion-sub">Chatbots that actually work</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="Our response times are too slow">
+                  <span class="suggestion-icon">⚡</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Slow response times</span>
+                    <span class="suggestion-sub">Instant AI-assisted replies</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="suggestions-section">
+                <div class="suggestions-section-title">Sales & Marketing</div>
+                <div class="suggestion-item" data-problem="Lead qualification takes too much time">
+                  <span class="suggestion-icon">🎯</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Lead qualification</span>
+                    <span class="suggestion-sub">Auto-score and prioritize leads</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="We need to personalize outreach at scale">
+                  <span class="suggestion-icon">✉️</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Personalized outreach</span>
+                    <span class="suggestion-sub">AI-written emails that convert</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="Content creation is too slow">
+                  <span class="suggestion-icon">✍️</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Content creation</span>
+                    <span class="suggestion-sub">Generate social, blogs, ads faster</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="suggestions-section">
+                <div class="suggestions-section-title">Analytics & Insights</div>
+                <div class="suggestion-item" data-problem="Our data is scattered across systems">
+                  <span class="suggestion-icon">🔗</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Scattered data</span>
+                    <span class="suggestion-sub">Unify and analyze across platforms</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="We need better demand forecasting">
+                  <span class="suggestion-icon">📈</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Demand forecasting</span>
+                    <span class="suggestion-sub">Predict sales & inventory needs</span>
+                  </div>
+                </div>
+                <div class="suggestion-item" data-problem="We're losing customers and don't know why">
+                  <span class="suggestion-icon">🚨</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Churn prediction</span>
+                    <span class="suggestion-sub">Identify at-risk customers early</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="search-divider"></div>
@@ -3016,6 +3362,7 @@
               <circle cx="8" cy="8" r="5.5" stroke="white" stroke-width="2" />
               <line x1="12.5" y1="12.5" x2="16.5" y2="16.5" stroke="white" stroke-width="2" stroke-linecap="round" />
             </svg>
+            <span class="search-submit-text">Search</span>
           </button>
 
         </div>
@@ -3693,9 +4040,41 @@
     const searchStrip = document.getElementById('search-strip');
     const searchResult = document.getElementById('search-result');
     const navLogo = document.querySelector('.nav-logo');
+    const navTabsIndicator = document.getElementById('nav-tabs-indicator');
+    const navTabsContainer = document.querySelector('.nav-tabs');
+
+    // ── Sliding indicator for nav tabs ────────────────
+    function updateIndicator(tab, animate = true) {
+      if (!tab || !navTabsIndicator || !navTabsContainer) return;
+
+      const containerRect = navTabsContainer.getBoundingClientRect();
+      const tabRect = tab.getBoundingClientRect();
+
+      const left = tabRect.left - containerRect.left;
+      const width = tabRect.width;
+
+      if (!animate) {
+        navTabsIndicator.style.transition = 'none';
+      }
+
+      navTabsIndicator.style.left = left + 'px';
+      navTabsIndicator.style.width = width + 'px';
+
+      if (!animate) {
+        // Force reflow then restore transition
+        navTabsIndicator.offsetHeight;
+        navTabsIndicator.style.transition = '';
+      }
+    }
 
     // Set initial state: services tab active, search strip visible
     navTabs.forEach(t => { if (t.dataset.page === 'services') t.classList.add('active'); });
+
+    // Initialize indicator position (no animation on load)
+    const initialActiveTab = document.querySelector('.nav-tab.active');
+    if (initialActiveTab) {
+      requestAnimationFrame(() => updateIndicator(initialActiveTab, false));
+    }
 
     function showPage(pageId) {
       const next = document.getElementById('page-' + pageId);
@@ -3707,6 +4086,10 @@
       searchStrip.style.display = (pageId === 'services') ? '' : 'none';
       window.scrollTo(0, 0);
       next.classList.add('active');
+
+      // Update sliding indicator
+      const activeTab = document.querySelector('.nav-tab.active');
+      if (activeTab) updateIndicator(activeTab, true);
     }
 
     // Nav tab clicks
@@ -3715,6 +4098,12 @@
         e.preventDefault();
         showPage(tab.dataset.page);
       });
+    });
+
+    // Update indicator on window resize
+    window.addEventListener('resize', () => {
+      const activeTab = document.querySelector('.nav-tab.active');
+      if (activeTab) updateIndicator(activeTab, false);
     });
 
     // Logo click → services (home)
@@ -3789,23 +4178,56 @@
       }
     }
 
-    // Problem text input — activate on focus
+    // Problem text input — activate on focus and show suggestions
     const problemInputEl = document.getElementById('search-problem');
-    if (problemInputEl) {
-      problemInputEl.addEventListener('focus', () =>
-        activateField(problemInputEl.closest('.search-field')));
+    const problemWrap = document.getElementById('problem-wrap');
+    const problemPanel = document.getElementById('problem-panel');
+
+    if (problemInputEl && problemWrap) {
+      // Show suggestions on focus
+      problemInputEl.addEventListener('focus', () => {
+        activateField(problemInputEl.closest('.search-field'));
+        problemWrap.classList.add('open');
+      });
+
+      // Hide suggestions when typing (user is entering custom problem)
+      problemInputEl.addEventListener('input', () => {
+        if (problemInputEl.value.length > 0) {
+          problemWrap.classList.remove('open');
+        }
+      });
+
+      // Handle suggestion item clicks
+      if (problemPanel) {
+        problemPanel.querySelectorAll('.suggestion-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const problemText = item.dataset.problem;
+            problemInputEl.value = problemText;
+            problemWrap.classList.remove('open');
+            // Move focus to next field (industry)
+            document.getElementById('industry-btn')?.click();
+          });
+        });
+      }
     }
 
     // Industry & Timeline dropdowns — activate on button mousedown
     ['industry-btn', 'timeline-btn'].forEach(id => {
       const btn = document.getElementById(id);
-      if (btn) btn.addEventListener('mousedown', () =>
-        activateField(btn.closest('.search-field')));
+      if (btn) btn.addEventListener('mousedown', () => {
+        activateField(btn.closest('.search-field'));
+        // Close problem suggestions when clicking other fields
+        if (problemWrap) problemWrap.classList.remove('open');
+      });
     });
 
     // Close dropdowns + deactivate when clicking outside the bar
     document.addEventListener('click', e => {
       document.querySelectorAll('.custom-select-wrap.open').forEach(el => el.classList.remove('open'));
+      // Close problem suggestions too
+      if (problemWrap && !problemWrap.contains(e.target)) {
+        problemWrap.classList.remove('open');
+      }
       if (searchBarEl && !searchBarEl.contains(e.target)) activateField(null);
     });
 
