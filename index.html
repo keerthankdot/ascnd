@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ascnd — AI Venture Studio</title>
+  <title>Ascnd | AI Venture Studio</title>
   <style>
     :root {
       --bp-bg: #FFFFFF;
@@ -686,7 +686,7 @@
     /* ── Hero two-column layout ─────────────────────── */
     .hero-layout {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       gap: 56px;
     }
 
@@ -706,18 +706,21 @@
     .hero-video-col {
       flex: 1;
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
     .hero-video-label {
       font-family: 'Gilroy', sans-serif;
-      font-size: 12px;
+      font-size: 22px;
       font-weight: 600;
-      color: #717171;
+      color: #222222;
       letter-spacing: 0.01em;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
     }
 
     .hero-video-label img {
@@ -762,6 +765,9 @@
       text-decoration: none;
       transition: background 0.2s, transform 0.2s;
       display: inline-block;
+      min-width: 220px;
+      text-align: center;
+      box-sizing: border-box;
     }
 
     .cta-primary:hover {
@@ -781,6 +787,9 @@
       text-decoration: none;
       transition: background 0.2s, transform 0.2s;
       display: inline-block;
+      min-width: 220px;
+      text-align: center;
+      box-sizing: border-box;
     }
 
     .cta-secondary:hover {
@@ -878,28 +887,133 @@
       letter-spacing: 0.04em;
     }
 
-    /* ── Process ───────────────────────────────────── */
-    .process-grid {
-      display: flex;
-      align-items: center;
+    /* ── Process Circle ───────────────────────────────────── */
+    .process-circle-container {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      margin: 60px auto 40px;
+    }
+
+    .process-circle-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      animation: rotateCircle 120s linear infinite;
+    }
+
+    @keyframes rotateCircle {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .process-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Gilroy', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #222;
+      z-index: 10;
+    }
+
+    .process-node {
+      position: absolute;
+      width: 160px;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 5;
+    }
+
+    .process-node:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    .process-node:hover .node-desc {
+      max-height: 100px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+
+    .process-node:hover .node-number {
+      color: #222;
+    }
+
+    /* Position nodes around circle (radius ~240px from center) */
+    /* nth-child offset by 2 to account for SVG and process-center */
+    .process-node:nth-child(3) { top: 5%; left: 50%; }      /* 12 o'clock - Step 1 */
+    .process-node:nth-child(4) { top: 30%; left: 93%; }     /* 2 o'clock - Step 2 */
+    .process-node:nth-child(5) { top: 80%; left: 77%; }     /* 5 o'clock - Step 3 */
+    .process-node:nth-child(6) { top: 80%; left: 23%; }     /* 7 o'clock - Step 4 */
+    .process-node:nth-child(7) { top: 30%; left: 7%; }      /* 10 o'clock - Step 5 */
+
+    .node-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: #ccc;
+      margin-bottom: 8px;
+      line-height: 1;
+      transition: color 0.3s ease;
+    }
+
+    .node-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 4px;
+    }
+
+    .node-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile fallback - vertical list */
+    .process-mobile-list {
+      display: none;
+      flex-direction: column;
+      gap: 24px;
       margin-top: 40px;
     }
 
-    .process-step {
-      flex: 1;
+    .process-mobile-item {
+      background: #FAFAFA;
+      border-radius: 16px;
+      padding: 24px;
     }
 
-    .process-connector {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.15);
-      display: flex;
-      align-items: center;
-      padding: 0 12px;
-      white-space: nowrap;
-      flex-shrink: 0;
+    .process-mobile-item .node-number {
+      font-size: 28px;
+      color: #ddd;
+      margin-bottom: 12px;
     }
 
+    .process-mobile-item .node-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .process-mobile-item .node-desc {
+      max-height: none;
+      opacity: 1;
+      font-size: 14px;
+    }
+
+    /* Legacy step styles for other pages */
     .step-number {
       font-family: 'Inter', sans-serif;
       font-size: 32px;
@@ -922,6 +1036,256 @@
       font-size: 14px;
       color: var(--bp-text-secondary);
       line-height: 1.6;
+    }
+
+    /* ── About Profile (Airbnb-style) ─────────────────────────────────────── */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 60px;
+      margin-top: 40px;
+    }
+
+    .profile-card,
+    .about-profile-card {
+      background: #FAFAFA;
+      border-radius: 24px;
+      padding: 32px;
+      text-align: center;
+      position: sticky;
+      top: 180px;
+      height: fit-content;
+    }
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      border: 3px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Gilroy', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .profile-name {
+      font-family: 'Gilroy', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 4px;
+    }
+
+    .profile-role {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .profile-stats {
+      border-top: 1px solid #E5E5E5;
+      padding-top: 20px;
+    }
+
+    .profile-stat,
+    .stat-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #E5E5E5;
+      text-align: left;
+    }
+
+    .profile-stat:last-child,
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-number {
+      font-family: 'Gilroy', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #222;
+      min-width: 50px;
+    }
+
+    .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .about-hero {
+      padding: 40px 0;
+    }
+
+    .about-main {
+      padding-top: 0;
+    }
+
+    .about-section {
+      margin-bottom: 48px;
+    }
+
+    .about-headline {
+      font-family: 'Gilroy', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .about-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #444;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .about-body:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-cta {
+      background: #F5F5F5;
+      padding: 80px 48px;
+      margin-top: 40px;
+      border-radius: 24px;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .skill-badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #444;
+      background: #F0F0F0;
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .testimonial-card {
+      background: #FAFAFA;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .testimonial-quote {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ddd;
+    }
+
+    .testimonial-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .testimonial-role {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .testimonial-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    .connect-links {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .connect-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #222;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .connect-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile layout for About */
+    @media (max-width: 900px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .profile-card {
+        position: static;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .about-section-title {
+        font-size: 26px;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .connect-links {
+        flex-direction: column;
+        gap: 16px;
+      }
     }
 
     /* ── Proof ─────────────────────────────────────── */
@@ -1299,6 +1663,8 @@
       .hero-video-label {
         color: #222222;
         justify-content: center;
+        font-size: 16px;
+        white-space: nowrap;
       }
 
       .hero-headline {
@@ -1362,6 +1728,15 @@
         flex-direction: column;
         gap: 8px;
         padding: 20px 24px;
+      }
+
+      /* Process circle - hide on mobile, show list */
+      .process-circle-container {
+        display: none;
+      }
+
+      .process-mobile-list {
+        display: flex;
       }
     }
 
@@ -1670,6 +2045,631 @@
       color: #222222;
     }
 
+    #services .section-inner {
+      padding-top: 40px;
+    }
+
+    /* Automations Hero */
+    .automations-hero {
+      padding-top: 120px;
+    }
+
+    @media (max-width: 768px) {
+      .automations-hero {
+        padding-top: 180px;
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       WORK PAGE STYLES
+    ══════════════════════════════════════════════ */
+
+    .work-hero {
+      padding-top: 120px;
+      padding-bottom: 0;
+    }
+
+    .work-filters {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 10px 20px;
+      border: 1px solid #E5E5E5;
+      border-radius: 100px;
+      background: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab:hover {
+      border-color: #222;
+      color: #222;
+    }
+
+    .filter-tab.active {
+      background: #222;
+      border-color: #222;
+      color: white;
+    }
+
+    .filter-count {
+      color: inherit;
+      opacity: 0.7;
+    }
+
+    .filter-count.disabled {
+      opacity: 0.4;
+    }
+
+    .filter-tab:has(.filter-count.disabled) {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .work-search {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      border: 1px solid #E5E5E5;
+      border-radius: 100px;
+      background: white;
+      min-width: 240px;
+    }
+
+    .work-search input {
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #222;
+      width: 100%;
+      background: transparent;
+    }
+
+    .work-search input::placeholder {
+      color: #999;
+    }
+
+    .work-grid-section {
+      padding-top: 40px;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .work-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+      .work-filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .work-search {
+        min-width: auto;
+      }
+    }
+
+    .work-card {
+      background: white;
+      border: 1px solid #E5E5E5;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .work-card-video {
+      aspect-ratio: 16/9;
+      background: #F3F4F6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #999;
+    }
+
+    .work-card-video p {
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .work-card-content {
+      padding: 24px;
+    }
+
+    .work-card-category {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .work-card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 8px;
+    }
+
+    .work-card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .work-card-status {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #22C55E;
+    }
+
+    .work-no-results {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .work-no-results h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 8px;
+    }
+
+    .work-no-results p {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    /* Work Detail View */
+    .work-detail-section {
+      padding-top: 120px;
+    }
+
+    .work-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .work-detail-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .work-detail-video {
+      position: sticky;
+      top: 120px;
+      align-self: start;
+    }
+
+    .video-placeholder {
+      aspect-ratio: 16/9;
+      background: #F3F4F6;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #999;
+    }
+
+    .video-placeholder p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .detail-category {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .detail-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 8px;
+    }
+
+    .detail-client {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 32px;
+    }
+
+    .detail-section {
+      margin-bottom: 24px;
+    }
+
+    .detail-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .detail-section p {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #444;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .detail-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .work-detail-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    .detail-nav-btn {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      background: white;
+      border: 1px solid #E5E5E5;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .detail-nav-btn:hover {
+      border-color: #222;
+      color: #222;
+    }
+
+    .detail-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    /* ══════════════════════════════════════════════
+       ABOUT PAGE STYLES (Airbnb-style Profile)
+    ══════════════════════════════════════════════ */
+
+    .about-hero {
+      padding-top: 120px;
+      padding-bottom: 40px;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .about-profile-card {
+      position: sticky;
+      top: 120px;
+      background: white;
+      border: 1px solid #E5E5E5;
+      border-radius: 24px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .about-profile-card {
+        position: static;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+    }
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #F3F4F6;
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #999;
+      background: linear-gradient(135deg, #E5E5E5 0%, #F5F5F5 100%);
+    }
+
+    .profile-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 4px;
+    }
+
+    .profile-role {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .profile-stats {
+      border-top: 1px solid #E5E5E5;
+      padding-top: 24px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #F3F4F6;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      min-width: 50px;
+    }
+
+    .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #666;
+      text-align: left;
+    }
+
+    .about-main {
+      max-width: 640px;
+    }
+
+    .about-section {
+      margin-bottom: 48px;
+    }
+
+    .about-headline {
+      font-family: 'Inter', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .about-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .about-body:last-child {
+      margin-bottom: 0;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #555;
+      background: #F5F5F5;
+      border: 1px solid #E5E5E5;
+      padding: 8px 16px;
+      border-radius: 100px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      background: #FAFAFA;
+      border: 1px solid #E5E5E5;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .testimonial-quote {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .testimonial-role {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .testimonial-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .connect-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .connect-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #222;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .connect-link:hover {
+      color: #666;
+    }
+
+    .connect-link::after {
+      content: ' →';
+      opacity: 0.5;
+    }
+
+    .about-cta {
+      padding: 60px 0 80px;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    /* FAQ Accordion */
+    .faq-accordion-item {
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #222;
+      text-align: left;
+    }
+
+    .faq-question:hover {
+      color: #555;
+    }
+
+    .faq-chevron {
+      color: #999;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-accordion-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-accordion-item.open .faq-answer {
+      max-height: 200px;
+      padding-bottom: 20px;
+    }
+
+    .faq-answer p {
+      color: #555;
+      line-height: 1.7;
+      margin: 0;
+    }
+
     .card-title {
       color: #222222;
     }
@@ -1719,6 +2719,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      margin-top: 24px;
       margin-bottom: 32px;
     }
 
@@ -1758,6 +2759,56 @@
     .service-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.10);
+    }
+
+    .service-card.highlighted {
+      transform: translateY(-8px) scale(1.02);
+      overflow: visible;
+      animation: glow-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% {
+        box-shadow:
+          20px 0 30px -10px rgba(59, 130, 246, 0.7),
+          0 8px 30px rgba(0, 0, 0, 0.1);
+      }
+      25% {
+        box-shadow:
+          0 20px 30px -10px rgba(59, 130, 246, 0.7),
+          0 8px 30px rgba(0, 0, 0, 0.1);
+      }
+      50% {
+        box-shadow:
+          -20px 0 30px -10px rgba(59, 130, 246, 0.7),
+          0 8px 30px rgba(0, 0, 0, 0.1);
+      }
+      75% {
+        box-shadow:
+          0 -20px 30px -10px rgba(59, 130, 246, 0.7),
+          0 8px 30px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    /* Back button for sub-pages */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: #F5F5F5;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #EBEBEB;
+      color: #222;
     }
 
     .card-img-block {
@@ -2066,20 +3117,21 @@
       gap: 16px;
     }
 
-    /* Book a call — text link like Airbnb */
+    /* Book a call — dark pill button */
     .nav-cta {
-      background: transparent;
-      color: #222222;
+      background: #222222;
+      color: #FFFFFF;
       font-size: 14px;
-      font-weight: 500;
-      padding: 10px 12px;
-      border-radius: 22px;
-      transition: background 0.2s;
+      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 12px;
+      transition: background 0.2s, transform 0.2s;
       text-decoration: none;
     }
 
     .nav-cta:hover {
-      background: #F7F7F7;
+      background: #333333;
+      transform: translateY(-1px);
     }
 
     /* User menu pill - Airbnb style */
@@ -2134,7 +3186,7 @@
 
     /* Search strip — sits below nav, collapses on scroll */
     .search-strip {
-      background: #F6F6F6;
+      background: #FFFFFF;
       border-bottom: none;
       max-height: 100px;
       padding: 16px 48px;
@@ -2209,7 +3261,12 @@
     .search-field .search-field-label {
       pointer-events: none;
       position: relative;
-      z-index: 1;
+      z-index: 2;
+    }
+
+    /* Custom select - hide original label, show in button */
+    .search-field.custom-select-wrap > .search-field-label {
+      display: none;
     }
 
     /* Make custom select button fill entire field */
@@ -2221,7 +3278,15 @@
       align-items: flex-start;
       justify-content: center;
       padding: 0 28px;
-      padding-top: 24px;
+      gap: 2px;
+    }
+
+    .search-field.custom-select-wrap .custom-select-btn::before {
+      content: attr(data-label);
+      font-family: 'Inter', sans-serif;
+      color: #222222;
+      font-weight: 700;
+      font-size: 12px;
     }
 
     .search-field.custom-select-wrap .custom-select-val {
@@ -2262,25 +3327,12 @@
       z-index: 1;
     }
 
-    /* Timeline field + search button wrapper - use pseudo-element for white bg */
+    /* Timeline field - same styling as other fields */
     .search-bar.has-active #timeline-wrap.active {
-      background: transparent !important;
-      box-shadow: none;
-      position: relative;
+      background: #FFFFFF !important;
+      border-radius: 32px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
       z-index: 1;
-    }
-
-    .search-bar.has-active #timeline-wrap.active::before {
-      content: '';
-      position: absolute;
-      top: -9px;
-      left: -8px;
-      right: -130px;
-      bottom: -9px;
-      background: #FFFFFF;
-      border-radius: 40px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
-      z-index: -1;
     }
 
     .search-field.active+.search-divider {
@@ -2337,18 +3389,19 @@
       height: 48px;
       padding: 0;
       margin: 9px;
-      background: linear-gradient(to right, #E61E4D, #E31C5F, #D70466);
+      background: #222222;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: transform 0.15s ease;
+      transition: background 0.2s ease, transform 0.15s ease;
       position: relative;
       z-index: 2;
     }
 
     .search-submit:hover {
+      background: linear-gradient(to right, #E61E4D, #E31C5F, #D70466);
       transform: scale(1.06);
     }
 
@@ -2487,9 +3540,9 @@
 
     .custom-select-panel {
       position: absolute;
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%) translateY(-8px) scale(0.96);
+      top: calc(100% + 12px);
+      left: 0;
+      transform: translateY(-8px) scale(0.96);
       background: #FFFFFF;
       border: 1px solid #E0E0E0;
       border-radius: 16px;
@@ -2509,7 +3562,7 @@
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      transform: translateX(-50%) translateY(0) scale(1);
+      transform: translateY(0) scale(1);
     }
 
     .custom-select-option {
@@ -2539,15 +3592,17 @@
     .problem-suggestions-panel {
       position: absolute;
       top: calc(100% + 12px);
-      left: -28px;
+      left: 0;
       background: #FFFFFF;
       border: 1px solid #E0E0E0;
       border-radius: 24px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      padding: 16px 0;
-      width: 480px;
-      max-height: 420px;
+      padding: 20px 6px 20px 0;
+      width: 420px;
+      max-height: 400px;
       overflow-y: auto;
+      overflow-x: hidden;
+      clip-path: inset(0 round 24px);
       z-index: 9999;
       opacity: 0;
       visibility: hidden;
@@ -2566,7 +3621,7 @@
     }
 
     .suggestions-section {
-      padding: 0 8px;
+      padding: 0 12px 0 20px;
       margin-bottom: 8px;
     }
 
@@ -2581,14 +3636,14 @@
       color: #717171;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      padding: 8px 16px 6px;
+      padding: 8px 0 6px;
     }
 
     .suggestion-item {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 12px 16px;
+      padding: 12px;
       border-radius: 12px;
       cursor: pointer;
       transition: background 0.15s ease;
@@ -2631,21 +3686,35 @@
     }
 
     /* Scrollbar styling for suggestions panel */
+    .problem-suggestions-panel {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+
+    .problem-suggestions-panel:hover {
+      scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+    }
+
     .problem-suggestions-panel::-webkit-scrollbar {
       width: 6px;
     }
 
     .problem-suggestions-panel::-webkit-scrollbar-track {
       background: transparent;
+      margin-block: 24px;
     }
 
     .problem-suggestions-panel::-webkit-scrollbar-thumb {
-      background: #DDDDDD;
-      border-radius: 3px;
+      background: transparent;
+      border-radius: 10px;
+    }
+
+    .problem-suggestions-panel:hover::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12);
     }
 
     .problem-suggestions-panel::-webkit-scrollbar-thumb:hover {
-      background: #BBBBBB;
+      background: rgba(0, 0, 0, 0.2);
     }
 
     /* Mobile — nav-cta and user menu hidden, hamburger restored */
@@ -3255,7 +4324,6 @@
             <!-- Airbnb-style suggestions dropdown -->
             <div class="problem-suggestions-panel" id="problem-panel">
               <div class="suggestions-section">
-                <div class="suggestions-section-title">Operations & Efficiency</div>
                 <div class="suggestion-item" data-problem="We spend hours on manual data entry">
                   <span class="suggestion-icon">📝</span>
                   <div class="suggestion-text">
@@ -3280,7 +4348,6 @@
               </div>
 
               <div class="suggestions-section">
-                <div class="suggestions-section-title">Customer Service</div>
                 <div class="suggestion-item" data-problem="We can't handle support ticket volume">
                   <span class="suggestion-icon">🎫</span>
                   <div class="suggestion-text">
@@ -3305,7 +4372,6 @@
               </div>
 
               <div class="suggestions-section">
-                <div class="suggestions-section-title">Sales & Marketing</div>
                 <div class="suggestion-item" data-problem="Lead qualification takes too much time">
                   <span class="suggestion-icon">🎯</span>
                   <div class="suggestion-text">
@@ -3330,7 +4396,6 @@
               </div>
 
               <div class="suggestions-section">
-                <div class="suggestions-section-title">Analytics & Insights</div>
                 <div class="suggestion-item" data-problem="Our data is scattered across systems">
                   <span class="suggestion-icon">🔗</span>
                   <div class="suggestion-text">
@@ -3353,6 +4418,17 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Custom problem fallback -->
+              <div class="suggestions-section" id="custom-problem-section" style="display: none;">
+                <div class="suggestion-item" id="custom-problem-item" data-problem="">
+                  <span class="suggestion-icon">💬</span>
+                  <div class="suggestion-text">
+                    <span class="suggestion-main">Custom problem</span>
+                    <span class="suggestion-sub" id="custom-problem-text">Describe your unique challenge</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -3361,7 +4437,7 @@
           <!-- Field 2: Industry (custom dropdown) -->
           <div class="search-field custom-select-wrap" id="industry-wrap">
             <span class="search-field-label">Industry</span>
-            <button class="custom-select-btn" id="industry-btn" type="button">
+            <button class="custom-select-btn" id="industry-btn" type="button" data-label="Industry">
               <span class="custom-select-val" id="industry-val">Select yours</span>
               <svg class="custom-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -3387,7 +4463,7 @@
           <!-- Field 3: Timeline (custom dropdown) -->
           <div class="search-field custom-select-wrap" id="timeline-wrap">
             <span class="search-field-label">Timeline</span>
-            <button class="custom-select-btn" id="timeline-btn" type="button">
+            <button class="custom-select-btn" id="timeline-btn" type="button" data-label="Timeline">
               <span class="custom-select-val" id="timeline-val">Select yours</span>
               <svg class="custom-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -3424,7 +4500,7 @@
           <div class="result-service-name" id="result-service-name"></div>
           <div class="result-desc" id="result-desc"></div>
           <div class="result-nomatch" id="result-nomatch" style="display:none;">
-            Sounds complex — let's figure it out together.
+            Sounds complex, let's figure it out together.
           </div>
           <div class="result-meta" id="result-meta">
             <span id="result-timeline"></span>
@@ -3516,10 +4592,6 @@
 
           <!-- Badge + Sub — full width, centered above two-column layout -->
           <div class="hero-intro">
-            <div class="hero-badge fade-in" style="animation-delay: 0.1s;">
-              <span class="badge-dot"></span>
-              Now taking on 3 new clients
-            </div>
             <p class="hero-sub fade-in" style="animation-delay: 0.18s;">
               Custom AI tools designed for your business. Built in weeks, not months.
             </p>
@@ -3570,7 +4642,7 @@
               <p class="hero-video-label">
                 TLDR ; What we can do for you&nbsp;<img
                   src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f447.png" alt="👇"
-                  width="14" height="14">
+                  width="24" height="24">
               </p>
               <div class="video-wrap">
                 <iframe src="https://www.youtube.com/embed/zJU_Bp-Yp1c" title="Ascnd demo"
@@ -3584,12 +4656,10 @@
         </div>
 
 
-
-
         <!-- ══════════════════════════════════════════════
          SERVICES
     ══════════════════════════════════════════════ -->
-        <section id="services" class="section-dashed" style="position:relative; overflow:hidden;">
+        <section id="services" style="position:relative; overflow:hidden;">
           <!-- Large gear -->
           <div class="blueprint-svg gear-svg" style="right:-30px; top:20px; opacity:0.7;">
             <svg width="200" height="200" viewBox="0 0 180 180" fill="none">
@@ -3616,18 +4686,18 @@
           </div>
           <div class="section-inner">
             <div class="reveal">
-              <h2 class="section-title" style="text-align:center;">Three ways we deploy<br>AI into your business</h2>
+              <h2 class="section-title" style="text-align:center; max-width:none;">Three ways we deploy<br>AI into your business</h2>
             </div>
             <div class="services-grid">
               <!-- Card 1 -->
-              <div class="service-card reveal reveal-d1">
+              <div class="service-card reveal reveal-d1" id="card-automation">
                 <div class="card-img-block card-img-1">
                   <div class="card-img-text">Get more<br>time back<br>with</div>
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">AI Automations</h3>
                   <p class="card-desc">You tell us what is slowing you down and we put it on speed</p>
-                  <a href="#" class="card-read-more">READ MORE</a>
+                  <a href="#" class="card-read-more" data-page="automations">READ MORE</a>
                   <div class="card-divider"></div>
                   <div class="card-bottom">
                     <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/23f0.png" alt="⏰"
@@ -3637,14 +4707,14 @@
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="service-card reveal reveal-d2">
+              <div class="service-card reveal reveal-d2" id="card-products">
                 <div class="card-img-block card-img-2">
                   <div class="card-img-text">Turn your<br>expertise<br>into</div>
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">AI Products</h3>
                   <p class="card-desc">Need a tool that doesn't exist yet? We build it around your problem.</p>
-                  <a href="#" class="card-read-more">READ MORE</a>
+                  <a href="#" class="card-read-more" data-page="ai-products">READ MORE</a>
                   <div class="card-divider"></div>
                   <div class="card-bottom">
                     <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f6e0-fe0f.png"
@@ -3654,14 +4724,14 @@
                 </div>
               </div>
               <!-- Card 3 -->
-              <div class="service-card reveal reveal-d3">
+              <div class="service-card reveal reveal-d3" id="card-systems">
                 <div class="card-img-block card-img-3">
                   <div class="card-img-text">Run lean<br>from day<br>one</div>
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">AI Systems</h3>
-                  <p class="card-desc">We rebuild how your business operates — from scratch, on AI.</p>
-                  <a href="#" class="card-read-more">READ MORE</a>
+                  <p class="card-desc">We rebuild how your business operates, from scratch, on AI.</p>
+                  <a href="#" class="card-read-more" data-page="systems">READ MORE</a>
                   <div class="card-divider"></div>
                   <div class="card-bottom">
                     <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f9e0.png"
@@ -3674,7 +4744,6 @@
           </div>
         </section>
 
-
       </div><!-- /page-services -->
 
       <div class="page-view" id="page-process">
@@ -3682,44 +4751,93 @@
          PROCESS
     ══════════════════════════════════════════════ -->
         <section id="process" class="section-dashed" style="position:relative; overflow:hidden;">
-          <!-- Flow diagram -->
-          <div class="blueprint-svg" style="left:0; right:0; top:50%; transform:translateY(-50%); opacity:0.4;">
-            <svg width="100%" height="80" viewBox="0 0 1200 80" preserveAspectRatio="none" fill="none">
-              <rect x="100" y="15" width="80" height="50" rx="2" stroke="rgba(255,255,255,0.06)" stroke-width="0.5" />
-              <rect x="460" y="15" width="80" height="50" rx="2" stroke="rgba(255,255,255,0.06)" stroke-width="0.5" />
-              <rect x="820" y="15" width="80" height="50" rx="2" stroke="rgba(255,255,255,0.06)" stroke-width="0.5" />
-              <line x1="180" y1="40" x2="460" y2="40" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"
-                stroke-dasharray="6,4" />
-              <line x1="540" y1="40" x2="820" y2="40" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"
-                stroke-dasharray="6,4" />
-              <polygon points="456,36 456,44 460,40" fill="rgba(255,255,255,0.06)" />
-              <polygon points="816,36 816,44 820,40" fill="rgba(255,255,255,0.06)" />
-            </svg>
-          </div>
           <div class="section-inner">
-            <div class="reveal">
+            <div class="reveal" style="text-align: center;">
               <div class="section-label">// process</div>
-              <h2 class="section-title">Three steps. That's it.</h2>
+              <h2 class="section-title" style="text-align: center;">Five steps. Full circle.</h2>
             </div>
-            <div class="process-grid">
-              <div class="process-step reveal reveal-d1">
-                <div class="step-number">01</div>
-                <h3 class="step-title">You talk</h3>
-                <p class="step-desc">Tell us what's broken, slow, or expensive. 30-minute call.</p>
+
+            <!-- Desktop: Circular Process -->
+            <div class="process-circle-container">
+              <!-- Rotating dashed circle -->
+              <svg class="process-circle-ring" viewBox="0 0 600 600" fill="none">
+                <circle cx="300" cy="300" r="240" stroke="#E5E5E5" stroke-width="1.5" stroke-dasharray="8 6" fill="none"/>
+                <!-- Arrow indicators on the circle -->
+                <polygon points="300,58 295,68 305,68" fill="#ccc"/>
+                <polygon points="528,210 520,203 518,215" fill="#ccc"/>
+                <polygon points="448,490 455,482 443,480" fill="#ccc"/>
+                <polygon points="152,490 145,482 157,480" fill="#ccc"/>
+                <polygon points="72,210 80,203 82,215" fill="#ccc"/>
+              </svg>
+
+              <!-- Center logo -->
+              <div class="process-center">ascnd</div>
+
+              <!-- Process nodes -->
+              <div class="process-node">
+                <div class="node-number">01</div>
+                <div class="node-title">You talk</div>
+                <div class="node-desc">Tell us what's broken, slow, or expensive. 30-minute call.</div>
               </div>
-              <div class="process-connector">- - - →</div>
-              <div class="process-step reveal reveal-d2">
-                <div class="step-number">02</div>
-                <h3 class="step-title">We build</h3>
-                <p class="step-desc">We design and deploy your AI system. You approve, we ship.</p>
+
+              <div class="process-node">
+                <div class="node-number">02</div>
+                <div class="node-title">We scope</div>
+                <div class="node-desc">We map the problem, define the solution, and give you a clear timeline.</div>
               </div>
-              <div class="process-connector">- - - →</div>
-              <div class="process-step reveal reveal-d3">
-                <div class="step-number">03</div>
-                <h3 class="step-title">You grow</h3>
-                <p class="step-desc">Your business runs faster. You focus on what matters.</p>
+
+              <div class="process-node">
+                <div class="node-number">03</div>
+                <div class="node-title">We build</div>
+                <div class="node-desc">We design, develop, and test. You see progress, not silence.</div>
+              </div>
+
+              <div class="process-node">
+                <div class="node-number">04</div>
+                <div class="node-title">You launch</div>
+                <div class="node-desc">We deploy, train your team, and make sure it works in the real world.</div>
+              </div>
+
+              <div class="process-node">
+                <div class="node-number">05</div>
+                <div class="node-title">We support</div>
+                <div class="node-desc">30 days of support included. After that, we're a call away.</div>
               </div>
             </div>
+
+            <!-- Mobile: Vertical list fallback -->
+            <div class="process-mobile-list">
+              <div class="process-mobile-item">
+                <div class="node-number">01</div>
+                <div class="node-title">You talk</div>
+                <div class="node-desc">Tell us what's broken, slow, or expensive. 30-minute call.</div>
+              </div>
+
+              <div class="process-mobile-item">
+                <div class="node-number">02</div>
+                <div class="node-title">We scope</div>
+                <div class="node-desc">We map the problem, define the solution, and give you a clear timeline.</div>
+              </div>
+
+              <div class="process-mobile-item">
+                <div class="node-number">03</div>
+                <div class="node-title">We build</div>
+                <div class="node-desc">We design, develop, and test. You see progress, not silence.</div>
+              </div>
+
+              <div class="process-mobile-item">
+                <div class="node-number">04</div>
+                <div class="node-title">You launch</div>
+                <div class="node-desc">We deploy, train your team, and make sure it works in the real world.</div>
+              </div>
+
+              <div class="process-mobile-item">
+                <div class="node-number">05</div>
+                <div class="node-title">We support</div>
+                <div class="node-desc">30 days of support included. After that, we're a call away.</div>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -3727,140 +4845,680 @@
       </div><!-- /page-process -->
 
       <div class="page-view" id="page-products">
-        <section class="section-dashed">
-          <div class="section-inner reveal">
-            <div class="section-label">// products</div>
-            <h2 class="section-title">Coming soon.</h2>
-            <p class="section-body">We're building something here. Check back shortly.</p>
+        <!-- ══════════════════════════════════════════════
+           PRODUCTS - Coming Soon
+        ══════════════════════════════════════════════ -->
+        <section class="section-dashed" style="padding-top: 120px;">
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%; color: #222;">Coming soon.</h2>
+            <p class="hero-sub" style="max-width: 640px; margin: 24px auto 0;">
+              We're building something here. Check back shortly.
+            </p>
           </div>
         </section>
       </div><!-- /page-products -->
 
-      <div class="page-view" id="page-work">
+      <div class="page-view" id="page-ai-products">
         <!-- ══════════════════════════════════════════════
-         PROOF
-    ══════════════════════════════════════════════ -->
-        <section id="proof" class="section-dashed" style="position:relative; overflow:hidden;">
-          <!-- Wave / Signal lines -->
-          <div class="blueprint-svg" style="left:0; right:0; bottom:20px; opacity:0.35;">
-            <svg width="100%" height="60" viewBox="0 0 1200 60" preserveAspectRatio="none" fill="none">
-              <path
-                d="M0,30 Q100,10 200,30 Q300,50 400,30 Q500,10 600,30 Q700,50 800,30 Q900,10 1000,30 Q1100,50 1200,30"
-                stroke="rgba(255,255,255,0.07)" stroke-width="0.5" />
-              <path
-                d="M0,40 Q100,20 200,40 Q300,60 400,40 Q500,20 600,40 Q700,60 800,40 Q900,20 1000,40 Q1100,60 1200,40"
-                stroke="rgba(255,255,255,0.04)" stroke-width="0.5" />
-              <path d="M0,20 Q100,5 200,20 Q300,38 400,20 Q500,5 600,20 Q700,38 800,20 Q900,5 1000,20 Q1100,38 1200,20"
-                stroke="rgba(255,255,255,0.03)" stroke-width="0.5" />
-            </svg>
-          </div>
-          <div class="section-inner">
-            <div class="reveal">
-              <div class="section-label">// proof of work</div>
-              <h2 class="section-title">Built for real teams. In daily use.</h2>
+           AI PRODUCTS
+        ══════════════════════════════════════════════ -->
+
+        <!-- Section 1: Hero -->
+        <section class="section-dashed">
+          <div class="section-inner" style="text-align: center;">
+            <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+              <button class="back-btn" data-page="services">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 8px;">
+                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back to Services
+            </button>
             </div>
-            <div class="proof-grid">
-              <!-- Project 1 -->
-              <div class="proof-card reveal reveal-d1">
-                <div class="proof-type">AI PRODUCT</div>
-                <h3 class="proof-title">Workforce Management System</h3>
-                <p class="proof-client">100+ person creative agency</p>
-                <p class="proof-desc">AI-powered timesheet and burnout prediction tool. Replaced manual Google Sheets
-                  tracking. Flags risk, recommends interventions.</p>
-                <div class="proof-badges">
-                  <span class="badge-live">● Live — daily use</span>
-                  <span class="badge-time">Built in &lt;2 weeks</span>
-                </div>
-              </div>
-              <!-- Project 2 -->
-              <div class="proof-card reveal reveal-d2">
-                <div class="proof-type">AI PRODUCT</div>
-                <h3 class="proof-title">Partner Matching Engine</h3>
-                <p class="proof-client">100+ person creative agency</p>
-                <p class="proof-desc">AI tool matching creative briefs to 40+ film directors by genre, budget,
-                  availability, and past work. Replaced 2-hour manual searches.</p>
-                <div class="proof-badges">
-                  <span class="badge-live">● Live — daily use</span>
-                  <span class="badge-time">Built in &lt;2 weeks</span>
-                </div>
-              </div>
+            <h1 class="hero-headline" style="font-size: clamp(2.5rem, 5vw, 4rem); margin: 16px auto 24px; text-align: center; max-width: 800px;">
+              The tool you need doesn't exist yet.<br class="mob-br"> So we'll build it.
+            </h1>
+            <p class="hero-sub" style="max-width: 640px; margin: 0 auto 32px;">
+              You describe the problem.<br class="mob-br"> We design and build a custom tool around it.<br class="mob-br"> Yours to own, yours to run.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+              <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary">
+                Book a free strategy call
+              </a>
+              <a href="#" class="cta-secondary" data-page="process" style="background: white; border: 1px solid #222; color: #222;">
+                See our process
+              </a>
+              <a href="#" class="cta-secondary" data-page="work" style="background: white; border: 1px solid #222; color: #222;">
+                Products we've built
+              </a>
             </div>
           </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section style="padding: 0 0 30px 0;">
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%;">Answers to some FAQs</h2>
+            <div class="faq-accordion" style="max-width: 720px; margin: 40px auto 0; text-align: left;">
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>Do we own the code?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>Yes. Everything we build is yours. Full codebase, full ownership, no licensing fees. You can host it, modify it, or hand it to another developer. No lock-in.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>Can it integrate with what we already use?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>That's the whole point. We build around your existing stack: your CRM, your database, your communication tools. The product slots into how you already work, not the other way around.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>How involved do we need to be during the build?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>Two touchpoints. One at the start where you walk us through the problem in detail. One midway where we show you a working demo and get your feedback. After that, we ship.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>What happens after you deliver?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>You get a finished product, a walkthrough for your team, and 30 days of support. If you need ongoing development or new features after that, we scope it separately.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Examples Section -->
+        <section>
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%;">Examples of products</h2>
+            <div class="automation-examples" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 48px; text-align: left;">
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Internal knowledge base</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Your team's expertise trapped in people's heads? We build a searchable system trained on your documents, SOPs, and past work. New hires get answers in seconds instead of asking five people.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Client-facing portal</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Give your clients a dashboard where they can track project status, view reports, submit requests, and access deliverables. No more status update emails.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Matching engine</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Need to match people to projects, candidates to roles, briefs to vendors, or products to customers? We build the logic, the scoring, and the interface. What took 2 hours of manual searching takes 10 seconds.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Custom calculator or estimator</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Your sales team uses spreadsheets to build quotes? We turn that into a clean tool where inputs produce instant, branded proposals your clients can review on screen.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">AI assistant for your team</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  A chatbot trained on your business: your pricing, your services, your policies, your past work. Your team asks it questions instead of interrupting each other. Your clients use it for self-service.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /page-ai-products -->
+
+      <div class="page-view" id="page-systems">
+        <!-- ══════════════════════════════════════════════
+           AI SYSTEMS
+        ══════════════════════════════════════════════ -->
+
+        <!-- Section 1: Hero -->
+        <section class="section-dashed">
+          <div class="section-inner" style="text-align: center;">
+            <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+              <button class="back-btn" data-page="services">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 8px;">
+                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back to Services
+            </button>
+            </div>
+            <h1 class="hero-headline" style="font-size: clamp(2.5rem, 5vw, 4rem); margin: 16px auto 24px; text-align: center; max-width: 800px;">
+              Your business wasn't built for AI.<br class="mob-br"> We rebuild it so it runs on AI.
+            </h1>
+            <p class="hero-sub" style="max-width: 640px; margin: 0 auto 32px;">
+              We don't automate one task.<br class="mob-br"> We redesign how your entire operation works<br class="mob-br"> from the ground up.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+              <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary">
+                Book a free strategy call
+              </a>
+              <a href="#" class="cta-secondary" data-page="process" style="background: white; border: 1px solid #222; color: #222;">
+                See our process
+              </a>
+              <a href="#" class="cta-secondary" data-page="work" style="background: white; border: 1px solid #222; color: #222;">
+                Systems we've built
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section style="padding: 0 0 30px 0;">
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%;">Answers to some FAQs</h2>
+            <div class="faq-accordion" style="max-width: 720px; margin: 40px auto 0; text-align: left;">
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>How disruptive is the transition?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>Less than you'd expect. We build the new system alongside your existing workflow, not on top of it. Your team switches over when the new system is tested and ready. No downtime, no chaos.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>What if our team resists the change?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>They usually don't because we build systems that make their lives easier, not harder. We also do a hands-on walkthrough with every team that's affected. When people see 2 hours of busywork disappear, resistance goes away fast.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>How long does it take to see results?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>Most teams feel the difference within the first week of deployment. Full operational impact: fewer people doing more, faster turnaround, cleaner data shows up within the first month.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>Is this just for big companies?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>No. Some of the biggest gains come from 15-50 person teams where one bad process slows down everyone. The smaller you are, the faster the impact compounds.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Examples Section -->
+        <section>
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%;">Examples of systems</h2>
+            <div class="automation-examples" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 48px; text-align: left;">
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Operations overhaul</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Your team uses 6 tools that don't talk to each other. Projects slip through cracks. Nobody has visibility into what's happening across departments. We rebuild the entire operational flow: one connected system that tracks work, flags delays, and reports progress automatically.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Sales and delivery pipeline</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Lead comes in, gets qualified, proposal goes out, project gets delivered, invoice gets sent. Right now that's 4 tools and 12 manual steps. We collapse it into one flow where each stage triggers the next automatically.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Resource planning system</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  You don't know who's overloaded until they burn out. We build a system that tracks capacity across your team in real time, flags imbalances before they become problems, and recommends how to redistribute work.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Client reporting infrastructure</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Every client gets a different report in a different format at a different time. We build one system that pulls data from all your sources, generates branded reports per client, and delivers them on schedule without anyone touching a spreadsheet.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Full AI integration</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Your business runs on decisions. We embed AI into the decision points: which leads to prioritize, which projects are at risk, which clients need attention, what to charge. The system doesn't just track your business. It thinks with you.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /page-systems -->
+
+      <div class="page-view" id="page-work">
+        <!-- ══════════════════════════════════════════════
+         WORK / PROOF OF WORK
+    ══════════════════════════════════════════════ -->
+
+        <!-- Gallery View -->
+        <div id="work-gallery">
+          <section class="work-hero">
+            <div class="section-inner">
+              <div class="section-label">// proof of work</div>
+              <h2 class="section-title" style="color: #222; max-width: none;">Built for real teams. In daily use.</h2>
+
+              <!-- Filter Bar -->
+              <div class="work-filters">
+                <div class="filter-tabs">
+                  <button class="filter-tab active" data-filter="all">All <span class="filter-count">(2)</span></button>
+                  <button class="filter-tab" data-filter="ai-product">AI Products <span class="filter-count">(2)</span></button>
+                  <button class="filter-tab" data-filter="ai-system">AI Systems <span class="filter-count">(0)</span></button>
+                  <button class="filter-tab" data-filter="ai-automation">AI Automations <span class="filter-count">(0)</span></button>
+                </div>
+                <div class="work-search">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                  </svg>
+                  <input type="text" id="work-search-input" placeholder="Search our work...">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Gallery Grid -->
+          <section class="work-grid-section">
+            <div class="section-inner">
+              <div class="work-grid" id="work-grid">
+                <!-- Cards rendered by JavaScript -->
+              </div>
+
+              <!-- No Results Message -->
+              <div class="work-no-results" id="work-no-results" style="display: none;">
+                <h3>We haven't built that one yet.</h3>
+                <p>But we can.</p>
+                <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary">Book a strategy call</a>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Detail View (hidden by default) -->
+        <div id="work-detail" style="display: none;">
+          <section class="work-detail-section">
+            <div class="section-inner">
+              <button class="back-btn" id="back-to-gallery">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 8px;">
+                  <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Back to Work
+              </button>
+
+              <div class="work-detail-layout">
+                <!-- Video Column -->
+                <div class="work-detail-video">
+                  <div class="video-placeholder" id="detail-video">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polygon points="10,8 16,12 10,16" fill="#ccc"/>
+                    </svg>
+                    <p>Video walkthrough coming soon</p>
+                  </div>
+                </div>
+
+                <!-- Info Column -->
+                <div class="work-detail-info">
+                  <div class="detail-category" id="detail-category">AI PRODUCT</div>
+                  <h1 class="detail-title" id="detail-title">Project Title</h1>
+                  <p class="detail-client" id="detail-client">Client info</p>
+
+                  <div class="detail-section">
+                    <div class="detail-label">// the problem</div>
+                    <p id="detail-problem">Problem description</p>
+                  </div>
+
+                  <div class="detail-section">
+                    <div class="detail-label">// what we built</div>
+                    <p id="detail-solution">Solution description</p>
+                  </div>
+
+                  <div class="detail-section">
+                    <div class="detail-label">// the result</div>
+                    <p id="detail-result">Result description</p>
+                  </div>
+
+                  <div class="detail-badges">
+                    <span class="badge-live" id="detail-status">● Live, daily use</span>
+                    <span class="badge-time" id="detail-buildtime">Built in under 2 weeks</span>
+                  </div>
+
+                  <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary" style="margin-top: 24px;">
+                    Book a call about this
+                  </a>
+                </div>
+              </div>
+
+              <!-- Previous/Next Navigation -->
+              <div class="work-detail-nav">
+                <button class="detail-nav-btn" id="prev-project">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 8px;">
+                    <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Previous project
+                </button>
+                <button class="detail-nav-btn" id="next-project">
+                  Next project
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-left: 8px;">
+                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
 
       </div><!-- /page-work -->
 
       <div class="page-view" id="page-about">
         <!-- ══════════════════════════════════════════════
-         ABOUT
+         ABOUT - Airbnb-style Profile Page
     ══════════════════════════════════════════════ -->
-        <section id="about" class="section-dashed" style="position:relative; overflow:hidden;">
-          <!-- Small gear -->
-          <div class="blueprint-svg gear-svg" style="left:-20px; top:30px; opacity:0.45;">
-            <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
-              <circle cx="50" cy="50" r="35" stroke="rgba(255,255,255,0.07)" stroke-width="0.5" />
-              <circle cx="50" cy="50" r="25" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" />
-              <circle cx="50" cy="50" r="10" stroke="rgba(255,255,255,0.07)" stroke-width="0.5" />
-              <g stroke="rgba(255,255,255,0.06)" stroke-width="0.5">
-                <line x1="50" y1="8" x2="50" y2="18" />
-                <line x1="50" y1="82" x2="50" y2="92" />
-                <line x1="8" y1="50" x2="18" y2="50" />
-                <line x1="82" y1="50" x2="92" y2="50" />
-                <line x1="20" y1="20" x2="28" y2="28" />
-                <line x1="72" y1="72" x2="80" y2="80" />
-                <line x1="80" y1="20" x2="72" y2="28" />
-                <line x1="20" y1="80" x2="28" y2="72" />
-              </g>
-            </svg>
-          </div>
-          <div class="section-inner reveal">
-            <div class="section-label">// about</div>
-            <h2 class="section-title">Built by operators, not consultants.</h2>
-            <p class="section-body">
-              We don't advise. We build. Ascnd is an AI venture studio — we put AI at the center of businesses and make
-              everything else run around it. Every system we ship is something we'd use ourselves.
-            </p>
+
+        <section class="about-hero">
+          <div class="section-inner">
+            <div class="about-layout">
+
+              <!-- Profile Card (Left Sidebar) -->
+              <div class="about-profile-card">
+                <div class="profile-photo">
+                  <div class="photo-placeholder">K</div>
+                </div>
+                <h2 class="profile-name">Keerthan K</h2>
+                <p class="profile-role">Founder & CEO</p>
+
+                <div class="profile-stats">
+                  <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">years in advertising</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">products live and in use</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">employees using my tools</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">&lt;2</span>
+                    <span class="stat-label">weeks average build time</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Main Content (Right Side) -->
+              <div class="about-main">
+
+                <!-- About Section -->
+                <div class="about-section">
+                  <div class="section-label">// about</div>
+                  <h1 class="about-headline">Built by operators, not consultants.</h1>
+                  <p class="about-body">
+                    We don't advise. We build. Ascnd is an AI venture studio. We put AI at the center of businesses and make everything else run around it. Every system we ship is something we'd use ourselves.
+                  </p>
+                </div>
+
+                <!-- Backstory Section -->
+                <div class="about-section">
+                  <div class="section-label">// the backstory</div>
+                  <p class="about-body">
+                    I spent 5 years inside a 100+ person advertising agency. I saw the same problems every week: manual processes eating creative time, off-the-shelf tools that didn't fit real workflows, and teams spending more energy on operations than on the work that matters.
+                  </p>
+                  <p class="about-body">
+                    So I started building. First for the agency. Then I realized every business has the same problems.
+                  </p>
+                  <p class="about-body">
+                    Ascnd exists to fix them. Fast, custom, and designed around how you actually work.
+                  </p>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="about-section">
+                  <div class="section-label">// what i work with</div>
+                  <div class="skills-grid">
+                    <span class="skill-badge">AI/ML</span>
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">React</span>
+                    <span class="skill-badge">Node.js</span>
+                    <span class="skill-badge">Next.js</span>
+                    <span class="skill-badge">PostgreSQL</span>
+                    <span class="skill-badge">Claude</span>
+                    <span class="skill-badge">Automation</span>
+                    <span class="skill-badge">RAG Systems</span>
+                    <span class="skill-badge">API Integration</span>
+                  </div>
+                </div>
+
+                <!-- Testimonials Section -->
+                <div class="about-section">
+                  <div class="section-label">// what people say</div>
+                  <div class="testimonials-grid" id="testimonials-grid">
+                    <!-- Rendered by JavaScript -->
+                  </div>
+                </div>
+
+                <!-- Connect Section -->
+                <div class="about-section">
+                  <div class="section-label">// connect</div>
+                  <div class="connect-links">
+                    <a href="https://linkedin.com/in/keerthank" target="_blank" class="connect-link">LinkedIn</a>
+                    <a href="https://twitter.com/keerthank" target="_blank" class="connect-link">X / Twitter</a>
+                    <a href="mailto:keerthan@ascnd.build" class="connect-link">keerthan@ascnd.build</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
         </section>
 
-
-        <!-- ══════════════════════════════════════════════
-         FINAL CTA
-    ══════════════════════════════════════════════ -->
-        <section id="contact" style="position:relative; overflow:hidden;">
-          <!-- Dimension bracket above CTA headline -->
-          <div class="blueprint-svg" style="left:50%; transform:translateX(-50%); top:40px; opacity:0.5; width:600px;">
-            <svg width="600" height="40" viewBox="0 0 600 40" fill="none">
-              <line x1="50" y1="20" x2="550" y2="20" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"
-                stroke-dasharray="4,4" />
-              <line x1="50" y1="10" x2="50" y2="30" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
-              <line x1="550" y1="10" x2="550" y2="30" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
-              <text x="300" y="15" text-anchor="middle" font-family="Gilroy, sans-serif" font-size="8"
-                fill="rgba(255,255,255,0.15)" letter-spacing="0.1em">SCALE</text>
-            </svg>
-          </div>
-          <!-- Second crosshair, larger, faint -->
-          <div class="blueprint-svg" style="right:60px; bottom:40px; opacity:0.25;">
-            <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
-              <circle cx="45" cy="45" r="38" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" />
-              <circle cx="45" cy="45" r="24" stroke="rgba(255,255,255,0.06)" stroke-width="0.5" />
-              <circle cx="45" cy="45" r="10" stroke="rgba(255,255,255,0.07)" stroke-width="0.5" />
-              <circle cx="45" cy="45" r="2" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
-              <line x1="0" y1="45" x2="90" y2="45" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" />
-              <line x1="45" y1="0" x2="45" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" />
-            </svg>
-          </div>
-          <div class="cta-section reveal">
-            <h2 class="cta-headline">Let's see what AI can do for you.</h2>
-            <p class="cta-sub">30 minutes. No pitch. Just a clear answer on where AI fits in your business.</p>
+        <!-- CTA Section -->
+        <section class="about-cta">
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="cta-headline" style="color: #222;">Let's see what AI can do for you.</h2>
+            <p class="cta-sub" style="color: #666;">30 minutes. No pitch. Just a clear answer on where AI fits in your business.</p>
             <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary">Book a free strategy call</a>
-            <p class="cta-note">ascnd.build — AI venture studio</p>
           </div>
         </section>
-
 
       </div><!-- /page-about -->
+
+      <div class="page-view" id="page-automations">
+        <!-- ══════════════════════════════════════════════
+           AI AUTOMATIONS
+        ══════════════════════════════════════════════ -->
+
+        <!-- Section 1: Hero -->
+        <section class="section-dashed automations-hero">
+          <div class="section-inner" style="text-align: center;">
+            <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+              <button class="back-btn" data-page="services">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 8px;">
+                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back to Services
+            </button>
+            </div>
+            <h1 class="hero-headline" style="font-size: clamp(2.5rem, 5vw, 4rem); margin: 16px auto 24px; text-align: center; max-width: 800px;">
+              Let's get you back more time<br class="mob-br"> every week with automations
+            </h1>
+            <p class="hero-sub" style="max-width: 640px; margin: 0 auto 32px;">
+              The one task that your team<br class="mob-br"> is repeatedly doing.<br class="mob-br"> We'll automate it within a week.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+              <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary">
+                Book a free strategy call
+              </a>
+              <a href="#" class="cta-secondary" data-page="process" style="background: white; border: 1px solid #222; color: #222;">
+                See our process
+              </a>
+              <a href="#" class="cta-secondary" data-page="work" style="background: white; border: 1px solid #222; color: #222;">
+                Automations we've built
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section style="padding: 0 0 30px 0;">
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%;">Answers to some FAQs</h2>
+            <div class="faq-accordion" style="max-width: 720px; margin: 40px auto 0; text-align: left;">
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>What tools can you connect?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>Most modern tools: CRMs, spreadsheets, email platforms, project management tools, payment systems, social media platforms, custom databases. If it has an API, we can connect it. If it doesn't, we'll find a workaround.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>What if our workflow changes?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>Automations aren't set in stone. If your process evolves, we adjust the automation to match. That's included in the first 30 days after launch. After that, adjustments are quick and inexpensive.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>Will my team need training?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>Minimal. The whole point is that the automation runs in the background. Your team gets a 15-minute walkthrough when it goes live. Most people forget the automation exists because it just works.</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-item" style="border-bottom: 1px solid #E5E5E5;">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                  <span>What if it breaks?</span>
+                  <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>We build with monitoring so we know before you do. If something fails, we fix it. Every automation comes with 30 days of support after launch.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: What We Build -->
+        <section>
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%;">Examples of automations</h2>
+            <div class="automation-examples" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 48px; text-align: left;">
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Report generation</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Auto-generate branded client reports from your CRM, ads, and analytics. Delivered weekly.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Data entry and syncing</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  New lead fills a form? It syncs to your CRM, spreadsheet, and notifies sales instantly.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Content scheduling and distribution</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Publish once, auto-distribute to all platforms with correct formatting.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Approval workflows</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Briefs move through approvers automatically with reminders and audit trails.
+                </p>
+              </div>
+
+              <div class="automation-example" style="background: #FAFAFA; border-radius: 16px; padding: 32px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #222;">Client onboarding</h3>
+                <p style="color: #555; line-height: 1.7;">
+                  Deal closes, client gets onboarded automatically: welcome email, folders, tools, kickoff scheduled.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+
+      </div><!-- /page-automations -->
 
       <!-- ══════════════════════════════════════════════
          FOOTER
@@ -3951,6 +5609,25 @@
   </div>
 
   <script>
+    // ── Scroll position memory ────────────────────────
+    (function() {
+      const key = 'ascnd_scroll_pos';
+      const saved = sessionStorage.getItem(key);
+      if (saved) {
+        window.scrollTo(0, parseInt(saved, 10));
+      }
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            sessionStorage.setItem(key, window.scrollY);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+
     // ── Mobile custom selects ────────────────────────
     function closeAllMobSelects() {
       document.querySelectorAll('.mob-select-panel').forEach(p => { p.style.display = 'none'; });
@@ -4029,7 +5706,7 @@
         const s = matchKey ? serviceIndex[matchKey] : null;
 
         mobResultName.textContent = s ? s.name : "Let's figure this out together.";
-        mobResultDesc.textContent = s ? s.desc : "Your problem sounds unique — book a 30-min call and we'll map out exactly where AI fits.";
+        mobResultDesc.textContent = s ? s.desc : "Your problem sounds unique. Book a 30-min call and we'll map out exactly where AI fits.";
         mobResultTimeline.textContent = s ? s.timeline : '30-min call';
         mobResultPrice.textContent = s ? s.price : 'Free strategy session';
 
@@ -4244,11 +5921,51 @@
         problemWrap.classList.add('open');
       });
 
-      // Hide suggestions when typing (user is entering custom problem)
+      // Filter suggestions as user types
+      const allSuggestionItems = problemPanel ? problemPanel.querySelectorAll('.suggestion-item:not(#custom-problem-item)') : [];
+      const customProblemSection = document.getElementById('custom-problem-section');
+      const customProblemItem = document.getElementById('custom-problem-item');
+      const customProblemText = document.getElementById('custom-problem-text');
+
       problemInputEl.addEventListener('input', () => {
-        if (problemInputEl.value.length > 0) {
-          problemWrap.classList.remove('open');
+        const query = problemInputEl.value.toLowerCase().trim();
+
+        if (query.length === 0) {
+          // Show all suggestions, hide custom
+          allSuggestionItems.forEach(item => item.style.display = '');
+          problemPanel.querySelectorAll('.suggestions-section:not(#custom-problem-section)').forEach(s => s.style.display = '');
+          if (customProblemSection) customProblemSection.style.display = 'none';
+          problemWrap.classList.add('open');
+          return;
         }
+
+        // Filter suggestions based on query - match ANY word
+        const queryWords = query.split(/\s+/).filter(w => w.length > 0);
+        let visibleCount = 0;
+        allSuggestionItems.forEach(item => {
+          const mainText = item.querySelector('.suggestion-main')?.textContent.toLowerCase() || '';
+          const subText = item.querySelector('.suggestion-sub')?.textContent.toLowerCase() || '';
+          const problemData = (item.dataset.problem || '').toLowerCase();
+          const allText = mainText + ' ' + subText + ' ' + problemData;
+          const matches = queryWords.some(word => allText.includes(word));
+          item.style.display = matches ? '' : 'none';
+          if (matches) visibleCount++;
+        });
+
+        // Hide empty sections
+        problemPanel.querySelectorAll('.suggestions-section:not(#custom-problem-section)').forEach(section => {
+          const hasVisible = [...section.querySelectorAll('.suggestion-item')].some(item => item.style.display !== 'none');
+          section.style.display = hasVisible ? '' : 'none';
+        });
+
+        // Always show custom problem when user is typing
+        if (customProblemSection) {
+          customProblemSection.style.display = '';
+          customProblemText.textContent = problemInputEl.value;
+          customProblemItem.dataset.problem = problemInputEl.value;
+        }
+
+        problemWrap.classList.add('open');
       });
 
       // Handle suggestion item clicks
@@ -4386,31 +6103,53 @@
 
     let currentMatch = null;
 
+    // Map service keys to card IDs
+    const serviceCardMap = {
+      automation: 'card-automation',
+      products: 'card-products',
+      systems: 'card-systems'
+    };
+
+    function clearCardHighlights() {
+      document.querySelectorAll('.service-card.highlighted').forEach(card => {
+        card.classList.remove('highlighted');
+      });
+    }
+
     function showResult(matchKey) {
       currentMatch = matchKey;
+      clearCardHighlights();
+
       if (matchKey) {
-        const s = serviceIndex[matchKey];
-        resultName.textContent = s.name;
-        resultDesc.textContent = s.desc;
-        resultTimeline.textContent = s.timeline;
-        resultPrice.textContent = s.price;
-        resultLearn.href = s.section;
-        resultName.style.display = '';
-        resultDesc.style.display = '';
-        resultLearn.style.display = '';
-        resultNomatch.style.display = 'none';
+        // Scroll to the matched card and highlight it
+        const cardId = serviceCardMap[matchKey];
+        const card = document.getElementById(cardId);
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => {
+            card.classList.add('highlighted');
+          }, 400);
+          // Remove highlight after 5 seconds
+          setTimeout(() => {
+            card.classList.remove('highlighted');
+          }, 5000);
+        }
+        // Don't show the bubble for matched services
+        searchResult.classList.remove('visible');
+        searchResult.setAttribute('aria-hidden', 'true');
       } else {
+        // No match - show the bubble
         resultName.textContent = "Let's figure this out together.";
-        resultDesc.textContent = "Your problem sounds unique — that's exactly what we're built for. Book a 30-minute call and we'll map out exactly where AI fits.";
+        resultDesc.textContent = "Your problem sounds unique, that's exactly what we're built for. Book a 30-minute call and we'll map out exactly where AI fits.";
         resultTimeline.textContent = '30-min call';
         resultPrice.textContent = 'Free strategy session';
         resultName.style.display = '';
         resultDesc.style.display = '';
         resultLearn.style.display = 'none';
         resultNomatch.style.display = 'none';
+        searchResult.classList.add('visible');
+        searchResult.setAttribute('aria-hidden', 'false');
       }
-      searchResult.classList.add('visible');
-      searchResult.setAttribute('aria-hidden', 'false');
     }
 
     function hideResult() {
@@ -4421,7 +6160,35 @@
 
     function runSearch() {
       const problem = searchProblem.value.trim();
-      if (!problem) return;
+      const industry = searchIndustry.value.trim();
+      const timeline = searchTimeline.value.trim();
+
+      // If fields are missing, open the first unfilled one (delayed to avoid click event closing it)
+      if (!problem) {
+        setTimeout(() => {
+          searchProblem.focus();
+          document.getElementById('problem-wrap')?.classList.add('open');
+          activateField(document.getElementById('problem-wrap'));
+        }, 10);
+        return;
+      }
+      if (!industry) {
+        setTimeout(() => {
+          const wrap = document.getElementById('industry-wrap');
+          wrap?.classList.add('open');
+          activateField(wrap);
+        }, 10);
+        return;
+      }
+      if (!timeline) {
+        setTimeout(() => {
+          const wrap = document.getElementById('timeline-wrap');
+          wrap?.classList.add('open');
+          activateField(wrap);
+        }, 10);
+        return;
+      }
+
       showResult(matchService(problem));
     }
 
@@ -4437,6 +6204,258 @@
       sessionStorage.setItem('lc_timeline', searchTimeline.value);
       // Result card stays visible until scroll — smooth UX
     });
+
+    // ══════════════════════════════════════════════
+    // WORK PAGE FUNCTIONALITY
+    // ══════════════════════════════════════════════
+
+    const projects = [
+      {
+        id: "fortnight",
+        title: "Workforce Management System",
+        category: "AI Product",
+        categorySlug: "ai-product",
+        client: "100+ person creative agency",
+        oneLiner: "AI-powered timesheet and burnout prediction for a 100+ person agency.",
+        problem: "Manual time tracking across 100+ employees using Google Sheets. Managers spent 2-3 hours weekly chasing timesheets. Data was late and inconsistent.",
+        solution: "AI-powered timesheet system. Employees log time in seconds. Managers see real-time dashboards. System flags burnout risks automatically.",
+        result: "Eliminated manual tracking. Operational from day one. Used daily by entire agency.",
+        status: "Live, daily use",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["timesheet", "workforce", "automation", "burnout", "agency"]
+      },
+      {
+        id: "collablab",
+        title: "Partner Matching Engine",
+        category: "AI Product",
+        categorySlug: "ai-product",
+        client: "100+ person creative agency",
+        oneLiner: "AI tool matching creative briefs to 40+ film directors by genre, budget, and availability.",
+        problem: "Creative team spent 2+ hours manually searching through a roster of 40+ directors to find the right match for each brief. Decisions were based on memory and personal preference, not data.",
+        solution: "AI matching engine that scores directors against brief requirements: genre fit, budget range, availability, and past work quality. Results in seconds.",
+        result: "Replaced 2-hour manual searches with instant recommendations. Better matches, faster turnaround on director selection.",
+        status: "Live, daily use",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["matching", "directors", "creative", "briefs", "agency"]
+      }
+    ];
+
+    let currentFilter = 'all';
+    let currentProjectIndex = 0;
+
+    // DOM Elements
+    const workGrid = document.getElementById('work-grid');
+    const workNoResults = document.getElementById('work-no-results');
+    const workGallery = document.getElementById('work-gallery');
+    const workDetail = document.getElementById('work-detail');
+    const workSearchInput = document.getElementById('work-search-input');
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const backToGallery = document.getElementById('back-to-gallery');
+    const prevProject = document.getElementById('prev-project');
+    const nextProject = document.getElementById('next-project');
+
+    // Update filter counts
+    function updateFilterCounts() {
+      const counts = {
+        'all': projects.length,
+        'ai-product': projects.filter(p => p.categorySlug === 'ai-product').length,
+        'ai-system': projects.filter(p => p.categorySlug === 'ai-system').length,
+        'ai-automation': projects.filter(p => p.categorySlug === 'ai-automation').length
+      };
+
+      filterTabs.forEach(tab => {
+        const filter = tab.dataset.filter;
+        const countSpan = tab.querySelector('.filter-count');
+        if (countSpan) {
+          countSpan.textContent = `(${counts[filter]})`;
+          if (counts[filter] === 0) {
+            countSpan.classList.add('disabled');
+          } else {
+            countSpan.classList.remove('disabled');
+          }
+        }
+      });
+    }
+
+    // Render gallery cards
+    function renderGallery(filteredProjects) {
+      if (!workGrid) return;
+
+      if (filteredProjects.length === 0) {
+        workGrid.style.display = 'none';
+        workNoResults.style.display = 'block';
+        return;
+      }
+
+      workGrid.style.display = 'grid';
+      workNoResults.style.display = 'none';
+
+      workGrid.innerHTML = filteredProjects.map((project, index) => `
+        <div class="work-card" data-project-id="${project.id}" data-index="${projects.indexOf(project)}">
+          <div class="work-card-video">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="10,8 16,12 10,16" fill="#ccc"/>
+            </svg>
+            <p>Video coming soon</p>
+          </div>
+          <div class="work-card-content">
+            <div class="work-card-category">${project.category.toUpperCase()}</div>
+            <h3 class="work-card-title">${project.title}</h3>
+            <p class="work-card-desc">${project.oneLiner}</p>
+            <div class="work-card-status">● ${project.status}</div>
+          </div>
+        </div>
+      `).join('');
+
+      // Add click handlers
+      document.querySelectorAll('.work-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const index = parseInt(card.dataset.index);
+          openDetailView(index);
+        });
+      });
+    }
+
+    // Filter projects
+    function filterProjects() {
+      const searchTerm = workSearchInput ? workSearchInput.value.toLowerCase() : '';
+
+      return projects.filter(project => {
+        // Category filter
+        const categoryMatch = currentFilter === 'all' || project.categorySlug === currentFilter;
+
+        // Search filter
+        const searchMatch = searchTerm === '' ||
+          project.title.toLowerCase().includes(searchTerm) ||
+          project.oneLiner.toLowerCase().includes(searchTerm) ||
+          project.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+
+        return categoryMatch && searchMatch;
+      });
+    }
+
+    // Open detail view
+    function openDetailView(index) {
+      currentProjectIndex = index;
+      const project = projects[index];
+
+      document.getElementById('detail-category').textContent = project.category.toUpperCase();
+      document.getElementById('detail-title').textContent = project.title;
+      document.getElementById('detail-client').textContent = project.client;
+      document.getElementById('detail-problem').textContent = project.problem;
+      document.getElementById('detail-solution').textContent = project.solution;
+      document.getElementById('detail-result').textContent = project.result;
+      document.getElementById('detail-status').textContent = '● ' + project.status;
+      document.getElementById('detail-buildtime').textContent = project.buildTime;
+
+      // Update nav buttons
+      prevProject.disabled = currentProjectIndex === 0;
+      nextProject.disabled = currentProjectIndex === projects.length - 1;
+
+      workGallery.style.display = 'none';
+      workDetail.style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // Close detail view
+    function closeDetailView() {
+      workDetail.style.display = 'none';
+      workGallery.style.display = 'block';
+    }
+
+    // Event listeners
+    if (workSearchInput) {
+      workSearchInput.addEventListener('input', () => {
+        renderGallery(filterProjects());
+      });
+    }
+
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.filter;
+        renderGallery(filterProjects());
+      });
+    });
+
+    if (backToGallery) {
+      backToGallery.addEventListener('click', closeDetailView);
+    }
+
+    if (prevProject) {
+      prevProject.addEventListener('click', () => {
+        if (currentProjectIndex > 0) {
+          openDetailView(currentProjectIndex - 1);
+        }
+      });
+    }
+
+    if (nextProject) {
+      nextProject.addEventListener('click', () => {
+        if (currentProjectIndex < projects.length - 1) {
+          openDetailView(currentProjectIndex + 1);
+        }
+      });
+    }
+
+    // Initial render
+    updateFilterCounts();
+    renderGallery(projects);
+
+    // ══════════════════════════════════════════════
+    // ABOUT PAGE - TESTIMONIALS
+    // ══════════════════════════════════════════════
+
+    const testimonials = [
+      {
+        quote: "Keerthan built our entire workforce management system in under two weeks. It replaced a mess of spreadsheets and manual tracking. Now our entire agency uses it daily.",
+        name: "Gautam",
+        role: "Operations Lead",
+        company: "Talented Grid",
+        date: "March 2026"
+      },
+      {
+        quote: "The partner matching engine changed how we work. What used to take 2 hours of searching through rosters now takes seconds. It just works.",
+        name: "Creative Director",
+        role: "Production",
+        company: "Creative Agency",
+        date: "February 2026"
+      }
+    ];
+
+    function renderTestimonials() {
+      const grid = document.getElementById('testimonials-grid');
+      if (!grid) return;
+
+      if (testimonials.length === 0) {
+        grid.innerHTML = `
+          <div class="testimonial-card">
+            <p style="color: #999; font-size: 14px; text-align: center;">Testimonials coming soon.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = testimonials.map(t => `
+        <div class="testimonial-card">
+          <p class="testimonial-quote">${t.quote}</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">${t.name.charAt(0)}</div>
+            <div class="testimonial-info">
+              <div class="testimonial-name">${t.name}</div>
+              <div class="testimonial-role">${t.role}, ${t.company}</div>
+              <div class="testimonial-date">${t.date}</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderTestimonials();
 
   </script>
 </body>
