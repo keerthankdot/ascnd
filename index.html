@@ -175,20 +175,25 @@
       right: 0;
     }
 
-    /* ── Navigation ────────────────────────────────── */
-    .nav {
-      position: fixed;
+    /* ── Site header — inline sticky ──────────────── */
+    .site-header {
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 50;
-      height: 80px;
       background: var(--bp-bg);
-      border-bottom: 1px solid var(--bp-divider);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
+      padding: 20px 48px 12px;
+      gap: 4px;
+    }
+
+    .site-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: 14.4px;
+      color: var(--bp-text-secondary);
+      text-align: center;
+      letter-spacing: 0.01em;
     }
 
     /* ── Blueprint logo — extruded / crosshatch treatment ─ */
@@ -206,7 +211,7 @@
       top: 3px;
       left: 3px;
       font-family: 'Inter', sans-serif;
-      font-size: 24px;
+      font-size: 28.8px;
       font-weight: 800;
       letter-spacing: -0.03em;
       color: transparent;
@@ -218,7 +223,7 @@
 
     /* Step 1: 1px offset (closest to main text) */
     .logo-shadow::before {
-      content: 'ascnd';
+      content: 'ascnd.';
       position: absolute;
       top: -1px;
       left: -1px;
@@ -227,7 +232,7 @@
 
     /* Step 2: 2px offset */
     .logo-shadow::after {
-      content: 'ascnd';
+      content: 'ascnd.';
       position: absolute;
       top: -2px;
       left: -2px;
@@ -238,7 +243,7 @@
     .logo-main {
       position: relative;
       font-family: 'Inter', sans-serif;
-      font-size: 24px;
+      font-size: 28.8px;
       font-weight: 800;
       letter-spacing: -0.03em;
       color: transparent;
@@ -279,51 +284,67 @@
       pointer-events: none;
     }
 
-    /* ── Nav Tabs (Airbnb-style, blueprint icons) ── */
+    /* ── Nav Tabs — liquid glass pills ── */
     .nav-tabs {
       display: flex;
       align-items: center;
-      gap: 2px;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .nav-tab {
       display: flex;
-      flex-direction: row;
       align-items: center;
-      gap: 8px;
-      padding: 10px 18px 9px;
+      padding: 8px 20px;
+      border-radius: 999px;
       text-decoration: none;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.92) !important;
       font-family: 'Inter', sans-serif;
       font-size: 13px;
       font-weight: 500;
       position: relative;
-      transition: color 0.2s;
-      border-bottom: 2px solid transparent;
       white-space: nowrap;
+      /* Nearly transparent — see-through glass */
+      background: rgba(255, 255, 255, 0.08) !important;
+      /* Lens-like backdrop: slight saturation boost + tiny blur = optical distortion feel */
+      backdrop-filter: blur(2px) saturate(2) brightness(1.08) !important;
+      -webkit-backdrop-filter: blur(2px) saturate(2) brightness(1.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.28) !important;
+      box-shadow:
+        /* outer glow bloom */
+        0 0 18px rgba(255, 255, 255, 0.18),
+        /* bevel — top bright rim */
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+        /* bevel — bottom dark rim */
+        inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+        /* inner glass depth */
+        inset 0 0 12px rgba(255, 255, 255, 0.06) !important;
+      transition: all 0.2s ease;
     }
 
     .nav-tab:hover {
-      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.14) !important;
+      box-shadow:
+        0 0 28px rgba(255, 255, 255, 0.28),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        inset 0 0 16px rgba(255, 255, 255, 0.1) !important;
+      transform: translateY(-1px);
     }
 
     .nav-tab.active {
-      color: white;
-      border-bottom-color: white;
+      background: rgba(255, 255, 255, 0.22) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      box-shadow:
+        0 0 32px rgba(255, 255, 255, 0.35),
+        inset 0 1.5px 0 rgba(255, 255, 255, 1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+        inset 0 0 20px rgba(255, 255, 255, 0.15) !important;
+      color: #fff !important;
     }
 
-    .tab-icon {
-      width: 20px;
-      height: 20px;
-      opacity: 0.5;
-      transition: opacity 0.2s;
-      flex-shrink: 0;
-    }
-
-    .nav-tab:hover .tab-icon,
-    .nav-tab.active .tab-icon {
-      opacity: 1;
-    }
+    .tab-emoji { display: none !important; }
 
     .nav-cta {
       font-family: 'Inter', sans-serif;
@@ -362,7 +383,7 @@
     .mobile-menu {
       display: none;
       position: fixed;
-      top: 80px;
+      top: 0;
       left: 0;
       right: 0;
       z-index: 49;
@@ -440,7 +461,7 @@
       position: relative;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 200px 48px 80px;
+      padding: 80px 48px 80px;
     }
 
     /* Dimension lines — desktop only */
@@ -1743,7 +1764,7 @@
     /* ── Search Strip ────────────────────────────── */
     .search-strip {
       position: fixed;
-      top: 80px;
+      top: 120px;
       left: 0;
       right: 0;
       z-index: 49;
@@ -3037,7 +3058,7 @@
 
     /* Nav tabs — emoji style */
     .nav-tabs {
-      gap: 0;
+      gap: 10px;
     }
 
     .nav-tab {
@@ -3062,20 +3083,19 @@
       font-weight: 700;
     }
 
+    /* Home page pills — white text on dark video bg */
+    #page-home .nav-tab,
+    #page-home .nav-tab:hover,
+    #page-home .nav-tab.active {
+      color: #ffffff !important;
+    }
+
     /* Sliding indicator for nav tabs */
     .nav-tabs {
       position: relative;
     }
 
-    .nav-tabs-indicator {
-      position: absolute;
-      bottom: 0;
-      height: 2px;
-      background: #222222;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      pointer-events: none;
-      border-radius: 1px;
-    }
+    .nav-tabs-indicator { display: none; }
 
     /* Nav tab hover effect */
     .nav-tab {
@@ -3493,7 +3513,7 @@
 
     /* ── Nav tabs — fully opaque always ─────────────── */
     .nav-tab {
-      color: #222222 !important;
+      color: rgba(255,255,255,0.92) !important;
     }
 
     .nav-tab .tab-emoji {
@@ -3821,41 +3841,24 @@
     /* ── Mobile overrides (must come last to beat Airbnb overrides) ── */
     @media (max-width: 768px) {
 
-      /* All 5 tabs equal-width, emoji above label */
+      /* Pills wrap to 3+2 on mobile */
       .nav-tabs {
-        overflow: visible;
-        padding: 0;
         width: 100%;
+        max-width: 360px;
+        gap: 8px;
       }
 
       .nav-tab {
-        flex: 1;
-        flex-direction: column !important;
-        align-items: center;
+        flex: 0 1 calc(33.333% - 8px) !important;
+        flex-direction: row !important;
         justify-content: center;
-        padding: 8px 2px 10px !important;
-        gap: 3px !important;
-        font-size: 10px !important;
-        min-width: 0;
-      }
-
-      .nav-tab span:last-child {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
+        padding: 8px 12px !important;
+        font-size: 12px !important;
         text-align: center;
-        display: block;
       }
 
-      .tab-emoji img {
-        width: 20px !important;
-        height: 20px !important;
-      }
-
-      /* Extra breathing room between tabs and badge */
-      .hero-wrap {
-        padding-top: 210px !important;
+      #page-home > div > div[style*="max-width:648px"] {
+        max-width: 100% !important;
       }
 
       /* Center badge + sub on mobile */
@@ -4213,106 +4216,28 @@
     <div class="page-content">
 
       <!-- ══════════════════════════════════════════════
-         NAVIGATION
+         INNER NAV — shown on non-home pages
     ══════════════════════════════════════════════ -->
-      <nav class="nav">
-        <a href="#" class="nav-logo">
-          <!-- Extrusion depth layer (behind) -->
-          <span class="logo-shadow" aria-hidden="true">ascnd</span>
-          <!-- Main text with crosshatch fill (front) -->
-          <span class="logo-main">ascnd</span>
-          <!-- Blueprint dimension line -->
-          <div class="logo-dimension">
-            <svg width="80" height="12" viewBox="0 0 80 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="0" y1="6" x2="70" y2="6" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"
-                stroke-dasharray="3 3" />
-              <line x1="0" y1="2" x2="0" y2="10" stroke="rgba(255,255,255,0.12)" stroke-width="0.5" />
-              <line x1="70" y1="2" x2="70" y2="10" stroke="rgba(255,255,255,0.12)" stroke-width="0.5" />
-            </svg>
-          </div>
+      <div class="site-header" id="inner-nav" style="display:none;">
+        <a href="#" class="nav-logo" id="nav-logo-link">
+          <span class="logo-shadow" aria-hidden="true">ascnd.</span>
+
+          <span class="logo-main">ascnd.</span>
+
         </a>
-
-        <!-- Compact nav pill — appears when scrolled (desktop) -->
-        <button class="nav-compact" id="nav-compact" aria-label="Open search">
-          <span class="nav-compact-field">Tell us your problem</span>
-          <span class="nav-compact-divider"></span>
-          <span class="nav-compact-field">Any industry</span>
-          <span class="nav-compact-divider"></span>
-          <span class="nav-compact-field">Any timeline</span>
-          <span class="nav-compact-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </span>
-        </button>
-
-        <!-- Mobile search pill — only visible on mobile -->
-        <button class="mobile-search-pill" id="mobile-search-pill" aria-label="Search">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-          <span>What do you need built?</span>
-        </button>
-
         <div class="nav-tabs">
-
-          <!-- Services -->
-          <a href="#" class="nav-tab" data-page="services">
-            <span class="tab-emoji"><img
-                src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f37d-fe0f.png" alt="🍽️"
-                width="28" height="28"></span>
-            <span>Services</span>
-          </a>
-
-          <!-- Process -->
-          <a href="#" class="nav-tab" data-page="process">
-            <span class="tab-emoji"><img
-                src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f91d.png" alt="🤝"
-                width="28" height="28"></span>
-            <span>Process</span>
-          </a>
-
-          <!-- Products -->
-          <a href="#" class="nav-tab" data-page="products">
-            <span class="tab-emoji"><img
-                src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f3ae.png" alt="🎮"
-                width="28" height="28"></span>
-            <span>Products</span>
-          </a>
-
-          <!-- Work -->
-          <a href="#" class="nav-tab" data-page="work">
-            <span class="tab-emoji"><img
-                src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4bc.png" alt="💼"
-                width="28" height="28"></span>
-            <span>Work</span>
-          </a>
-
-          <!-- About -->
-          <a href="#" class="nav-tab" data-page="about">
-            <span class="tab-emoji"><img
-                src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f464.png" alt="👤"
-                width="28" height="28"></span>
-            <span>About</span>
-          </a>
-
-          <!-- Sliding indicator -->
-          <div class="nav-tabs-indicator" id="nav-tabs-indicator"></div>
+          <a href="#" class="nav-tab" data-page="services-process"><span>Services & Process</span></a>
+          <a href="#" class="nav-tab" data-page="work"><span>Work</span></a>
+          <a href="#" class="nav-tab" data-page="products"><span>Products</span></a>
+          <a href="#" class="nav-tab" data-page="community"><span>Join our community</span></a>
+          <a href="#" class="nav-tab" data-page="about"><span>About</span></a>
         </div>
-
-        <div class="nav-right">
-          <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="nav-cta">Book a call</a>
-        </div>
-      </nav>
+      </div>
 
       <!-- ══════════════════════════════════════════════
          SEARCH STRIP
     ══════════════════════════════════════════════ -->
-      <div class="search-strip" id="search-strip">
+      <div class="search-strip" id="search-strip" style="display:none;">
         <div class="search-bar">
 
           <!-- Field 1: Problem (free text with suggestions dropdown) -->
@@ -4519,12 +4444,163 @@
       <!-- ══════════════════════════════════════════════
          PAGE VIEWS
     ══════════════════════════════════════════════ -->
-      <div class="page-view active" id="page-services">
+      <!-- ══════════════════════════════════════════════
+         HOME PAGE (default)
+    ══════════════════════════════════════════════ -->
+      <div class="page-view active" id="page-home" style="position:relative; overflow:hidden;">
+        <video autoplay muted loop playsinline preload="auto"
+          style="position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none;">
+          <source src="landing-rotated.mp4" type="video/mp4">
+        </video>
+        <div style="position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:1; pointer-events:none;"></div>
+        <div style="position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 40px 24px;">
+          <!-- Logo + tagline + tabs -->
+          <a href="#" class="nav-logo" id="nav-logo-link" style="margin-bottom:8px;">
+            <span class="logo-shadow" aria-hidden="true">ascnd.</span>
+
+            <span class="logo-main" style="-webkit-text-stroke-color:rgba(255,255,255,0.95); color:white;">ascnd.</span>
+
+          </a>
+          <p class="site-tagline" style="margin-bottom:16px; color:rgba(255,255,255,0.8); font-size:22px; line-height:1.35; text-align:center;">building custom AI tools for your business<br>in weeks, not months.</p>
+          <div class="nav-tabs" style="margin-bottom:36px;">
+            <a href="#" class="nav-tab" data-page="services-process"><span>Services & Process</span></a>
+            <a href="#" class="nav-tab" data-page="work"><span>Work</span></a>
+            <a href="#" class="nav-tab" data-page="products"><span>Products</span></a>
+            <a href="https://www.prompterdoer.com" target="_blank" class="nav-tab"><span>Join our community</span></a>
+            <a href="#" class="nav-tab" data-page="about"><span>About</span></a>
+            <div class="nav-tabs-indicator" id="nav-tabs-indicator"></div>
+          </div>
+          <!-- Video -->
+          <div style="width:100%; max-width:648px;">
+            <div style="position:relative; width:100%; padding-bottom:56.25%; border-radius:16px; overflow:hidden;
+              background: rgba(255,255,255,0.45);
+              backdrop-filter: blur(20px);
+              -webkit-backdrop-filter: blur(20px);
+              border: 1px solid rgba(255,255,255,0.6);
+              box-shadow: 0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8);">
+            </div>
+          </div>
+        </div>
+        </div><!-- /z-index content wrapper -->
+      </div><!-- /page-home -->
+
+      <!-- Community page -->
+      <div class="page-view" id="page-community">
+        <div style="padding-top: 60px; padding-bottom: 60px; text-align: center;">
+          <div class="section-inner">
+            <h2 class="section-title">Join our community</h2>
+            <p class="section-body" style="margin-top: 16px;">Coming soon. We're building something here.</p>
+          </div>
+        </div>
+      </div><!-- /page-community -->
+
+      <!-- Combined Services & Process page -->
+      <div class="page-view" id="page-services-process">
+        <div id="sp-services"></div>
+        <div id="sp-process"></div>
+      </div><!-- /page-services-process -->
+
+      <div class="page-view" id="page-services">
 
         <!-- ══════════════════════════════════════════════
-         HERO
+         SERVICES PAGE
     ══════════════════════════════════════════════ -->
-        <div class="hero-wrap" style="position:relative; overflow:hidden;">
+        <div style="padding-top: 40px; padding-bottom: 60px;">
+
+          <!-- Video centered below nav tabs -->
+          <div style="display:flex; justify-content:center; padding: 0 48px 40px;">
+            <div style="width:100%; max-width:720px;">
+              <div style="position:relative; width:100%; padding-bottom:56.25%; border-radius:12px; overflow:hidden; border:1px solid #EBEBEB;">
+                <iframe style="position:absolute;inset:0;width:100%;height:100%;" src="https://www.youtube.com/embed/zJU_Bp-Yp1c" title="Ascnd demo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inline search bar -->
+          <div style="display:flex; justify-content:center; padding: 0 48px 48px;">
+            <div class="search-bar" style="max-width:860px; width:100%; box-shadow:0 2px 16px rgba(0,0,0,0.08);">
+
+              <div class="search-field problem-field-wrap" id="problem-wrap" style="flex:2;">
+                <span class="search-field-label">Tell us your problem</span>
+                <input type="text" id="search-problem" placeholder="e.g. we waste hours on manual reports..." autocomplete="off" />
+                <div class="problem-suggestions-panel" id="problem-panel">
+                  <div class="suggestions-section">
+                    <div class="suggestion-item" data-problem="We spend hours on manual data entry"><span class="suggestion-icon">📝</span><div class="suggestion-text"><span class="suggestion-main">Manual data entry</span><span class="suggestion-sub">Automate repetitive input tasks</span></div></div>
+                    <div class="suggestion-item" data-problem="We waste time generating reports manually"><span class="suggestion-icon">📊</span><div class="suggestion-text"><span class="suggestion-main">Report generation</span><span class="suggestion-sub">Auto-generate insights & dashboards</span></div></div>
+                    <div class="suggestion-item" data-problem="Document processing takes too long"><span class="suggestion-icon">📄</span><div class="suggestion-text"><span class="suggestion-main">Document processing</span><span class="suggestion-sub">Extract data from PDFs, invoices, receipts</span></div></div>
+                  </div>
+                  <div class="suggestions-section">
+                    <div class="suggestion-item" data-problem="We can't handle support ticket volume"><span class="suggestion-icon">🎫</span><div class="suggestion-text"><span class="suggestion-main">High ticket volume</span><span class="suggestion-sub">AI-powered ticket triage & responses</span></div></div>
+                    <div class="suggestion-item" data-problem="We need 24/7 customer support"><span class="suggestion-icon">🤖</span><div class="suggestion-text"><span class="suggestion-main">24/7 availability</span><span class="suggestion-sub">Chatbots that actually work</span></div></div>
+                    <div class="suggestion-item" data-problem="Our response times are too slow"><span class="suggestion-icon">⚡</span><div class="suggestion-text"><span class="suggestion-main">Slow response times</span><span class="suggestion-sub">Instant AI-assisted replies</span></div></div>
+                  </div>
+                  <div class="suggestions-section">
+                    <div class="suggestion-item" data-problem="Lead qualification takes too much time"><span class="suggestion-icon">🎯</span><div class="suggestion-text"><span class="suggestion-main">Lead qualification</span><span class="suggestion-sub">Auto-score and prioritize leads</span></div></div>
+                    <div class="suggestion-item" data-problem="We need to personalize outreach at scale"><span class="suggestion-icon">✉️</span><div class="suggestion-text"><span class="suggestion-main">Personalized outreach</span><span class="suggestion-sub">AI-written emails that convert</span></div></div>
+                    <div class="suggestion-item" data-problem="Content creation is too slow"><span class="suggestion-icon">✍️</span><div class="suggestion-text"><span class="suggestion-main">Content creation</span><span class="suggestion-sub">Generate social, blogs, ads faster</span></div></div>
+                  </div>
+                  <div class="suggestions-section">
+                    <div class="suggestion-item" data-problem="Our data is scattered across systems"><span class="suggestion-icon">🔗</span><div class="suggestion-text"><span class="suggestion-main">Scattered data</span><span class="suggestion-sub">Unify and analyze across platforms</span></div></div>
+                    <div class="suggestion-item" data-problem="We need better demand forecasting"><span class="suggestion-icon">📈</span><div class="suggestion-text"><span class="suggestion-main">Demand forecasting</span><span class="suggestion-sub">Predict sales & inventory needs</span></div></div>
+                    <div class="suggestion-item" data-problem="We're losing customers and don't know why"><span class="suggestion-icon">🚨</span><div class="suggestion-text"><span class="suggestion-main">Churn prediction</span><span class="suggestion-sub">Identify at-risk customers early</span></div></div>
+                  </div>
+                  <div class="suggestions-section" id="custom-problem-section" style="display:none;">
+                    <div class="suggestion-item" id="custom-problem-item" data-problem=""><span class="suggestion-icon">💬</span><div class="suggestion-text"><span class="suggestion-main">Custom problem</span><span class="suggestion-sub" id="custom-problem-text">Describe your unique challenge</span></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-divider"></div>
+
+              <div class="search-field custom-select-wrap" id="industry-wrap">
+                <span class="search-field-label">Industry</span>
+                <button class="custom-select-btn" id="industry-btn" type="button" data-label="Industry">
+                  <span class="custom-select-val" id="industry-val">Select yours</span>
+                  <svg class="custom-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="custom-select-panel" id="industry-panel">
+                  <div class="custom-select-option" data-val="E-commerce">E-commerce</div>
+                  <div class="custom-select-option" data-val="Healthcare">Healthcare</div>
+                  <div class="custom-select-option" data-val="Finance">Finance</div>
+                  <div class="custom-select-option" data-val="Real Estate">Real Estate</div>
+                  <div class="custom-select-option" data-val="SaaS / Tech">SaaS / Tech</div>
+                  <div class="custom-select-option" data-val="Retail">Retail</div>
+                  <div class="custom-select-option" data-val="Professional Services">Professional Services</div>
+                  <div class="custom-select-option" data-val="Other">Other</div>
+                </div>
+                <input type="hidden" id="search-industry" value="">
+              </div>
+
+              <div class="search-divider"></div>
+
+              <div class="search-field custom-select-wrap" id="timeline-wrap">
+                <span class="search-field-label">Timeline</span>
+                <button class="custom-select-btn" id="timeline-btn" type="button" data-label="Timeline">
+                  <span class="custom-select-val" id="timeline-val">Select yours</span>
+                  <svg class="custom-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="custom-select-panel" id="timeline-panel">
+                  <div class="custom-select-option" data-val="ASAP">ASAP</div>
+                  <div class="custom-select-option" data-val="1 to 2 Weeks">1 to 2 Weeks</div>
+                  <div class="custom-select-option" data-val="3 to 4 Weeks">3 to 4 Weeks</div>
+                  <div class="custom-select-option" data-val="4 to 6 Weeks">4 to 6 Weeks</div>
+                </div>
+                <input type="hidden" id="search-timeline" value="">
+              </div>
+
+              <button class="search-submit" id="search-submit" aria-label="Find matching service">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="5.5" stroke="white" stroke-width="2"/><line x1="12.5" y1="12.5" x2="16.5" y2="16.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                <span class="search-submit-text">Search</span>
+              </button>
+
+            </div>
+          </div>
+
+        </div><!-- /services-top -->
+
+        <div style="position:relative; overflow:hidden;">
 
           <!-- Circuit / Node network -->
           <div class="blueprint-svg" style="right:40px; top:100px; opacity:0.6;">
@@ -4569,95 +4645,8 @@
             </svg>
           </div>
 
-          <!-- Horizontal dimension line -->
-          <div class="dim-line-h">
-            <div class="dim-tick-l"></div>
-            <span class="dim-label-h">Impact</span>
-            <div class="dim-tick-r"></div>
-          </div>
-
-          <!-- Vertical dimension line -->
-          <div class="dim-line-v">
-            <div class="dim-tick-t"></div>
-            <span class="dim-label-v">Precision</span>
-            <div class="dim-tick-b"></div>
-          </div>
-
-          <!-- Annotations -->
-          <div class="hero-annotations">
-            <div class="annotation" style="top: 172px;">Clarity</div>
-            <div class="annotation" style="top: 272px;">Outcome</div>
-            <div class="annotation" style="top: 380px;">Action</div>
-          </div>
-
-          <!-- Badge + Sub — full width, centered above two-column layout -->
-          <div class="hero-intro">
-            <p class="hero-sub fade-in" style="animation-delay: 0.18s;">
-              Custom AI tools designed for your business. Built in weeks, not months.
-            </p>
-          </div>
-
-          <div class="hero-layout">
-
-            <!-- Text column -->
-            <div class="hero-text-col">
-
-              <!-- Headline -->
-              <h1 class="hero-headline fade-in" style="animation-delay: 0.28s;">
-                We build<br><em>AI systems</em> that
-              </h1>
-
-              <!-- Offering chips -->
-              <div class="hero-offerings fade-in" style="animation-delay: 0.40s;">
-                <div class="offering-chip">
-                  <span class="offering-chip-emoji"><img
-                      src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/23f3.png" alt="⏳"
-                      width="36" height="36"></span>
-                  <span class="offering-chip-label">Save time</span>
-                </div>
-                <div class="offering-chip">
-                  <span class="offering-chip-emoji"><img
-                      src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4b0.png" alt="💰"
-                      width="36" height="36"></span>
-                  <span class="offering-chip-label">Cut costs</span>
-                </div>
-                <div class="offering-chip">
-                  <span class="offering-chip-emoji"><img
-                      src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c8.png" alt="📈"
-                      width="36" height="36"></span>
-                  <span class="offering-chip-label">Scale faster</span>
-                </div>
-              </div>
-
-              <!-- CTAs -->
-              <div class="hero-ctas fade-in" style="animation-delay: 0.52s;">
-                <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary">Book a free strategy call</a>
-                <a href="#" class="cta-secondary" data-page="work">See our work</a>
-              </div>
-
-            </div><!-- /hero-text-col -->
-
-            <!-- Video column -->
-            <div class="hero-video-col fade-in" style="animation-delay: 0.3s;">
-              <p class="hero-video-label">
-                TLDR ; What we can do for you&nbsp;<img
-                  src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f447.png" alt="👇"
-                  width="24" height="24">
-              </p>
-              <div class="video-wrap">
-                <iframe src="https://www.youtube.com/embed/zJU_Bp-Yp1c" title="Ascnd demo"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-            </div>
-
-          </div><!-- /hero-layout -->
-
-        </div>
-
-
         <!-- ══════════════════════════════════════════════
-         SERVICES
+         SERVICES GRID
     ══════════════════════════════════════════════ -->
         <section id="services" style="position:relative; overflow:hidden;">
           <!-- Large gear -->
@@ -4743,6 +4732,7 @@
             </div>
           </div>
         </section>
+        </div><!-- /services-grid-wrap -->
 
       </div><!-- /page-services -->
 
@@ -4771,7 +4761,8 @@
               </svg>
 
               <!-- Center logo -->
-              <div class="process-center">ascnd</div>
+              <div class="process-center">ascnd.</span>
+          </span>/div>
 
               <!-- Process nodes -->
               <div class="process-node">
@@ -5740,10 +5731,10 @@
     // ── Tab-based page navigation ────────────────────
     const navTabs = document.querySelectorAll('.nav-tab');
     const pageViews = document.querySelectorAll('.page-view');
-    const navEl = document.querySelector('.nav');
+    const navEl = document.getElementById('inner-nav');
     const searchStrip = document.getElementById('search-strip');
     const searchResult = document.getElementById('search-result');
-    const navLogo = document.querySelector('.nav-logo');
+    const navLogo = document.querySelector('#page-home .nav-logo');
     const navTabsIndicator = document.getElementById('nav-tabs-indicator');
     const navTabsContainer = document.querySelector('.nav-tabs');
 
@@ -5772,7 +5763,15 @@
     }
 
     // Set initial state: services tab active, search strip visible
-    navTabs.forEach(t => { if (t.dataset.page === 'services') t.classList.add('active'); });
+    // Populate services-process combined view
+    const spServices = document.getElementById('sp-services');
+    const spProcess = document.getElementById('sp-process');
+    const srcServices = document.getElementById('page-services');
+    const srcProcess = document.getElementById('page-process');
+    if (spServices && srcServices) spServices.innerHTML = srcServices.innerHTML;
+    if (spProcess && srcProcess) spProcess.innerHTML = srcProcess.innerHTML;
+
+    // no tab active on initial home page load
 
     // Initialize indicator position (no animation on load)
     const initialActiveTab = document.querySelector('.nav-tab.active');
@@ -5786,14 +5785,12 @@
 
       pageViews.forEach(p => p.classList.remove('active'));
       navTabs.forEach(t => t.classList.toggle('active', t.dataset.page === pageId));
-      navEl.classList.remove('scrolled');
-      searchStrip.style.display = (pageId === 'services') ? '' : 'none';
+      if (searchStrip) searchStrip.style.display = 'none';
       window.scrollTo(0, 0);
       next.classList.add('active');
 
-      // Update sliding indicator
-      const activeTab = document.querySelector('.nav-tab.active');
-      if (activeTab) updateIndicator(activeTab, true);
+      // Show inner-nav on non-home pages
+      if (navEl) navEl.style.display = pageId === 'home' ? 'none' : '';
     }
 
     // Nav tab clicks
@@ -5810,8 +5807,8 @@
       if (activeTab) updateIndicator(activeTab, false);
     });
 
-    // Logo click → services (home)
-    if (navLogo) navLogo.addEventListener('click', e => { e.preventDefault(); showPage('services'); });
+    // Logo click → home
+    if (navLogo) navLogo.addEventListener('click', e => { e.preventDefault(); showPage('home'); });
 
     // data-page links anywhere (hero CTAs etc.)
     document.querySelectorAll('[data-page]').forEach(el => {
