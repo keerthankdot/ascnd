@@ -3504,9 +3504,9 @@
     #page-services {
       position: fixed;
       inset: 0;
-      z-index: 100;
+      z-index: 500;
       overflow-y: auto;
-      background: var(--bp-bg);
+      background: #ffffff;
       transform: translateY(100%);
       transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
       animation: none !important;
@@ -4521,7 +4521,7 @@
 
         <!-- Back button -->
         <div style="padding: 24px 32px 0;">
-          <a href="#" class="nav-tab" data-page="home" style="display:inline-flex; width:auto; color:#222 !important; background:rgba(0,0,0,0.05) !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; border:1px solid rgba(0,0,0,0.1) !important; box-shadow:none !important;">
+          <a href="#" id="back-to-dashboard" style="display:inline-flex; align-items:center; padding:8px 20px; border-radius:999px; font-family:'Inter',sans-serif; font-size:13px; font-weight:500; color:#222; background:rgba(0,0,0,0.05); border:1px solid rgba(0,0,0,0.1); text-decoration:none;">
             Back to dashboard
           </a>
         </div>
@@ -5718,6 +5718,7 @@
 
       // Show inner-nav only on pages that need it (not home, not services)
       if (navEl) navEl.style.display = (pageId === 'home' || pageId === 'services') ? 'none' : '';
+      if (pageId === 'services' && navEl) navEl.style.setProperty('display', 'none', 'important');
     }
 
     // Nav tab clicks
@@ -5736,6 +5737,15 @@
 
     // Logo click → home
     if (navLogo) navLogo.addEventListener('click', e => { e.preventDefault(); showPage('home'); });
+
+    // Back to dashboard button
+    const backBtn = document.getElementById('back-to-dashboard');
+    if (backBtn) backBtn.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('page-services').classList.remove('active');
+      document.getElementById('page-home').classList.add('active');
+      if (navEl) navEl.style.display = 'none';
+    });
 
     // data-page links anywhere (hero CTAs etc.)
     document.querySelectorAll('[data-page]').forEach(el => {
