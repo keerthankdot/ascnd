@@ -193,56 +193,71 @@
       position: relative;
       display: flex;
       align-items: center;
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
       border-radius: 999px;
-      padding: 4px;
+      padding: 0;
+      background: transparent;
       border: none;
       box-shadow: none;
     }
 
     .header-nav-pill .nav-tab {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       border-radius: 999px !important;
       border: none !important;
       background: transparent !important;
       box-shadow: none !important;
-      color: #fff !important;
+      color: rgba(255,255,255,0.75) !important;
       font-weight: 600 !important;
       font-size: 15px !important;
+      padding: 12px 24px !important;
       transition: opacity 0.2s !important;
     }
+    .header-nav-pill .nav-tab.active {
+      color: #fff !important;
+    }
 
-    .header-nav-pill .nav-tab:hover {
+    .header-nav-pill .nav-tab:hover,
+    .header-nav-pill .nav-tab:not(.active):hover {
       background: transparent !important;
       transform: none !important;
       box-shadow: none !important;
-      opacity: 0.75;
+      opacity: 1 !important;
+      color: rgba(255,255,255,0.75) !important;
     }
-
-    .header-nav-pill .nav-tab.active {
-      background: transparent !important;
-      box-shadow: none !important;
+    .header-nav-pill .nav-tab.active:hover {
       color: #fff !important;
     }
 
     .header-pill-indicator {
       position: absolute;
-      top: 4px;
-      left: 4px;
-      height: calc(100% - 8px);
+      top: 0;
+      left: 0;
+      height: 100%;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255,255,255,0.5);
+      z-index: 1;
+      backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
+      -webkit-backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
+      background: linear-gradient(145deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 60%, rgba(255,255,255,0.18) 100%);
+      border: 1px solid rgba(255,255,255,0.55);
       box-shadow:
-        0 2px 12px rgba(0,0,0,0.06),
         inset 0 1.5px 0 rgba(255,255,255,0.85),
-        inset 0 -1px 0 rgba(255,255,255,0.1);
+        inset 0 -1px 0 rgba(255,255,255,0.12),
+        inset 1px 0 0 rgba(255,255,255,0.25),
+        0 4px 20px rgba(0,0,0,0.07),
+        0 1px 5px rgba(0,0,0,0.05);
       pointer-events: none;
+      overflow: hidden;
       transition: left 0.32s cubic-bezier(0.4, 0, 0.2, 1), width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: left, width;
+    }
+    .header-pill-indicator::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.18) 0%, transparent 50%);
+      border-radius: inherit;
+      pointer-events: none;
     }
 
     .hero-headline {
@@ -278,42 +293,71 @@
     .hero-btn-primary {
       display: inline-flex;
       align-items: center;
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(20px) saturate(1.8);
-      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
+      -webkit-backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
+      background: linear-gradient(145deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 60%, rgba(255,255,255,0.18) 100%);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.85),
+        inset 0 -1px 0 rgba(255,255,255,0.12),
+        inset 1px 0 0 rgba(255,255,255,0.25),
+        0 4px 20px rgba(0,0,0,0.07),
+        0 1px 5px rgba(0,0,0,0.05);
       color: #fff !important;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 15px;
       font-weight: 700;
-      padding: 14px 28px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.45);
-      box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.7), 0 4px 16px rgba(0,0,0,0.12);
+      padding: 14px 32px;
+      min-height: 52px;
+      border-radius: 9999px;
       text-decoration: none;
-      transition: background 0.18s, transform 0.18s;
+      transition: opacity 0.18s, transform 0.18s;
     }
-
-    .hero-btn-primary:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .hero-btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.18) 0%, transparent 50%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+    .hero-btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
     .hero-btn-secondary {
       display: inline-flex;
       align-items: center;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(20px) saturate(1.8);
-      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
+      -webkit-backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
+      background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.07) 60%, rgba(255,255,255,0.13) 100%);
+      border: 1px solid rgba(255,255,255,0.42);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.75),
+        inset 0 -1px 0 rgba(255,255,255,0.08),
+        0 4px 20px rgba(0,0,0,0.05),
+        0 1px 5px rgba(0,0,0,0.04);
       color: #fff !important;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 15px;
       font-weight: 600;
-      padding: 13px 28px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.28);
-      box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.5), 0 4px 16px rgba(0,0,0,0.1);
+      padding: 14px 32px;
+      min-height: 52px;
+      border-radius: 9999px;
       text-decoration: none;
-      transition: background 0.18s, transform 0.18s;
+      transition: opacity 0.18s, transform 0.18s;
     }
-
-    .hero-btn-secondary:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
+    .hero-btn-secondary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+    .hero-btn-secondary:hover { opacity: 0.88; transform: translateY(-1px); }
 
     .hero-trust {
       display: flex;
@@ -2254,7 +2298,7 @@
     ══════════════════════════════════════════════ */
 
     .work-hero {
-      padding-top: 120px;
+      padding-top: 72px;
       padding-bottom: 0;
     }
 
@@ -2274,67 +2318,78 @@
     }
 
     .filter-tab {
+      position: relative;
+      overflow: hidden;
       padding: 10px 20px;
-      border: 1px solid #E5E5E5;
-      border-radius: 100px;
-      background: white;
+      border-radius: 9999px;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 14px;
       font-weight: 500;
-      color: #666;
+      color: rgba(255,255,255,0.75);
       cursor: pointer;
-      transition: all 0.2s ease;
+      backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
+      -webkit-backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
+      background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.07) 60%, rgba(255,255,255,0.13) 100%);
+      border: 1px solid rgba(255,255,255,0.42);
+      box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.05);
+      transition: opacity 0.18s;
     }
-
-    .filter-tab:hover {
-      border-color: #222;
-      color: #222;
+    .filter-tab::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+      border-radius: inherit;
+      pointer-events: none;
     }
-
     .filter-tab.active {
-      background: #222;
-      border-color: #222;
-      color: white;
+      backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
+      -webkit-backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
+      background: linear-gradient(145deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 60%, rgba(255,255,255,0.18) 100%);
+      border-color: rgba(255,255,255,0.55);
+      box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.12), inset 1px 0 0 rgba(255,255,255,0.25), 0 4px 20px rgba(0,0,0,0.07);
+      color: #ffffff;
+      font-weight: 600;
     }
+    .filter-tab.active::before { background: linear-gradient(160deg, rgba(255,255,255,0.18) 0%, transparent 50%); }
 
-    .filter-count {
-      color: inherit;
-      opacity: 0.7;
-    }
-
-    .filter-count.disabled {
-      opacity: 0.4;
-    }
-
-    .filter-tab:has(.filter-count.disabled) {
-      opacity: 0.5;
-      cursor: default;
-    }
+    .filter-count { color: inherit; opacity: 0.7; }
+    .filter-count.disabled { opacity: 0.4; }
+    .filter-tab:has(.filter-count.disabled) { opacity: 0.5; cursor: default; }
 
     .work-search {
+      position: relative;
+      overflow: hidden;
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 10px 20px;
-      border: 1px solid #E5E5E5;
-      border-radius: 100px;
-      background: white;
+      border-radius: 9999px;
       min-width: 240px;
+      backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
+      -webkit-backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
+      background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.07) 60%, rgba(255,255,255,0.13) 100%);
+      border: 1px solid rgba(255,255,255,0.42);
+      box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.05);
     }
-
+    .work-search::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
     .work-search input {
-      border: none;
-      outline: none;
+      border: none; outline: none;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 14px;
-      color: #222;
+      color: rgba(255,255,255,0.9);
       width: 100%;
       background: transparent;
+      position: relative; z-index: 1;
     }
-
-    .work-search input::placeholder {
-      color: #999;
-    }
+    .work-search input::placeholder { color: rgba(255,255,255,0.45); }
+    .work-search svg { flex-shrink: 0; position: relative; z-index: 1; }
 
     .work-grid-section {
       padding-top: 40px;
@@ -4388,77 +4443,16 @@
     }
 
     /* ── Liquid Glass layer styles ─────────────────────────────── */
-    .lg-host {
-      position: relative;
-      isolation: isolate !important;
+
+    /* Nav pill hover — must stay after all other .nav-tab rules */
+    #header-nav-pill .nav-tab:hover,
+    #header-nav-pill .nav-tab:not(.active):hover,
+    #header-nav-pill .nav-tab.active:hover {
       background: transparent !important;
-      border: none !important;
+      background-color: transparent !important;
       box-shadow: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-
-    /* Extra clip wrapper: children with CSS filter escape overflow+border-radius
-       in WebKit, leaving square corners. clip-path is reliable and doesn't clip
-       the outer shadow the way clipping .lg-host directly would. */
-    .lg-clip {
-      position: absolute;
-      inset: 0;
-      clip-path: inset(0 round 999px);
-    }
-
-    /* Blur lives here, NOT chained on the url() filter —
-       Safari over-blurs a chained blur. */
-    .lg-blur {
-      position: absolute;
-      inset: 0;
-      will-change: filter;
-    }
-
-    /* Displacement filter applied here, separate from blur above. */
-    .lg-refraction {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      will-change: filter;
-      transform-origin: top left;
-    }
-
-    /* Glass colour tint — blended over the refraction, beneath the glint. */
-    .lg-tint {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: screen;
-      background: rgba(255, 255, 255, 0.22);
-    }
-
-    /* Specular bevel — static inset box-shadow; cheaper than SVG filter passes. */
-    .lg-glint {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      box-shadow:
-        inset 1.5px 1.5px 4px rgba(255, 255, 255, 0.7),
-        inset -2px -2px 5px rgba(0, 0, 0, 0.22);
-    }
-
-    /* Border ring lives outside the clip so it's always crisp. */
-    .lg-border {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      border-radius: inherit;
-      pointer-events: none;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.82);
-    }
-
-    /* Text / icon content floats above all glass layers. */
-    .lg-content {
-      position: relative;
-      z-index: 3;
-      pointer-events: auto;
+      transform: none !important;
+      opacity: 1 !important;
     }
   </style>
 </head>
@@ -4717,6 +4711,7 @@
           <div class="hero-btns">
             <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="hero-btn-primary">Book a call</a>
             <a href="#" class="hero-btn-secondary" data-page="work">See our work</a>
+            <a href="#" class="hero-btn-secondary" data-page="services">Our services</a>
           </div>
           <div class="hero-trust">
             <span class="hero-trust-label">Trusted by teams at</span>
@@ -4727,7 +4722,63 @@
             </div>
           </div>
         </div>
-        </div><!-- /z-index content wrapper -->
+
+        <!-- Services Grid -->
+        <section id="services-home" style="position:relative; padding: 60px 0 80px;">
+          <div class="section-inner">
+            <div class="reveal">
+              <h2 class="section-title" style="text-align:center; max-width:none; color:#ffffff;">Three ways we deploy<br>AI into your business</h2>
+            </div>
+            <div class="services-grid">
+              <div class="service-card reveal reveal-d1" id="card-automation-home">
+                <div class="card-img-block card-img-1">
+                  <div class="card-img-text">Get more<br>time back<br>with</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">AI Automations</h3>
+                  <p class="card-desc">You tell us what is slowing you down and we put it on speed</p>
+                  <a href="#" class="card-read-more" data-page="automations">READ MORE</a>
+                  <div class="card-divider"></div>
+                  <div class="card-bottom">
+                    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/23f0.png" alt="⏰" width="20" height="20">
+                    <span>Built & Deployed in 1 to 2 Weeks</span>
+                  </div>
+                </div>
+              </div>
+              <div class="service-card reveal reveal-d2" id="card-products-home">
+                <div class="card-img-block card-img-2">
+                  <div class="card-img-text">Turn your<br>expertise<br>into</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">AI Products</h3>
+                  <p class="card-desc">Need a tool that doesn't exist yet? We build it around your problem.</p>
+                  <a href="#" class="card-read-more" data-page="ai-products">READ MORE</a>
+                  <div class="card-divider"></div>
+                  <div class="card-bottom">
+                    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f6e0-fe0f.png" alt="🛠️" width="20" height="20">
+                    <span>Discovery & Build in 2 to 3 Weeks</span>
+                  </div>
+                </div>
+              </div>
+              <div class="service-card reveal reveal-d3" id="card-systems-home">
+                <div class="card-img-block card-img-3">
+                  <div class="card-img-text">Run lean<br>from day<br>one</div>
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">AI Systems</h3>
+                  <p class="card-desc">We rebuild how your business operates, from scratch, on AI.</p>
+                  <a href="#" class="card-read-more" data-page="systems">READ MORE</a>
+                  <div class="card-divider"></div>
+                  <div class="card-bottom">
+                    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f9e0.png" alt="🧠" width="20" height="20">
+                    <span>Full Operational Overhaul in 4 to 6 Weeks</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div><!-- /page-home -->
 
       <!-- Community page -->
@@ -5153,19 +5204,19 @@
         <div id="work-gallery">
           <section class="work-hero">
             <div class="section-inner">
-              <div class="section-label">// proof of work</div>
-              <h2 class="section-title" style="color: #222; max-width: none;">Built for real teams. In daily use.</h2>
+              <h2 class="section-title" style="color: #ffffff; max-width: none; text-align: center;">Made for people.</h2>
 
               <!-- Filter Bar -->
               <div class="work-filters">
                 <div class="filter-tabs">
-                  <button class="filter-tab active" data-filter="all">All <span class="filter-count">(2)</span></button>
-                  <button class="filter-tab" data-filter="ai-product">AI Products <span class="filter-count">(2)</span></button>
-                  <button class="filter-tab" data-filter="ai-system">AI Systems <span class="filter-count">(0)</span></button>
-                  <button class="filter-tab" data-filter="ai-automation">AI Automations <span class="filter-count">(0)</span></button>
+                  <button class="filter-tab active" data-filter="all">All <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="products">Products <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="automations">Automations <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="websites">Websites <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="ai-films">AI Films &amp; Assets <span class="filter-count"></span></button>
                 </div>
                 <div class="work-search">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2">
                     <circle cx="11" cy="11" r="8"/>
                     <path d="M21 21l-4.35-4.35"/>
                   </svg>
@@ -5266,64 +5317,6 @@
           </section>
         </div>
 
-        <!-- Services Grid -->
-        <section id="services" style="position:relative; overflow:hidden; padding-top: 20px;">
-          <div class="section-inner">
-            <div class="reveal">
-              <h2 class="section-title" style="text-align:center; max-width:none;">Three ways we deploy<br>AI into your business</h2>
-            </div>
-            <div class="services-grid">
-              <!-- Card 1 -->
-              <div class="service-card reveal reveal-d1" id="card-automation">
-                <div class="card-img-block card-img-1">
-                  <div class="card-img-text">Get more<br>time back<br>with</div>
-                </div>
-                <div class="card-content">
-                  <h3 class="card-title">AI Automations</h3>
-                  <p class="card-desc">You tell us what is slowing you down and we put it on speed</p>
-                  <a href="#" class="card-read-more" data-page="automations">READ MORE</a>
-                  <div class="card-divider"></div>
-                  <div class="card-bottom">
-                    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/23f0.png" alt="⏰" width="20" height="20">
-                    <span>Built & Deployed in 1 to 2 Weeks</span>
-                  </div>
-                </div>
-              </div>
-              <!-- Card 2 -->
-              <div class="service-card reveal reveal-d2" id="card-products">
-                <div class="card-img-block card-img-2">
-                  <div class="card-img-text">Turn your<br>expertise<br>into</div>
-                </div>
-                <div class="card-content">
-                  <h3 class="card-title">AI Products</h3>
-                  <p class="card-desc">Need a tool that doesn't exist yet? We build it around your problem.</p>
-                  <a href="#" class="card-read-more" data-page="ai-products">READ MORE</a>
-                  <div class="card-divider"></div>
-                  <div class="card-bottom">
-                    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f6e0-fe0f.png" alt="🛠️" width="20" height="20">
-                    <span>Discovery & Build in 2 to 3 Weeks</span>
-                  </div>
-                </div>
-              </div>
-              <!-- Card 3 -->
-              <div class="service-card reveal reveal-d3" id="card-systems">
-                <div class="card-img-block card-img-3">
-                  <div class="card-img-text">Run lean<br>from day<br>one</div>
-                </div>
-                <div class="card-content">
-                  <h3 class="card-title">AI Systems</h3>
-                  <p class="card-desc">We rebuild how your business operates, from scratch, on AI.</p>
-                  <a href="#" class="card-read-more" data-page="systems">READ MORE</a>
-                  <div class="card-divider"></div>
-                  <div class="card-bottom">
-                    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f9e0.png" alt="🧠" width="20" height="20">
-                    <span>Full Operational Overhaul in 4 to 6 Weeks</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
       </div><!-- /page-work -->
 
@@ -6325,8 +6318,8 @@
       {
         id: "fortnight",
         title: "Workforce Management System",
-        category: "AI Product",
-        categorySlug: "ai-product",
+        category: "Products",
+        categorySlug: "products",
         client: "100+ person creative agency",
         oneLiner: "AI-powered timesheet and burnout prediction for a 100+ person agency.",
         problem: "Manual time tracking across 100+ employees using Google Sheets. Managers spent 2-3 hours weekly chasing timesheets. Data was late and inconsistent.",
@@ -6340,8 +6333,8 @@
       {
         id: "collablab",
         title: "Partner Matching Engine",
-        category: "AI Product",
-        categorySlug: "ai-product",
+        category: "Products",
+        categorySlug: "products",
         client: "100+ person creative agency",
         oneLiner: "AI tool matching creative briefs to 40+ film directors by genre, budget, and availability.",
         problem: "Creative team spent 2+ hours manually searching through a roster of 40+ directors to find the right match for each brief. Decisions were based on memory and personal preference, not data.",
@@ -6372,9 +6365,10 @@
     function updateFilterCounts() {
       const counts = {
         'all': projects.length,
-        'ai-product': projects.filter(p => p.categorySlug === 'ai-product').length,
-        'ai-system': projects.filter(p => p.categorySlug === 'ai-system').length,
-        'ai-automation': projects.filter(p => p.categorySlug === 'ai-automation').length
+        'products': projects.filter(p => p.categorySlug === 'products').length,
+        'automations': projects.filter(p => p.categorySlug === 'automations').length,
+        'websites': projects.filter(p => p.categorySlug === 'websites').length,
+        'ai-films': projects.filter(p => p.categorySlug === 'ai-films').length
       };
 
       filterTabs.forEach(tab => {
@@ -6571,226 +6565,8 @@
 
   </script>
 
-  <!-- ── Liquid Glass Buttons ──────────────────────────────────── -->
-  <!-- Technique: SDF rounded-rect displacement map (canvas PNG) → SVG feDisplacementMap
-       applied via CSS filter to a viewport-aligned bg slice inside each lens. PAD pixels
-       of bleed give edge samples for the displacement. Fresh filter id each repaint busts
-       Safari's filter-id cache. Blur on wrapper not chained with url() (Safari over-blur).
-       clip-path on .lg-clip because WebKit filter escapes border-radius+overflow:hidden. -->
-  <script>
-  ;(function() {
-    'use strict';
+  <!-- glass via pure CSS backdrop-filter — no JS needed -->
 
-    var BG      = 'landing rotated.png';
-    var OVERLAY = 'rgba(0,0,0,0.18)';
-    var PAD     = 20;   // extra pixels around lens so edge displacement has source pixels
-    var BOOST   = 0.9;  // overall displacement strength multiplier
-    var _uid    = 0;
-    var _cache  = new Map();
-
-    function clamp255(v) { return v < 0 ? 0 : v > 255 ? 255 : v; }
-
-    /* Rounded-rect SDF (negative inside, positive outside).
-       cx/cy = half-extents of the rect minus corner radius. */
-    function rrSDF(px, py, mapW, mapH, lensW, lensH, radius) {
-      var ox = Math.abs(px - mapW * 0.5) - (lensW * 0.5 - radius);
-      var oy = Math.abs(py - mapH * 0.5) - (lensH * 0.5 - radius);
-      return Math.hypot(Math.max(ox, 0), Math.max(oy, 0))
-           + Math.min(Math.max(ox, oy), 0)
-           - radius;
-    }
-
-    /* Build displacement map using proper edge-normal SDF bevel.
-       Encodes outward normals at the lens rim → convex lens refraction.
-       Result cached by key so identical lenses share one PNG. */
-    function buildLensMap(lensW, lensH, radius, rim, feather, curve) {
-      var mapW = lensW + 2 * PAD;
-      var mapH = lensH + 2 * PAD;
-      var key  = [lensW, lensH, radius, rim, feather, curve].join(':');
-      if (_cache.has(key)) return _cache.get(key);
-
-      var cv  = document.createElement('canvas');
-      cv.width = mapW; cv.height = mapH;
-      var ctx = cv.getContext('2d');
-      var img = ctx.createImageData(mapW, mapH);
-      var px  = img.data;
-
-      for (var y = 0; y < mapH; y++) {
-        for (var x = 0; x < mapW; x++) {
-          var cx = x + 0.5, cy = y + 0.5;
-          var s  = rrSDF(cx, cy, mapW, mapH, lensW, lensH, radius);
-          // Gradient via central differences — gives outward normal at lens surface
-          var gx = rrSDF(cx + 1, cy, mapW, mapH, lensW, lensH, radius)
-                 - rrSDF(cx - 1, cy, mapW, mapH, lensW, lensH, radius);
-          var gy = rrSDF(cx, cy + 1, mapW, mapH, lensW, lensH, radius)
-                 - rrSDF(cx, cy - 1, mapW, mapH, lensW, lensH, radius);
-          var len = Math.hypot(gx, gy) || 1;
-          var nx = gx / len, ny = gy / len;
-
-          // Rim zone: rim pixels deep inside lens + feather pixels outside
-          var span = s < 0 ? rim + feather : rim;
-          var amt  = Math.max(0, 1 - Math.abs(s) / span);
-          // Smootherstep then curve
-          amt = amt * amt * amt * (amt * (amt * 6 - 15) + 10);
-          amt = Math.pow(amt, curve);
-
-          var i = (y * mapW + x) * 4;
-          // R encodes -nx (feDisplacementMap: disp = scale * (channel - 0.5))
-          px[i]     = clamp255(Math.round(127.5 - nx * amt * 127 * BOOST));
-          px[i + 1] = clamp255(Math.round(127.5 - ny * amt * 127 * BOOST));
-          px[i + 2] = 128;
-          px[i + 3] = 255;
-        }
-      }
-
-      ctx.putImageData(img, 0, 0);
-      var url = cv.toDataURL('image/png');
-      if (_cache.size > 50) _cache.delete(_cache.keys().next().value);
-      _cache.set(key, url);
-      return url;
-    }
-
-    function applyGlass(el, opts) {
-      var depth   = (opts && opts.depth   != null) ? opts.depth   : 29;
-      var splay   = (opts && opts.splay   != null) ? opts.splay   : 2;
-      var feather = (opts && opts.feather != null) ? opts.feather : 6;
-      var curve   = (opts && opts.curve   != null) ? opts.curve   : 1.3;
-      var blur    = (opts && opts.blur    != null) ? opts.blur    : 0.62;
-      var glint   = (opts && opts.glint   != null) ? opts.glint   : 45;  // 0–100
-      var tint    = (opts && opts.tint    != null) ? opts.tint    : 1;   // 0–1
-
-      // Per-element SVG housing; separate SVG per element avoids id collision
-      var fsvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      fsvg.setAttribute('width', '0'); fsvg.setAttribute('height', '0');
-      fsvg.style.cssText = 'position:absolute;overflow:visible;pointer-events:none;top:0;left:0;';
-      document.body.appendChild(fsvg);
-
-      // Wrap existing content in .lg-content so it sits above glass layers
-      var slot = document.createElement('span');
-      slot.className = 'lg-content';
-      while (el.firstChild) slot.appendChild(el.firstChild);
-
-      // Layer stack inside .lg-clip (clip-path handles WebKit filter overflow)
-      var clip     = document.createElement('div'); clip.className = 'lg-clip';
-      var blurWrap = document.createElement('div'); blurWrap.className = 'lg-blur';
-      var ref      = document.createElement('div'); ref.className = 'lg-refraction';
-      var tnt      = document.createElement('div'); tnt.className = 'lg-tint';
-      var glt      = document.createElement('div'); glt.className = 'lg-glint';
-      var brdr     = document.createElement('div'); brdr.className = 'lg-border';
-
-      if (blur > 0) blurWrap.style.filter = 'blur(' + blur + 'px)';
-      tnt.style.opacity = tint;
-      glt.style.opacity = glint / 100;
-      blurWrap.appendChild(ref);
-      clip.appendChild(blurWrap);
-      clip.appendChild(tnt);
-      clip.appendChild(glt);
-
-      // Preserve absolute/fixed positioning — inline style beats any class rule
-      var _pos = getComputedStyle(el).position;
-      el.classList.add('lg-host');
-      if (_pos === 'absolute' || _pos === 'fixed') el.style.position = _pos;
-
-      el.appendChild(clip);
-      el.appendChild(brdr);
-      el.appendChild(slot);
-
-      var pw = 0, ph = 0;
-
-      function refresh() {
-        var rect = el.getBoundingClientRect();
-        if (!rect.width) return;
-
-        var vw   = window.innerWidth;
-        var vh   = window.innerHeight;
-        var w    = Math.ceil(rect.width);
-        var h    = Math.ceil(rect.height);
-        var mapW = w + 2 * PAD;
-        var mapH = h + 2 * PAD;
-        var r    = h / 2; // pill = full round
-
-        // Ref is PAD pixels larger on all sides; bg-position aligns to viewport
-        function syncBgPos(rect2) {
-          var bpx = -(rect2.left - PAD);
-          var bpy = -(rect2.top  - PAD);
-          ref.style.backgroundPosition = bpx + 'px ' + bpy + 'px,' + bpx + 'px ' + bpy + 'px';
-        }
-
-        var bpx0 = -(rect.left - PAD);
-        var bpy0 = -(rect.top  - PAD);
-
-        if (w !== pw || h !== ph) {
-          // Size changed: rebuild full styles + filter
-          pw = w; ph = h;
-          ref.style.cssText =
-            'position:absolute;' +
-            'left:' + (-PAD) + 'px;top:' + (-PAD) + 'px;' +
-            'width:' + mapW + 'px;height:' + mapH + 'px;' +
-            'pointer-events:none;will-change:filter;' +
-            'background:linear-gradient(' + OVERLAY + ',' + OVERLAY + '),url("' + BG + '") no-repeat;' +
-            'background-size:' + vw + 'px ' + vh + 'px,' + vw + 'px ' + vh + 'px;' +
-            'background-position:' + bpx0 + 'px ' + bpy0 + 'px,' + bpx0 + 'px ' + bpy0 + 'px;' +
-            'clip-path:inset(' + PAD + 'px round ' + r + 'px);';
-          var mapUrl = buildLensMap(w, h, r, splay, feather, curve);
-          var fid    = 'lg' + (++_uid);
-          fsvg.innerHTML = '<defs>' +
-            '<filter id="' + fid + '" x="0" y="0" width="100%" height="100%"' +
-              ' filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">' +
-              '<feImage href="' + mapUrl + '" xlink:href="' + mapUrl + '"' +
-                ' x="0" y="0" width="' + mapW + '" height="' + mapH + '"' +
-                ' preserveAspectRatio="none" result="map"/>' +
-              '<feDisplacementMap in="SourceGraphic" in2="map" scale="' + depth + '"' +
-                ' xChannelSelector="R" yChannelSelector="G"/>' +
-            '</filter></defs>';
-          ref.style.filter = 'url(#' + fid + ')';
-        } else {
-          // Only position changed: just update bg-position + bust Safari cache
-          syncBgPos(rect);
-          var fid2 = 'lg' + (++_uid);
-          var f = fsvg.querySelector('filter');
-          if (f) { f.setAttribute('id', fid2); ref.style.filter = 'url(#' + fid2 + ')'; }
-        }
-      }
-
-      // Track position every rAF during CSS transitions (bg-pos must follow the sliding pill)
-      var _loopEnd = 0;
-      function _trackLoop() {
-        if (performance.now() < _loopEnd) {
-          var r2 = el.getBoundingClientRect();
-          var bpx = -(r2.left - PAD), bpy = -(r2.top - PAD);
-          ref.style.backgroundPosition = bpx + 'px ' + bpy + 'px,' + bpx + 'px ' + bpy + 'px';
-          requestAnimationFrame(_trackLoop);
-        }
-      }
-
-      refresh();
-      window.addEventListener('resize', refresh, { passive: true });
-      new MutationObserver(function() {
-        // Kick a 400ms tracking loop so the bg follows any CSS transition on this element
-        _loopEnd = performance.now() + 400;
-        _trackLoop();
-        refresh();
-      }).observe(el, { attributes: true, attributeFilter: ['style'] });
-    }
-
-    var GLASS      = { depth: 29, splay: 2, feather: 6, curve: 1.3, blur: 0.62, glint: 45, tint: 1 };
-    var GLASS_PILL = { depth: 29, splay: 2, feather: 6, curve: 1.3, blur: 0,    glint: 45, tint: 0 };
-
-    function init() {
-      document.querySelectorAll('.hero-btn-primary, .hero-btn-secondary').forEach(function(btn) {
-        applyGlass(btn, GLASS);
-      });
-      var pill = document.getElementById('header-pill-indicator');
-      if (pill) applyGlass(pill, GLASS_PILL);
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      setTimeout(init, 0);
-    }
-  })();
-  </script>
 </body>
 
 </html>
