@@ -9,8 +9,8 @@
 Everything lives in one `index.html`. Client-side JS swaps `.page-view` divs to simulate pages — no router, no framework.
 
 ### Pages
-- `page-home` — hero + 3 service cards (Automations, AI Products, Systems) + trust logos
-- `page-work` — work/case study grid with filters and search
+- `page-home` — hero + trust logos + `#services-home` section (3 service cards: Automations, AI Products, Systems). Services grid is scoped to this page only.
+- `page-work` — work/case study grid with filters and search (no services grid)
 - `page-services` / `page-services-process` — services overview
 - `page-process` — 5-step circular process diagram
 - `page-ai-products` — AI Products detail + FAQ + examples
@@ -19,6 +19,9 @@ Everything lives in one `index.html`. Client-side JS swaps `.page-view` divs to 
 - `page-products` — Products page (coming soon stub)
 - `page-about` — founder profile
 - `page-community` — freelancer network (stub)
+
+### Known structural note
+`page-home` contains two child wrappers: a `z-index:2` hero div (closed before the services grid) and the `#services-home` section. Both are inside `page-home` — do not add extra closing `</div>` between them or the services grid escapes into the global DOM and renders on every tab.
 
 ### Design system
 - Font: Helvetica Neue / Helvetica / Arial
@@ -51,7 +54,10 @@ Everything lives in one `index.html`. Client-side JS swaps `.page-view` divs to 
 - `assets/images/talented-logo.webp` — Talented Grid logo
 - `assets/images/wakefit-logo.png` — Wakefit logo
 - `assets/images/landing-rotated.png` — hero background image
-- `assets/videos/landing.mp4` — hero video (not currently referenced in HTML)
+- `assets/js/liquid-glass.js` — liquid glass refraction library (MIT, from deepika-builds/liquid-glass)
+
+## Liquid glass
+Applied to `.hero-btn-primary` and `.hero-btn-secondary` via `liquidGlass()` in a `requestAnimationFrame` call at end of `<body>`. Buttons must NOT have `overflow: hidden` — it blocks SVG `backdrop-filter` displacement. See `DESIGN.md` for full technique notes.
 
 ## Deployment
 - GitHub Pages
