@@ -295,8 +295,6 @@
       align-items: center;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
-      -webkit-backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
       background: linear-gradient(145deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 60%, rgba(255,255,255,0.18) 100%);
       border: 1px solid rgba(255,255,255,0.55);
       box-shadow:
@@ -330,8 +328,6 @@
       align-items: center;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
-      -webkit-backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
       background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.07) 60%, rgba(255,255,255,0.13) 100%);
       border: 1px solid rgba(255,255,255,0.42);
       box-shadow:
@@ -6565,7 +6561,20 @@
 
   </script>
 
-  <!-- glass via pure CSS backdrop-filter — no JS needed -->
+  <script src="assets/js/liquid-glass.js"></script>
+  <script>
+    document.querySelectorAll('.hero-btn-primary, .hero-btn-secondary').forEach(function (btn) {
+      liquidGlass(btn, {
+        scale: -80,
+        chroma: 5,
+        blur: 4,
+        saturate: 1.8,
+        border: 0.06,
+        mapBlur: 10,
+        fallbackBlur: 14
+      });
+    });
+  </script>
 
 </body>
 
