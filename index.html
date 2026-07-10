@@ -441,52 +441,19 @@
     .nav-tab {
       display: flex;
       align-items: center;
-      padding: 8px 20px;
       border-radius: 999px;
       text-decoration: none;
-      color: rgba(255, 255, 255, 0.92) !important;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 13px;
       font-weight: 500;
       position: relative;
       white-space: nowrap;
-      /* Nearly transparent — see-through glass */
-      background: rgba(255, 255, 255, 0.08) !important;
-      /* Lens-like backdrop: slight saturation boost + tiny blur = optical distortion feel */
-      backdrop-filter: blur(2px) saturate(2) brightness(1.08) !important;
-      -webkit-backdrop-filter: blur(2px) saturate(2) brightness(1.08) !important;
-      border: 1px solid rgba(255, 255, 255, 0.28) !important;
-      box-shadow:
-        /* outer glow bloom */
-        0 0 18px rgba(255, 255, 255, 0.18),
-        /* bevel — top bright rim */
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
-        /* bevel — bottom dark rim */
-        inset 0 -1px 0 rgba(0, 0, 0, 0.12),
-        /* inner glass depth */
-        inset 0 0 12px rgba(255, 255, 255, 0.06) !important;
-      transition: all 0.2s ease;
-    }
-
-    .nav-tab:hover {
-      background: rgba(255, 255, 255, 0.14) !important;
-      box-shadow:
-        0 0 28px rgba(255, 255, 255, 0.28),
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        inset 0 0 16px rgba(255, 255, 255, 0.1) !important;
-      transform: translateY(-1px);
-    }
-
-    .nav-tab.active {
-      background: rgba(255, 255, 255, 0.22) !important;
-      border-color: rgba(255, 255, 255, 0.5) !important;
-      box-shadow:
-        0 0 32px rgba(255, 255, 255, 0.35),
-        inset 0 1.5px 0 rgba(255, 255, 255, 1),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.08),
-        inset 0 0 20px rgba(255, 255, 255, 0.15) !important;
-      color: #fff !important;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transition: color 0.2s;
     }
 
     .tab-emoji { display: none !important; }
@@ -3261,22 +3228,6 @@
 
     .nav-tabs-indicator { display: none; }
 
-    /* Nav tab hover effect */
-    .nav-tab {
-      transition: color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
-    }
-
-    .nav-tab:hover {
-      transform: translateY(-1px);
-    }
-
-    .nav-tab:not(.active) {
-      opacity: 0.7;
-    }
-
-    .nav-tab:not(.active):hover {
-      opacity: 1;
-    }
 
     /* Emoji icon in tab */
     .tab-emoji {
