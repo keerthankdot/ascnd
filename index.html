@@ -970,6 +970,11 @@
       margin-top: 40px;
     }
 
+    #card-automation-home {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.25);
+    }
+
     .card-number {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 10px;
@@ -4568,16 +4573,20 @@
 
         <!-- Services Grid -->
         <section id="services-home" style="position:relative; padding: 60px 0 80px;">
-          <div class="section-inner">
+          <!-- Colour blobs for the liquid glass card to refract -->
+          <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;">
+            <div style="position:absolute;left:-5%;top:10%;width:45%;aspect-ratio:1;background:radial-gradient(circle,rgba(99,102,241,0.75) 0%,transparent 70%);filter:blur(55px);border-radius:50%;"></div>
+            <div style="position:absolute;right:0%;top:30%;width:38%;aspect-ratio:1;background:radial-gradient(circle,rgba(20,184,166,0.65) 0%,transparent 70%);filter:blur(55px);border-radius:50%;"></div>
+            <div style="position:absolute;left:30%;bottom:0%;width:40%;aspect-ratio:1;background:radial-gradient(circle,rgba(236,72,153,0.55) 0%,transparent 70%);filter:blur(60px);border-radius:50%;"></div>
+          </div>
+          <div class="section-inner" style="position:relative;z-index:1;">
             <div class="reveal">
               <h2 class="section-title" style="text-align:center; max-width:none; color:#ffffff;">Three ways we deploy<br>AI into your business</h2>
             </div>
             <div class="services-grid">
               <div class="service-card reveal reveal-d1" id="card-automation-home">
-                <div class="card-img-block card-img-1">
-                  <div class="card-img-text">Get more<br>time back<br>with</div>
-                </div>
-                <div class="card-content">
+                <div class="card-content" style="padding-top:28px;">
+                  <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Get more time back with</div>
                   <h3 class="card-title">AI Automations</h3>
                   <p class="card-desc">You tell us what is slowing you down and we put it on speed</p>
                   <a href="#" class="card-read-more" data-page="automations">READ MORE</a>
