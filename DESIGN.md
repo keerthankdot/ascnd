@@ -71,43 +71,26 @@ box-shadow:
   0 4px 20px rgba(0,0,0,0.07);
 ```
 
-### Hero buttons — liquid glass (`.hero-btn-primary`, `.hero-btn-secondary`)
-Uses `assets/js/liquid-glass.js` (MIT — deepika-builds/liquid-glass).
+### Hero buttons (`.hero-btn-primary`, `.hero-btn-secondary`)
+Pure CSS — no JS. Both variants share identical styles (outline pill glass).
 
-**How it works:**
-1. Canvas draws a displacement map: red = X axis, blue = Y axis, blurred grey inset = neutral interior
-2. SVG `<feDisplacementMap>` filter uses that map to physically bend backdrop pixels at the edges
-3. R/G/B channels displaced at staggered scales → chromatic aberration (prism fringe)
-4. `backdrop-filter: url(#filter-id) blur(1px) saturate(2.5)` wires it all together
-
-**Current params:**
-```js
-liquidGlass(btn, {
-  scale: -160,   // displacement strength
-  chroma: 10,    // prism fringe per channel
-  blur: 1,       // backdrop blur (low = sharper refraction)
-  saturate: 2.5, // colour pop behind glass
-  border: 0.04,  // neutral inset fraction
-  mapBlur: 6,    // edge band softness
-  fallbackBlur: 14
-})
-```
-
-**Critical rule:** buttons must NOT have `overflow: hidden` — it blocks SVG `backdrop-filter`. Shape is maintained by `border-radius` alone.
-
-**Browser support:** Chromium only (Chrome, Edge, Arc, Brave). Safari/Firefox get `blur(14px) saturate(2.5)` frosted fallback automatically.
-
-**CSS dressing (kept in stylesheet, not owned by the library):**
 ```css
-background: linear-gradient(145deg, rgba(255,255,255,0.32), rgba(255,255,255,0.10), rgba(255,255,255,0.18));
-border: 1px solid rgba(255,255,255,0.55);
-box-shadow:
-  inset 0 1.5px 0 rgba(255,255,255,0.85),
-  inset 0 -1px 0 rgba(255,255,255,0.12),
-  inset 1px 0 0 rgba(255,255,255,0.25),
-  0 4px 20px rgba(0,0,0,0.07);
+display: inline-flex; align-items: center; justify-content: center;
+gap: 8px; white-space: nowrap; border-radius: 9999px;
+height: 40px; padding: 0 16px;
+font-size: 12px; font-weight: 500; letter-spacing: 0.025em;
+color: #fff;
+background: rgba(255, 255, 255, 0.10);
+border: 1px solid rgba(255, 255, 255, 0.20);
+box-shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
+backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
+-webkit-backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
+transition: background-color 0.2s, color 0.2s;
 ```
-Plus a `::before` glare: `linear-gradient(160deg, rgba(255,255,255,0.18) 0%, transparent 50%)`
+
+**Hover:** inverts to solid white with dark text — `background: #fff; color: #222`.
+
+**Pattern:** outline pill, `bg-white/10` glass tint, `border-foreground/20`, `shadow-elegant`. No JS, no SVG filters. Works across all browsers.
 
 ---
 

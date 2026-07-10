@@ -54,10 +54,6 @@ Everything lives in one `index.html`. Client-side JS swaps `.page-view` divs to 
 - `assets/images/talented-logo.webp` — Talented Grid logo
 - `assets/images/wakefit-logo.png` — Wakefit logo
 - `assets/images/landing-rotated.png` — hero background image
-- `assets/js/liquid-glass.js` — liquid glass refraction library (MIT, from deepika-builds/liquid-glass)
-
-## Liquid glass
-Applied to `.hero-btn-primary` and `.hero-btn-secondary` via `liquidGlass()` in a `requestAnimationFrame` call at end of `<body>`. Buttons must NOT have `overflow: hidden` — it blocks SVG `backdrop-filter` displacement. See `DESIGN.md` for full technique notes.
 
 ## Deployment
 - GitHub Pages

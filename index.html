@@ -290,68 +290,35 @@
       margin-bottom: 72px;
     }
 
-    .hero-btn-primary {
-      display: inline-flex;
-      align-items: center;
-      position: relative;
-      background: linear-gradient(145deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 60%, rgba(255,255,255,0.18) 100%);
-      border: 1px solid rgba(255,255,255,0.55);
-      box-shadow:
-        inset 0 1.5px 0 rgba(255,255,255,0.85),
-        inset 0 -1px 0 rgba(255,255,255,0.12),
-        inset 1px 0 0 rgba(255,255,255,0.25),
-        0 4px 20px rgba(0,0,0,0.07),
-        0 1px 5px rgba(0,0,0,0.05);
-      color: #fff !important;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      padding: 14px 32px;
-      min-height: 52px;
-      border-radius: 9999px;
-      text-decoration: none;
-      transition: opacity 0.18s, transform 0.18s;
-    }
-    .hero-btn-primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(160deg, rgba(255,255,255,0.18) 0%, transparent 50%);
-      border-radius: inherit;
-      pointer-events: none;
-    }
-    .hero-btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
+    .hero-btn-primary,
     .hero-btn-secondary {
       display: inline-flex;
       align-items: center;
-      position: relative;
-      background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.07) 60%, rgba(255,255,255,0.13) 100%);
-      border: 1px solid rgba(255,255,255,0.42);
-      box-shadow:
-        inset 0 1.5px 0 rgba(255,255,255,0.75),
-        inset 0 -1px 0 rgba(255,255,255,0.08),
-        0 4px 20px rgba(0,0,0,0.05),
-        0 1px 5px rgba(0,0,0,0.04);
-      color: #fff !important;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 14px 32px;
-      min-height: 52px;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
       border-radius: 9999px;
+      height: 40px;
+      padding: 0 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.025em;
       text-decoration: none;
-      transition: opacity 0.18s, transform 0.18s;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
+      backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
+      -webkit-backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
+      transition: background-color 0.2s, color 0.2s;
+      cursor: pointer;
     }
-    .hero-btn-secondary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(160deg, rgba(255,255,255,0.12) 0%, transparent 50%);
-      border-radius: inherit;
-      pointer-events: none;
+    .hero-btn-primary:hover,
+    .hero-btn-secondary:hover {
+      background: rgba(255, 255, 255, 1);
+      color: #222222;
     }
-    .hero-btn-secondary:hover { opacity: 0.88; transform: translateY(-1px); }
 
     .hero-trust {
       display: flex;
@@ -6559,22 +6526,6 @@
 
   </script>
 
-  <script src="assets/js/liquid-glass.js"></script>
-  <script>
-    requestAnimationFrame(function () {
-      document.querySelectorAll('.hero-btn-primary, .hero-btn-secondary').forEach(function (btn) {
-        liquidGlass(btn, {
-          scale: -160,
-          chroma: 10,
-          blur: 1,
-          saturate: 2.5,
-          border: 0.04,
-          mapBlur: 6,
-          fallbackBlur: 14
-        });
-      });
-    });
-  </script>
 
 </body>
 
