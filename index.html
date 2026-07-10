@@ -189,60 +189,54 @@
       background: transparent;
     }
 
-    .header-nav-pill {
+    /* ── Header nav pill ──────────────────────────────── */
+    #header-nav-pill {
       position: relative;
       display: flex;
       align-items: center;
-      border-radius: 999px;
-      padding: 0;
-      background: transparent;
-      border: none;
-      box-shadow: none;
     }
 
-    .header-nav-pill .nav-tab {
+    #header-nav-pill .nav-tab {
       position: relative;
       z-index: 2;
-      border-radius: 999px !important;
-      border: none !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      color: rgba(255,255,255,0.75) !important;
-      font-weight: 600 !important;
-      font-size: 15px !important;
-      padding: 12px 24px !important;
-      transition: opacity 0.2s !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      color: rgba(255,255,255,0.65);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
     }
-    .header-nav-pill .nav-tab.active {
-      color: #fff !important;
+    #header-nav-pill .nav-tab.active {
+      color: #fff;
     }
-
-    .header-nav-pill .nav-tab:hover,
-    .header-nav-pill .nav-tab:not(.active):hover {
-      background: transparent !important;
-      transform: none !important;
-      box-shadow: none !important;
-      opacity: 1 !important;
-      color: rgba(255,255,255,0.75) !important;
-    }
-    .header-nav-pill .nav-tab.active:hover {
-      color: #fff !important;
+    #header-nav-pill .nav-tab:hover {
+      color: rgba(255,255,255,0.9);
     }
 
-    .header-pill-indicator {
+    #header-pill-indicator {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
       border-radius: 999px;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.20);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
       backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
       -webkit-backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
       pointer-events: none;
-      transition: left 0.32s cubic-bezier(0.4, 0, 0.2, 1), width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: left 0.32s cubic-bezier(0.4,0,0.2,1), width 0.32s cubic-bezier(0.4,0,0.2,1);
       will-change: left, width;
     }
 
@@ -4389,18 +4383,6 @@
       text-decoration: none;
     }
 
-    /* ── Liquid Glass layer styles ─────────────────────────────── */
-
-    /* Nav pill hover — must stay after all other .nav-tab rules */
-    #header-nav-pill .nav-tab:hover,
-    #header-nav-pill .nav-tab:not(.active):hover,
-    #header-nav-pill .nav-tab.active:hover {
-      background: transparent !important;
-      background-color: transparent !important;
-      box-shadow: none !important;
-      transform: none !important;
-      opacity: 1 !important;
-    }
   </style>
 </head>
 
