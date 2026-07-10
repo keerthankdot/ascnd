@@ -10,16 +10,18 @@
 
 ## Typography
 
-- **Stack:** `'Helvetica Neue', Helvetica, Arial, sans-serif`
-- No custom font loaded — intentional. Helvetica Neue = clean, authoritative, no load cost.
-- **Weights used:** 400 (body), 600 (nav, secondary buttons), 700 (headings, primary buttons)
+- **Stack:** `'Helvetica Neue', Helvetica, Arial, sans-serif` — no external font loaded
+- **Weights used:** 400 (body), 500 (nav, buttons), 600 (card READ MORE), 700 (headings, card titles)
 - **Sizes:**
-  - Hero headline: `clamp(2.5rem, 5vw, 4rem)` on detail pages; large on home
+  - Hero headline: `clamp(42px, 6vw, 76px)` / 800
   - Section titles: `~2rem`
   - Body: `16px`
-  - Nav tabs: `15px / 600`
-  - Button labels: `15px / 700` (primary), `15px / 600` (secondary)
-  - Labels/tags: `12px / 600`, uppercase, `letter-spacing: 0.05em`
+  - Nav tabs: `16px / 500`
+  - Hero buttons: `15px / 500`
+  - Card titles: `24px / 700`
+  - Card desc: `14px / 400`
+  - Card READ MORE: `11px / 600`, uppercase, `letter-spacing: 0.06em`
+  - Labels/tags: `11–12px / 600`, uppercase, `letter-spacing: 0.08–0.1em`
 
 ---
 
@@ -36,61 +38,149 @@ All colours live as CSS custom properties on `:root`.
 | `--bp-text-faint` | `#DDDDDD` | Decorative |
 | `--bp-accent-cyan` | `#1E4D8C` | Brand blue accent |
 | `--bp-accent-green` | `#16A34A` | Status/success |
-| `--bp-card-bg` | `#FFFFFF` | Card backgrounds |
-| `--bp-card-border` | `#EBEBEB` | Card borders |
-| `--bp-card-hover-border` | `#BBBBBB` | Hovered card borders |
+| `--bp-card-border` | `#EBEBEB` | Light-page card borders |
 | `--bp-cta-bg` | `#222222` | Dark CTA buttons |
 | `--bp-cta-text` | `#FFFFFF` | CTA button text |
-| `--bp-dashed` | `#EBEBEB` | Dashed dividers |
-| `--bp-divider` | `#EBEBEB` | Section dividers |
+
+**Glass palette (dark hero/services sections):**
+- Surface: `rgba(255,255,255,0.08)` — card bg
+- Surface light: `rgba(255,255,255,0.04)` — automation card bg
+- Border: `rgba(255,255,255,0.15–0.25)` — card/button borders
+- Text primary: `#ffffff`
+- Text secondary: `rgba(255,255,255,0.65)`
+- Text faint: `rgba(255,255,255,0.5–0.55)`
+- Divider: `rgba(255,255,255,0.12)`
 
 ---
 
 ## Hero
 
 - Full-viewport background: `assets/images/landing-rotated.png` fixed, `object-fit: cover`
-- Dark painterly landscape (mountains, forest, lake, rowers) — provides rich texture for glass effects to refract
-- Hero text and buttons sit over the image with no overlay — image is dark enough for white text contrast
-- Layout switches to two-column (text + video col) at wider breakpoints
+- Dark painterly landscape (mountains, forest, lake, rowers)
+- Hero text and buttons sit over the image with no overlay
+- Layout switches to two-column at wider breakpoints
 
 ---
 
-## Glass effects
+## Glass design language
 
-### Nav pill indicator (`#header-pill-indicator`)
-Pure CSS glass. Tracks the active tab with a smooth `left` / `width` transition.
+The site's interactive layer uses one consistent glass recipe across nav, buttons, and cards:
 
-```css
-backdrop-filter: blur(14px) saturate(220%) brightness(1.12);
-background: linear-gradient(145deg, rgba(255,255,255,0.32), rgba(255,255,255,0.10), rgba(255,255,255,0.18));
-border: 1px solid rgba(255,255,255,0.55);
-box-shadow:
-  inset 0 1.5px 0 rgba(255,255,255,0.85),
-  inset 0 -1px 0 rgba(255,255,255,0.12),
-  inset 1px 0 0 rgba(255,255,255,0.25),
-  0 4px 20px rgba(0,0,0,0.07);
+```
+background: rgba(255,255,255,0.08–0.10)
+border: 1px solid rgba(255,255,255,0.15–0.20)
+backdrop-filter: saturate(180%) brightness(1.05) blur(2px)   /* buttons/nav */
+backdrop-filter: saturate(180%) brightness(1.05) blur(12px)  /* cards */
 ```
 
-### Hero buttons (`.hero-btn-primary`, `.hero-btn-secondary`)
-Pure CSS — no JS. Both variants share identical styles (outline pill glass).
+Hover pattern for buttons: inverts to solid white bg + `#222` text.
+
+**Rule:** never use `overflow: hidden` on elements with this glass treatment — it breaks SVG `backdrop-filter` displacement.
+
+---
+
+## Nav pill (`#header-nav-pill` / `#header-pill-indicator`)
+
+- Only the **active tab** gets the glass pill — inactive tabs are plain white text (`rgba(255,255,255,0.65)`)
+- Pill is an absolutely-positioned sliding element (`#header-pill-indicator`) that animates via `left` + `width` CSS transition
+- Tab sizes: `height: 48px`, `padding: 0 26px`, `font-size: 16px / 500`
 
 ```css
-display: inline-flex; align-items: center; justify-content: center;
-gap: 8px; white-space: nowrap; border-radius: 9999px;
-height: 40px; padding: 0 16px;
-font-size: 12px; font-weight: 500; letter-spacing: 0.025em;
+#header-pill-indicator {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.20);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
+  backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
+  transition: left 0.32s cubic-bezier(0.4,0,0.2,1), width 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+```
+
+---
+
+## Hero buttons (`.hero-btn-primary`, `.hero-btn-secondary`)
+
+Both variants identical — outline glass pill.
+
+```css
+height: 52px; padding: 0 28px; border-radius: 9999px;
+font-size: 15px; font-weight: 500; letter-spacing: 0.025em;
 color: #fff;
-background: rgba(255, 255, 255, 0.10);
-border: 1px solid rgba(255, 255, 255, 0.20);
+background: rgba(255,255,255,0.10);
+border: 1px solid rgba(255,255,255,0.20);
 box-shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
 backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
--webkit-backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
 transition: background-color 0.2s, color 0.2s;
 ```
 
-**Hover:** inverts to solid white with dark text — `background: #fff; color: #222`.
+Hover: `background: #fff; color: #222222`
 
-**Pattern:** outline pill, `bg-white/10` glass tint, `border-foreground/20`, `shadow-elegant`. No JS, no SVG filters. Works across all browsers.
+Pure CSS — no JS, no SVG filters. Works in all browsers.
+
+---
+
+## Service cards (`.service-card`)
+
+Dark glass cards sitting over the hero background image.
+
+```css
+border-radius: 20px;
+padding: 14px;
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.15);
+backdrop-filter: saturate(180%) brightness(1.05) blur(12px);
+transition: transform 0.2s, background 0.2s;
+```
+
+Hover: `translateY(-4px)`, background lightens to `rgba(255,255,255,0.12)`.
+
+**Header blocks** — CSS gradients, no images:
+- Automations: `linear-gradient(135deg, #0f2a4a, #1E4D8C)` — deep blue
+- AI Products: `linear-gradient(135deg, #16213e, #0d3b6e)` — navy
+- Systems: `linear-gradient(135deg, #1a0a2e, #2d1b69)` — dark purple
+
+**AI Automations card (`#card-automation-home`)** — different treatment:
+- No header block — fully transparent glass (`bg-white/4`)
+- Liquid glass JS applied (see below)
+- Tagline shown as small uppercase label above the title
+
+**READ MORE button** — glass pill matching hero buttons but smaller:
+- `height: 36px`, `padding: 0 18px`, `font-size: 11px / 600`, uppercase
+- Same `bg-white/10`, `border-white/20`, `backdrop-filter` recipe
+- Hover: solid white + `#222` text
+
+**No timeline lines** — duration text removed from all 3 cards.
+
+---
+
+## Liquid glass (`assets/js/liquid-glass.js`)
+
+MIT — deepika-builds/liquid-glass. Applied only to `#card-automation-home`.
+
+**How it works:**
+1. Canvas draws a displacement map: red channel = X axis, blue = Y axis, blurred grey inset = neutral interior (no displacement inside, refraction only at edges)
+2. SVG `<feDisplacementMap>` filter displaces backdrop pixels per channel
+3. R/G/B channels displaced at staggered scales → chromatic aberration (prism fringe)
+4. `backdrop-filter: url(#filter-id) blur(2px) saturate(2.0)` applies it
+
+**Current params:**
+```js
+liquidGlass(card, {
+  scale: -120,    // displacement strength
+  chroma: 8,      // prism fringe per channel
+  blur: 2,        // backdrop blur
+  saturate: 2.0,  // colour pop
+  border: 0.05,   // neutral inset fraction
+  mapBlur: 18,    // edge band softness (larger = softer)
+  radius: 20,     // must match card border-radius exactly
+  fallbackBlur: 12
+})
+```
+
+**Browser support:** Chromium (Chrome, Edge, Arc, Brave) only. Safari/Firefox get `blur(12px) saturate(2.0)` frosted fallback.
+
+**Critical rule:** element must NOT have `overflow: hidden` — it silently kills the SVG displacement.
+
+**Visibility note:** the refraction effect requires high-contrast content behind the glass to be visible. On the dark forest background the effect is subtle. Adding a bright/colourful background behind the card section would make it dramatic.
 
 ---
 
@@ -98,20 +188,14 @@ transition: background-color 0.2s, color 0.2s;
 
 ### Header
 `position: fixed`, 3-column CSS grid: `1fr auto 1fr`
-- Left: empty (logo sits outside header on home)
+- Left: logo (`ascnd.`)
 - Center: pill nav
 - Right: CTA button
 
 ### Blueprint grid
-`.blueprint-page::before` — 60px major grid (transparent by default, can be activated)
-`.blueprint-page::after` — 12px minor grid (same)
+`.blueprint-page::before` — 60px major grid (transparent by default)
+`.blueprint-page::after` — 12px minor grid
 Corner registration marks (`.corner-mark`) at all four viewport corners.
-
-### Cards
-- `border-radius: 12–16px`
-- `border: 1px solid var(--bp-card-border)`
-- Hover: border shifts to `--bp-card-hover-border`, bg to `--bp-card-hover-bg`
-- No heavy shadows — flat premium feel
 
 ### Section anatomy
 ```
@@ -125,7 +209,8 @@ Corner registration marks (`.corner-mark`) at all four viewport corners.
 ## Motion
 
 - All transitions: `0.18–0.2s` with `ease` or `cubic-bezier(0.4, 0, 0.2, 1)`
-- Nav pill indicator: CSS transition on `left` + `width`
-- Buttons: `opacity 0.18s, transform 0.18s` — lifts `1px` on hover
+- Nav pill indicator: `left` + `width` CSS transition, `0.32s cubic-bezier(0.4,0,0.2,1)`
+- Buttons: `background-color 0.2s, color 0.2s`
+- Cards: `transform 0.2s, background 0.2s`
 - Dropdowns: `opacity + transform(scale + translateY)` fade-in
-- No scroll animations or JS-driven entrance effects — keeps it fast and clean
+- No scroll animations or JS entrance effects
