@@ -270,6 +270,23 @@
       margin-bottom: 72px;
     }
 
+    .hero-video-card {
+      width: 100%;
+      max-width: 860px;
+      margin-top: 32px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: saturate(180%) brightness(1.05) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) brightness(1.05) blur(12px);
+    }
+
+    .hero-video-inner {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+
     .hero-btn-primary,
     .hero-btn-secondary {
       display: inline-flex;
@@ -4555,11 +4572,13 @@
       <div class="page-view active" id="page-home" style="position:relative; overflow:hidden;">
         <div style="position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 80px 24px 60px;">
           <h1 class="hero-headline">Building custom tech for<br>your business in weeks.</h1>
-          <p class="hero-sub">Let's be honest, this can be done in days.</p>
           <div class="hero-btns">
             <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="hero-btn-primary">Book a call</a>
             <a href="#" class="hero-btn-secondary" data-page="work">See our work</a>
             <a href="#" class="hero-btn-secondary" data-page="services">Our services</a>
+          </div>
+          <div class="hero-video-card">
+            <div class="hero-video-inner"></div>
           </div>
           <div class="hero-trust">
             <span class="hero-trust-label">Trusted by teams at</span>
