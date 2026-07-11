@@ -31,30 +31,59 @@ Everything lives in one `index.html`. Client-side JS swaps `.page-view` divs to 
 - Glass pill nav with sliding indicator (`#header-pill-indicator`) — only active tab gets the pill
 - Corner registration marks (`.corner-mark`)
 
-### Nav
-- Fixed header, 3-column grid: left (logo), center (pill nav), right (CTA)
+### Nav — desktop
+- Fixed header, 3-column grid: left (logo), center (pill nav), right (empty)
 - Tabs: Home, Work, Products, Community, About
-- Active tab only gets the glass pill indicator — inactive tabs are plain white text
+- Active tab only gets the glass pill indicator — inactive tabs are plain white `rgba(255,255,255,0.65)`
 - Indicator slides with smooth CSS transition (`left` + `width`)
 - Sizes: `height: 48px`, `padding: 0 26px`, `font-size: 16px`
+- **Scroll behaviour**: transparent at top (`scrollY ≤ 10`); on scroll, `.scrolled` class adds `background: rgba(10,10,10,0.55)` + `backdrop-filter: blur(16px)` with `0.3s` transition
 
-### Hero buttons (`.hero-btn-primary`, `.hero-btn-secondary`)
-- Same style — outline glass pill
-- `height: 52px`, `padding: 0 28px`, `font-size: 15px`
-- `bg-white/10`, `border-white/20`, `backdrop-filter: saturate(180%) brightness(1.05) blur(2px)`
-- Hover: solid white bg, `#222` text
-- No JS, no SVG filters — pure CSS, works everywhere
+### Nav — mobile (`≤768px`)
+- Moves to a **bottom pill** fixed `16px` from bottom, horizontally centered
+- Logo and right column hidden; only the 5 nav tabs shown inside the pill
+- Pill: `background: rgba(18,18,18,0.82)`, `backdrop-filter: blur(24px)`, `border-radius: 999px`, `padding: 3px`
+- Tab sizes: `height: 32px`, `padding: 0 11px`, `font-size: 12px`
+- Scroll-frosted class does NOT apply to the bottom nav (always has its own glass bg)
+
+### Hero layout (`page-home`)
+Order on all viewports: `ascnd.` logo (mobile only) → headline → video card → buttons → trust logos
+
+**Hero inner wrapper** (`.hero-inner`):
+- `display:flex; flex-direction:column; align-items:center; justify-content:flex-start`
+- Desktop: `padding: 160px 24px 120px`
+- Mobile: `padding-top: 80px` (overridden via `.hero-inner` media query)
+
+**Headline** (`.hero-headline`):
+- `font-size: clamp(42px, 6vw, 76px)` / weight 800 / desktop
+- Mobile: `36px` — wraps naturally to 2 lines, no forced `<br>`
+
+**Hero video card** (`.hero-video-card`, `.hero-video-inner`):
+- Glass card: `max-width: 620px`, `margin: 16px auto 0`, `border-radius: 16px`
+- `.hero-video-inner`: `aspect-ratio: 16/9` — empty placeholder, no `<video>` src yet
+- Mobile: `max-width: 100%`
+
+**Hero buttons** (`.hero-btn-primary`, `.hero-btn-secondary`):
+- Same style — outline glass pill, `height: 52px`, `padding: 0 28px`, `font-size: 15px`
+- `margin-top: 24px` from video card
+- Desktop: row layout; Mobile: stacked column, `max-width: 320px`, full-width each
+
+**Trust section** (`.hero-trust`):
+- `margin-top: 40px` below buttons
+- Labels: Talented Grid, Wakefit, Prompterdoer
+
+**Mobile logo** (`.hero-mobile-logo`):
+- `display:none` on desktop; shown on mobile above headline
+- `font-size: 28px`, `font-weight: 700`, centered
 
 ### Service cards (`#services-home`)
-- Dark glass cards: `bg-white/8`, `border-white/15`, `backdrop-filter blur(12px)`
+- Section title: "Three ways we deploy AI into your business" — single line, `white-space: nowrap`
+- Section padding: `56px 0 80px`
+- All 3 cards now have a `.card-video` (16:9 placeholder) at top, then `.card-content` below
+- Dark glass cards: `bg-white/8`, `border-white/15`, `backdrop-filter blur(12px)`, `border-radius: 20px`
 - No timeline/duration lines — removed
-- Header blocks use CSS gradients (no Unsplash images):
-  - Card 1 (Automations): deep blue `#0f2a4a → #1E4D8C`
-  - Card 2 (AI Products): navy `#16213e → #0d3b6e`
-  - Card 3 (Systems): dark purple `#1a0a2e → #2d1b69`
-- `#card-automation-home` is stripped — no header block, near-transparent `bg-white/4`, liquid glass JS applied
-- READ MORE button: glass pill matching hero buttons, hover inverts to white
-- Font: Helvetica Neue throughout (Gilroy removed)
+- No gradient header blocks — replaced with `.card-video` placeholders
+- READ MORE button: glass pill, `height: 36px`, hover inverts to white
 
 ### Liquid glass (`assets/js/liquid-glass.js`)
 Applied only to `#card-automation-home` via `liquidGlass()` in a `requestAnimationFrame` at end of `<body>`.
@@ -67,16 +96,16 @@ Applied only to `#card-automation-home` via `liquidGlass()` in a `requestAnimati
 - Airbnb-style search bar: "Problem" field with suggestion dropdown, "Industry" dropdown, "Timeline" dropdown
 - JS matches input to services and surfaces a result card
 
-### Trust logos (hero)
-- Talented Grid
-- Wakefit
-- Prompterdoer
-
 ### Assets
 - `assets/images/talented-logo.webp` — Talented Grid logo
-- `assets/images/wakefit-logo.png` — Wakefit logo
-- `assets/images/landing-rotated.png` — hero background image
+- `assets/images/wakefit-logo.webp` — Wakefit logo
+- `assets/images/landing-rotated.webp` — hero background image (preloaded, `fetchpriority="high"`, LCP element)
 - `assets/js/liquid-glass.js` — liquid glass refraction library (MIT, deepika-builds/liquid-glass)
+
+### Performance
+- Hero bg and trust logos are WebP (`landing-rotated.webp` ~131KB, `wakefit-logo.webp` ~8.4KB)
+- Hero image is the LCP element: `<link rel="preload" as="image">` in `<head>` + `fetchpriority="high"` on the `<img>`
+- `index.html` itself is ~200KB single file (inline `<style>` dominates) — not yet minified
 
 ## Deployment
 - GitHub Pages

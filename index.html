@@ -188,6 +188,106 @@
       align-items: center;
       padding: 16px 32px;
       background: transparent;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(10, 10, 10, 0.55);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+    }
+
+    @media (max-width: 768px) {
+      /* Nav moves to bottom */
+      .site-header {
+        top: auto;
+        bottom: 16px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: auto;
+        padding: 0;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .site-header.scrolled {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      /* Hide logo and right column on mobile */
+      .site-header .nav-logo,
+      .site-header > div:last-child {
+        display: none;
+      }
+
+      /* Nav pill wraps with glass bg on mobile */
+      #header-nav-pill {
+        background: rgba(18, 18, 18, 0.82);
+        backdrop-filter: saturate(180%) blur(24px);
+        -webkit-backdrop-filter: saturate(180%) blur(24px);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 999px;
+        padding: 3px;
+      }
+
+      #header-nav-pill .nav-tab {
+        height: 32px;
+        padding: 0 11px;
+        font-size: 12px;
+        letter-spacing: 0.01em;
+      }
+
+      #header-pill-indicator {
+        border-radius: 999px;
+      }
+
+      /* Hero layout on mobile */
+      .site-header ~ * .hero-btns,
+      .hero-btns {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 320px;
+        gap: 10px;
+      }
+
+      .hero-btn-primary,
+      .hero-btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-video-card {
+        max-width: 100%;
+      }
+
+      .hero-inner {
+        padding-top: 80px !important;
+      }
+
+      .hero-headline {
+        font-size: 36px;
+      }
+
+      .hero-mobile-logo {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.02em;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+    }
+
+    .hero-mobile-logo {
+      display: none;
     }
 
     /* ── Header nav pill ──────────────────────────────── */
@@ -249,7 +349,7 @@
       text-align: center;
       line-height: 1.08;
       letter-spacing: -0.03em;
-      margin: 0 0 20px;
+      margin: 0 0 12px;
       max-width: 820px;
     }
 
@@ -268,13 +368,14 @@
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 72px;
+      margin-top: 24px;
+      margin-bottom: 0;
     }
 
     .hero-video-card {
       width: 100%;
-      max-width: 860px;
-      margin-top: 32px;
+      max-width: 620px;
+      margin: 16px auto 0;
       border-radius: 16px;
       overflow: hidden;
       background: rgba(255,255,255,0.06);
@@ -318,11 +419,39 @@
       color: #222222;
     }
 
+    .hero-scroll-pill {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
+      -webkit-backdrop-filter: saturate(180%) brightness(1.05) blur(2px);
+      margin-top: 32px;
+      margin-bottom: 24px;
+      animation: scroll-bounce 1.6s ease-in-out infinite;
+      cursor: default;
+    }
+
+    .hero-scroll-pill svg {
+      display: block;
+      opacity: 0.7;
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
     .hero-trust {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 18px;
+      margin-top: 40px;
     }
 
     .hero-trust-label {
@@ -591,7 +720,7 @@
       position: relative;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 80px 48px 80px;
+      padding: 200px 48px 80px;
     }
 
     /* Dimension lines — desktop only */
@@ -2986,6 +3115,15 @@
       letter-spacing: -0.01em;
     }
 
+    .card-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      flex-shrink: 0;
+    }
+
     .card-content {
       padding: 20px 12px 12px;
       flex: 1;
@@ -4571,8 +4709,9 @@
          HOME PAGE (default)
     ══════════════════════════════════════════════ -->
       <div class="page-view active" id="page-home" style="position:relative; overflow:hidden;">
-        <div style="position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 80px 24px 60px;">
-          <h1 class="hero-headline">Building custom tech for<br>your business in weeks.</h1>
+        <div class="hero-inner" style="position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding: 160px 24px 120px;">
+          <div class="hero-mobile-logo">ascnd.</div>
+          <h1 class="hero-headline">Building custom tech for your business in weeks.</h1>
           <div class="hero-video-card">
             <div class="hero-video-inner"></div>
           </div>
@@ -4581,7 +4720,7 @@
             <a href="#" class="hero-btn-secondary" data-page="work">See our work</a>
             <a href="#" class="hero-btn-secondary" data-page="services">Our services</a>
           </div>
-          <div class="hero-trust">
+<div class="hero-trust">
             <span class="hero-trust-label">Trusted by teams at</span>
             <div class="hero-trust-logos">
               <span class="hero-trust-logo"><img src="assets/images/talented-logo.webp" alt="Talented Grid" style="height:22px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.85;"></span>
@@ -4592,24 +4731,22 @@
         </div>
 
         <!-- Services Grid -->
-        <section id="services-home" style="position:relative; padding: 60px 0 80px;">
+        <section id="services-home" style="position:relative; padding: 56px 0 80px;">
           <div class="section-inner">
             <div class="reveal">
-              <h2 class="section-title" style="text-align:center; max-width:none; color:#ffffff;">Three ways we deploy<br>AI into your business</h2>
+              <h2 class="section-title" style="text-align:center; max-width:none; color:#ffffff; white-space:nowrap;">Three ways we deploy AI into your business</h2>
             </div>
             <div class="services-grid">
               <div class="service-card reveal reveal-d1" id="card-automation-home">
-                <div class="card-content" style="padding-top:28px;">
-                  <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Get more time back with</div>
+                <div class="card-video"></div>
+                <div class="card-content">
                   <h3 class="card-title">AI Automations</h3>
                   <p class="card-desc">You tell us what is slowing you down and we put it on speed</p>
                   <a href="#" class="card-read-more" data-page="automations">READ MORE</a>
                 </div>
               </div>
               <div class="service-card reveal reveal-d2" id="card-products-home">
-                <div class="card-img-block card-img-2">
-                  <div class="card-img-text">Turn your<br>expertise<br>into</div>
-                </div>
+                <div class="card-video"></div>
                 <div class="card-content">
                   <h3 class="card-title">AI Products</h3>
                   <p class="card-desc">Need a tool that doesn't exist yet? We build it around your problem.</p>
@@ -4617,9 +4754,7 @@
                 </div>
               </div>
               <div class="service-card reveal reveal-d3" id="card-systems-home">
-                <div class="card-img-block card-img-3">
-                  <div class="card-img-text">Run lean<br>from day<br>one</div>
-                </div>
+                <div class="card-video"></div>
                 <div class="card-content">
                   <h3 class="card-title">AI Systems</h3>
                   <p class="card-desc">We rebuild how your business operates, from scratch, on AI.</p>
@@ -6413,6 +6548,15 @@
     }
 
     renderTestimonials();
+
+    (function () {
+      var header = document.querySelector('.site-header');
+      function updateHeader() {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+      }
+      window.addEventListener('scroll', updateHeader, { passive: true });
+      updateHeader();
+    })();
 
   </script>
 
