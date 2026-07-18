@@ -428,6 +428,12 @@
       align-items: center;
     }
 
+    @media (min-width: 769px) {
+      #header-nav-pill .tab-icon {
+        display: none;
+      }
+    }
+
     #header-nav-pill .nav-tab {
       position: relative;
       z-index: 2;
@@ -2563,8 +2569,7 @@
     .work-filters {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+      gap: 12px;
       margin-top: 32px;
       flex-wrap: wrap;
     }
@@ -2623,7 +2628,8 @@
       gap: 12px;
       padding: 10px 20px;
       border-radius: 9999px;
-      min-width: 240px;
+      width: 260px;
+      flex: 0 0 auto;
       backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
       -webkit-backdrop-filter: blur(14px) saturate(200%) brightness(1.08);
       background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.07) 60%, rgba(255,255,255,0.13) 100%);
@@ -2650,12 +2656,26 @@
     .work-search svg { flex-shrink: 0; position: relative; z-index: 1; }
 
     .work-grid-section {
-      padding-top: 40px;
+      padding-top: 0;
+    }
+
+    .work-grid-section .section-inner {
+      max-width: none;
+      padding-top: 16px;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .work-grid-section .section-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
     }
 
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
     }
 
@@ -2669,47 +2689,60 @@
       .work-grid {
         grid-template-columns: 1fr;
       }
-      .work-filters {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .work-search {
-        min-width: auto;
-      }
     }
 
     .work-card {
-      background: white;
-      border: 1px solid #E5E5E5;
-      border-radius: 16px;
-      overflow: hidden;
+      border-radius: 20px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: saturate(180%) brightness(1.05) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) brightness(1.05) blur(12px);
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s, background 0.2s;
     }
 
     .work-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.12);
     }
 
     .work-card-video {
+      width: 100%;
       aspect-ratio: 16/9;
-      background: #F3F4F6;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      color: #999;
+      color: rgba(255,255,255,0.4);
     }
 
     .work-card-video p {
       font-size: 12px;
       margin: 0;
+      color: rgba(255,255,255,0.4);
     }
 
     .work-card-content {
-      padding: 24px;
+      padding: 20px 12px 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .work-card-category-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
     .work-card-category {
@@ -2717,32 +2750,34 @@
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.1em;
-      color: #999;
+      color: rgba(255,255,255,0.45);
       text-transform: uppercase;
-      margin-bottom: 8px;
+    }
+
+    .work-card-client-logo {
+      height: 14px;
+      width: auto;
+      max-width: 80px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.75;
     }
 
     .work-card-title {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
-      color: #222;
-      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 10px;
     }
 
     .work-card-desc {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 14px;
-      color: #666;
+      color: rgba(255,255,255,0.65);
       line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .work-card-status {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: #22C55E;
+      flex: 1;
     }
 
     .work-no-results {
@@ -4697,7 +4732,7 @@
             <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Zm0 2.3 6.5 3.6L12 11.5 5.5 7.9 12 4.3ZM5 9.2l6 3.3v6.9l-6-3.3V9.2Zm8 10.2v-6.9l6-3.3v6.6l-6 3.6Z"/></svg></span>
             <span class="tab-label">Products</span>
           </a>
-          <a href="https://www.prompterdoer.com" target="_blank" class="nav-tab">
+          <a href="#" class="nav-tab" data-page="community">
             <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5v1H3v-1Z"/><circle cx="17" cy="8.5" r="2.6"/><path d="M15.2 13.3c2.7.4 4.8 2.2 4.8 4.7v1h-3v-1c0-1.6-.7-3-1.8-4.1Z"/></svg></span>
             <span class="tab-label">Community</span>
           </a>
@@ -4986,12 +5021,14 @@
 
       <!-- Community page -->
       <div class="page-view" id="page-community">
-        <div style="padding-top: 60px; padding-bottom: 60px; text-align: center;">
-          <div class="section-inner">
-            <h2 class="section-title">Freelancer network</h2>
-            <p class="section-body" style="margin-top: 16px;">Coming soon. We're building something here.</p>
+        <section class="section-dashed" style="padding-top: 120px;">
+          <div class="section-inner" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%;">Coming soon.</h2>
+            <p class="hero-sub" style="max-width: 640px; margin: 24px auto 0;">
+              We're building something here. Check back shortly.
+            </p>
           </div>
-        </div>
+        </section>
       </div><!-- /page-community -->
 
       <!-- Combined Services & Process page -->
@@ -5104,14 +5141,44 @@
 
       <div class="page-view" id="page-products">
         <!-- ══════════════════════════════════════════════
-           PRODUCTS - Coming Soon
+           PRODUCTS - Gallery
         ══════════════════════════════════════════════ -->
-        <section class="section-dashed" style="padding-top: 120px;">
-          <div class="section-inner" style="text-align: center;">
-            <h2 class="section-title" style="text-align: center; max-width: none; width: 100%; color: #222;">Coming soon.</h2>
-            <p class="hero-sub" style="max-width: 640px; margin: 24px auto 0;">
-              We're building something here. Check back shortly.
-            </p>
+        <section class="work-hero" style="padding-top: 72px;">
+          <div class="section-inner">
+            <h2 class="section-title" style="color: #ffffff; max-width: none; text-align: center;">Let's solve a problem.</h2>
+
+            <!-- Filter Bar -->
+            <div class="work-filters">
+              <div class="work-search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" id="products-search-input" placeholder="Search our products...">
+              </div>
+              <div class="filter-tabs" id="products-filter-tabs">
+                <button class="filter-tab active" data-filter="all">All <span class="filter-count"></span></button>
+                <button class="filter-tab" data-filter="operations">Operations <span class="filter-count"></span></button>
+                <button class="filter-tab" data-filter="creative">Creative <span class="filter-count"></span></button>
+                <button class="filter-tab" data-filter="daily-use">Daily Use <span class="filter-count"></span></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Gallery Grid -->
+        <section class="work-grid-section">
+          <div class="section-inner">
+            <div class="work-grid" id="products-grid">
+              <!-- Cards rendered by JavaScript -->
+            </div>
+
+            <!-- No Results Message -->
+            <div class="work-no-results" id="products-no-results" style="display: none;">
+              <h3>We haven't built that one yet.</h3>
+              <p>But we can.</p>
+              <a href="https://calendly.com/buildwithascnd/30min" target="_blank" class="cta-primary">Book a strategy call</a>
+            </div>
           </div>
         </section>
       </div><!-- /page-products -->
@@ -5407,23 +5474,23 @@
         <div id="work-gallery">
           <section class="work-hero">
             <div class="section-inner">
-              <h2 class="section-title" style="color: #ffffff; max-width: none; text-align: center;">Made for people.</h2>
+              <h2 class="section-title" style="color: #ffffff; max-width: none; text-align: center;">Made to be used by people, not replace them.</h2>
 
               <!-- Filter Bar -->
               <div class="work-filters">
-                <div class="filter-tabs">
-                  <button class="filter-tab active" data-filter="all">All <span class="filter-count"></span></button>
-                  <button class="filter-tab" data-filter="products">Products <span class="filter-count"></span></button>
-                  <button class="filter-tab" data-filter="automations">Automations <span class="filter-count"></span></button>
-                  <button class="filter-tab" data-filter="websites">Websites <span class="filter-count"></span></button>
-                  <button class="filter-tab" data-filter="ai-films">AI Films &amp; Assets <span class="filter-count"></span></button>
-                </div>
                 <div class="work-search">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2">
                     <circle cx="11" cy="11" r="8"/>
                     <path d="M21 21l-4.35-4.35"/>
                   </svg>
                   <input type="text" id="work-search-input" placeholder="Search our work...">
+                </div>
+                <div class="filter-tabs">
+                  <button class="filter-tab active" data-filter="all">All <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="products">Products <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="automations">Automations <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="websites">Websites <span class="filter-count"></span></button>
+                  <button class="filter-tab" data-filter="ai-films">AI Films &amp; Assets <span class="filter-count"></span></button>
                 </div>
               </div>
             </div>
@@ -5868,6 +5935,17 @@
   </div>
 
   <script>
+    // ── Restore active page before scroll restore runs ─
+    (function() {
+      const savedPage = sessionStorage.getItem('ascnd_page');
+      if (!savedPage || savedPage === 'home') return;
+      const next = document.getElementById('page-' + savedPage);
+      if (!next) return;
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+      next.classList.add('active');
+      document.querySelectorAll('#header-nav-pill .nav-tab').forEach(t => t.classList.toggle('active', t.dataset.page === savedPage));
+    })();
+
     // ── Scroll position memory ────────────────────────
     (function() {
       const key = 'ascnd_scroll_pos';
@@ -6080,6 +6158,7 @@
       if (searchStrip) searchStrip.style.display = 'none';
       window.scrollTo(0, 0);
       next.classList.add('active');
+      sessionStorage.setItem('ascnd_page', pageId);
 
       const activeTab = document.querySelector('#header-nav-pill .nav-tab.active');
       requestAnimationFrame(() => updatePillIndicator(activeTab));
@@ -6520,10 +6599,11 @@
     const projects = [
       {
         id: "fortnight",
-        title: "Workforce Management System",
-        category: "Products",
+        title: "Time Management System",
+        category: "Product",
         categorySlug: "products",
-        client: "100+ person creative agency",
+        useCases: ["operations"],
+        client: "Talented Grid",
         oneLiner: "AI-powered timesheet and burnout prediction for a 100+ person agency.",
         problem: "Manual time tracking across 100+ employees using Google Sheets. Managers spent 2-3 hours weekly chasing timesheets. Data was late and inconsistent.",
         solution: "AI-powered timesheet system. Employees log time in seconds. Managers see real-time dashboards. System flags burnout risks automatically.",
@@ -6536,9 +6616,10 @@
       {
         id: "collablab",
         title: "Partner Matching Engine",
-        category: "Products",
+        category: "Product",
         categorySlug: "products",
-        client: "100+ person creative agency",
+        useCases: ["operations", "creative"],
+        client: "Talented Grid",
         oneLiner: "AI tool matching creative briefs to 40+ film directors by genre, budget, and availability.",
         problem: "Creative team spent 2+ hours manually searching through a roster of 40+ directors to find the right match for each brief. Decisions were based on memory and personal preference, not data.",
         solution: "AI matching engine that scores directors against brief requirements: genre fit, budget range, availability, and past work quality. Results in seconds.",
@@ -6547,6 +6628,102 @@
         buildTime: "Built in under 2 weeks",
         videoUrl: null,
         tags: ["matching", "directors", "creative", "briefs", "agency"]
+      },
+      {
+        id: "wakefit-calibr8",
+        title: "AI Video Assets",
+        category: "Video",
+        categorySlug: "ai-films",
+        useCases: ["creative"],
+        client: "Wakefit",
+        oneLiner: "AI-generated video assets for Wakefit, produced with Calibr8.",
+        problem: "Wakefit needed a steady stream of on-brand video content without the cost and turnaround time of traditional video production.",
+        solution: "Used Calibr8 to generate AI video assets at scale, tuned to Wakefit's brand style and ready to drop into campaigns.",
+        result: "A growing library of on-brand video assets produced in a fraction of the time and cost of traditional shoots.",
+        status: "Live",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["ai-video", "assets", "wakefit", "calibr8", "media"]
+      },
+      {
+        id: "wakefit-site",
+        title: "Wakefit Website",
+        category: "Website",
+        categorySlug: "websites",
+        useCases: ["creative", "daily-use"],
+        client: "Wakefit",
+        oneLiner: "Marketing and e-commerce website for Wakefit's sleep and furniture product line.",
+        problem: "Wakefit needed a fast, conversion-focused site to showcase products and drive online sales.",
+        solution: "Designed and built a modern e-commerce storefront with product catalog, fast checkout, and mobile-first layout.",
+        result: "A fast, on-brand storefront built to convert visitors into customers.",
+        status: "Live",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["ecommerce", "website", "retail", "wakefit"]
+      },
+      {
+        id: "prompterdoer-site",
+        title: "prompterdoer Website",
+        category: "Website",
+        categorySlug: "websites",
+        useCases: ["creative", "daily-use"],
+        client: "prompterdoer",
+        oneLiner: "Marketing website for prompterdoer, built to convert visitors into signups.",
+        problem: "prompterdoer needed a fast, credible web presence to introduce the product and drive signups.",
+        solution: "Designed and built a clean marketing site with a clear product story, feature breakdown, and conversion-focused signup flow.",
+        result: "A fast, on-brand site that clearly explains the product and converts visitors into signups.",
+        status: "Live",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["website", "marketing", "saas", "prompterdoer"]
+      },
+      {
+        id: "streamframe",
+        title: "Streaming Platform Website",
+        category: "Website",
+        categorySlug: "websites",
+        useCases: ["operations", "creative", "daily-use"],
+        client: "The New Thing",
+        oneLiner: "A Netflix-style streaming site with rows, hover previews, and a full watch experience.",
+        problem: "Client needed a slick, familiar streaming interface to showcase original video content, but had no in-house design or frontend team.",
+        solution: "Built a Netflix-style browsing experience: hero banner, genre rows, hover-to-preview cards, and a distraction-free watch page.",
+        result: "Launched a polished, on-brand streaming site that feels instantly familiar to any viewer.",
+        status: "Live",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["streaming", "website", "video", "media", "design"]
+      },
+      {
+        id: "app-vault",
+        title: "App Vault",
+        category: "Product",
+        categorySlug: "products",
+        useCases: ["operations"],
+        client: "Talented Grid",
+        oneLiner: "Single sign-on vault giving your team one-click access to every internal app.",
+        problem: "Employees juggled separate logins for a dozen internal tools. Password resets and access requests ate up IT time every week.",
+        solution: "Built a single sign-on vault: one login unlocks every internal app, with role-based access managed from one dashboard.",
+        result: "One login replaced a dozen. Access requests and password resets dropped to nearly zero.",
+        status: "Live",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["sso", "auth", "vault", "security", "internal-tools"]
+      },
+      {
+        id: "video-library",
+        title: "Online Video Library",
+        category: "Product",
+        categorySlug: "products",
+        useCases: ["operations"],
+        client: "Talented Grid",
+        oneLiner: "Searchable video library with tagging, instant previews, and fast playback.",
+        problem: "Hundreds of video assets scattered across drives and folders. No easy way to search, tag, or preview a clip without downloading it first.",
+        solution: "Built a searchable video library: tag-based search, instant hover previews, and streaming playback straight from the browser.",
+        result: "Every asset is now findable in seconds instead of buried in folders.",
+        status: "Live",
+        buildTime: "Built in under 2 weeks",
+        videoUrl: null,
+        tags: ["video", "library", "streaming", "search", "media"]
       }
     ];
 
@@ -6566,12 +6743,13 @@
 
     // Update filter counts
     function updateFilterCounts() {
+      const workProjects = projects.filter(p => !p.productsOnly);
       const counts = {
-        'all': projects.length,
-        'products': projects.filter(p => p.categorySlug === 'products').length,
-        'automations': projects.filter(p => p.categorySlug === 'automations').length,
-        'websites': projects.filter(p => p.categorySlug === 'websites').length,
-        'ai-films': projects.filter(p => p.categorySlug === 'ai-films').length
+        'all': workProjects.length,
+        'products': workProjects.filter(p => p.categorySlug === 'products').length,
+        'automations': workProjects.filter(p => p.categorySlug === 'automations').length,
+        'websites': workProjects.filter(p => p.categorySlug === 'websites').length,
+        'ai-films': workProjects.filter(p => p.categorySlug === 'ai-films').length
       };
 
       filterTabs.forEach(tab => {
@@ -6589,6 +6767,13 @@
     }
 
     // Render gallery cards
+    const clientLogos = {
+      "Talented Grid": "assets/images/talented-logo.webp",
+      "Wakefit": "assets/images/wakefit-logo.webp",
+      "The New Thing": "assets/images/tnt-logo.webp",
+      "prompterdoer": "assets/images/prompterdoer-logo.webp"
+    };
+
     function renderGallery(filteredProjects) {
       if (!workGrid) return;
 
@@ -6604,17 +6789,19 @@
       workGrid.innerHTML = filteredProjects.map((project, index) => `
         <div class="work-card" data-project-id="${project.id}" data-index="${projects.indexOf(project)}">
           <div class="work-card-video">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <circle cx="12" cy="12" r="10"/>
-              <polygon points="10,8 16,12 10,16" fill="#ccc"/>
+              <polygon points="10,8 16,12 10,16" fill="currentColor"/>
             </svg>
             <p>Video coming soon</p>
           </div>
           <div class="work-card-content">
-            <div class="work-card-category">${project.category.toUpperCase()}</div>
+            <div class="work-card-category-row">
+              ${clientLogos[project.client] ? `<img src="${clientLogos[project.client]}" alt="${project.client}" class="work-card-client-logo">` : ''}
+              <div class="work-card-category">${project.category.toUpperCase()}</div>
+            </div>
             <h3 class="work-card-title">${project.title}</h3>
             <p class="work-card-desc">${project.oneLiner}</p>
-            <div class="work-card-status">● ${project.status}</div>
           </div>
         </div>
       `).join('');
@@ -6633,6 +6820,8 @@
       const searchTerm = workSearchInput ? workSearchInput.value.toLowerCase() : '';
 
       return projects.filter(project => {
+        if (project.productsOnly) return false;
+
         // Category filter
         const categoryMatch = currentFilter === 'all' || project.categorySlug === currentFilter;
 
@@ -6713,7 +6902,110 @@
 
     // Initial render
     updateFilterCounts();
-    renderGallery(projects);
+    renderGallery(projects.filter(p => !p.productsOnly));
+
+    // ══════════════════════════════════════════════
+    // PRODUCTS PAGE GALLERY
+    // ══════════════════════════════════════════════
+
+    const productsGrid = document.getElementById('products-grid');
+    const productsNoResults = document.getElementById('products-no-results');
+    const productsSearchInput = document.getElementById('products-search-input');
+    const productsFilterTabs = document.querySelectorAll('#products-filter-tabs .filter-tab');
+    let productsCurrentFilter = 'all';
+
+    function updateProductsFilterCounts() {
+      const counts = {
+        'all': projects.length,
+        'operations': projects.filter(p => p.useCases.includes('operations')).length,
+        'creative': projects.filter(p => p.useCases.includes('creative')).length,
+        'daily-use': projects.filter(p => p.useCases.includes('daily-use')).length
+      };
+
+      productsFilterTabs.forEach(tab => {
+        const filter = tab.dataset.filter;
+        const countSpan = tab.querySelector('.filter-count');
+        if (countSpan) {
+          countSpan.textContent = `(${counts[filter]})`;
+          countSpan.classList.toggle('disabled', counts[filter] === 0);
+        }
+      });
+    }
+
+    function filterProductsProjects() {
+      const searchTerm = productsSearchInput ? productsSearchInput.value.toLowerCase() : '';
+      const scoped = productsCurrentFilter === 'all'
+        ? projects
+        : projects.filter(p => p.useCases.includes(productsCurrentFilter));
+
+      return scoped.filter(project => {
+        const searchMatch = searchTerm === '' ||
+          project.title.toLowerCase().includes(searchTerm) ||
+          project.oneLiner.toLowerCase().includes(searchTerm) ||
+          project.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+
+        return searchMatch;
+      }).sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    function renderProductsGallery(filteredProjects) {
+      if (!productsGrid) return;
+
+      if (filteredProjects.length === 0) {
+        productsGrid.style.display = 'none';
+        productsNoResults.style.display = 'block';
+        return;
+      }
+
+      productsGrid.style.display = 'grid';
+      productsNoResults.style.display = 'none';
+
+      productsGrid.innerHTML = filteredProjects.map(project => `
+        <div class="work-card" data-project-id="${project.id}" data-index="${projects.indexOf(project)}">
+          <div class="work-card-video">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="10,8 16,12 10,16" fill="currentColor"/>
+            </svg>
+            <p>Video coming soon</p>
+          </div>
+          <div class="work-card-content">
+            <div class="work-card-category-row">
+              ${clientLogos[project.client] ? `<img src="${clientLogos[project.client]}" alt="${project.client}" class="work-card-client-logo">` : ''}
+              <div class="work-card-category">${project.category.toUpperCase()}</div>
+            </div>
+            <h3 class="work-card-title">${project.title}</h3>
+            <p class="work-card-desc">${project.oneLiner}</p>
+          </div>
+        </div>
+      `).join('');
+
+      productsGrid.querySelectorAll('.work-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const index = parseInt(card.dataset.index);
+          showPage('work');
+          openDetailView(index);
+        });
+      });
+    }
+
+    if (productsSearchInput) {
+      productsSearchInput.addEventListener('input', () => {
+        renderProductsGallery(filterProductsProjects());
+      });
+    }
+
+    productsFilterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        productsFilterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        productsCurrentFilter = tab.dataset.filter;
+        renderProductsGallery(filterProductsProjects());
+      });
+    });
+
+    updateProductsFilterCounts();
+    renderProductsGallery(filterProductsProjects());
 
     // ══════════════════════════════════════════════
     // ABOUT PAGE - TESTIMONIALS

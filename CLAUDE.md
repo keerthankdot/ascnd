@@ -10,15 +10,15 @@ Everything lives in one `index.html`. Client-side JS swaps `.page-view` divs to 
 
 ### Pages
 - `page-home` — hero + trust logos + `#services-home` section (3 service cards: Automations, AI Products, Systems). Services grid is scoped to this page only.
-- `page-work` — work/case study grid with filters and search (no services grid)
+- `page-work` — full project gallery: search + filter pills + card grid, ordered by build date. See "Work & Products galleries" below.
+- `page-products` — second gallery view over the *same* `projects` array as `page-work`, but sorted alphabetically and filtered by `useCases` (Operations/Creative/Daily Use) instead of by category. See below.
 - `page-services` / `page-services-process` — services overview
 - `page-process` — 5-step circular process diagram
 - `page-ai-products` — AI Products detail + FAQ + examples
 - `page-systems` — Systems detail + FAQ + examples
 - `page-automations` — Automations detail + FAQ + examples
-- `page-products` — Products page (coming soon stub)
 - `page-about` — founder profile
-- `page-community` — freelancer network (stub)
+- `page-community` — freelancer network, "Coming soon." stub (same visual pattern as `page-products` used to be before it became a gallery)
 
 ### Known structural note
 `page-home` contains two child wrappers: a `z-index:2` hero div (closed before the services grid) and the `#services-home` section. Both are inside `page-home` — do not add extra closing `</div>` between them or the services grid escapes into the global DOM and renders on every tab.
@@ -33,11 +33,12 @@ Everything lives in one `index.html`. Client-side JS swaps `.page-view` divs to 
 
 ### Nav — desktop
 - Fixed header, 3-column grid: left (logo), center (pill nav), right (empty)
-- Tabs: Home, Work, Products, Community, About
+- Tabs: Home, Work, Products, Community, About — all five are in-page `data-page` tabs (no external links). Community used to point `target="_blank"` at an external site; since the `.nav-tab` click handler always calls `e.preventDefault()`, that silently broke the tab (no navigation happened at all). Fixed by giving it `href="#" data-page="community"` like every other tab.
 - Active tab only gets the glass pill indicator — inactive tabs are plain white `rgba(255,255,255,0.65)`
 - Indicator slides with smooth CSS transition (`left` + `width`)
 - Sizes: `height: 48px`, `padding: 0 26px`, `font-size: 16px`
 - **Scroll behaviour**: transparent at top (`scrollY ≤ 10`); on scroll, `.scrolled` class adds `background: rgba(10,10,10,0.55)` + `backdrop-filter: blur(16px)` with `0.3s` transition
+- **Desktop icon bug/fix:** each `.nav-tab` contains both a `.tab-icon` (SVG, mobile-only) and a `.tab-label`. The mobile media query hides `.tab-icon` by default, but there was no equivalent rule for desktop — the empty `<svg>` (no `width`/`height` attrs) still occupied a real flex-item box, shifting the label off-center within the pill by ~10px. Fixed with `@media (min-width:769px){ #header-nav-pill .tab-icon{display:none} }`.
 
 ### Nav — mobile (`≤768px`)
 - Full-width **floating pill**: `position:fixed; bottom:20px; left:12px; right:12px` (not centered/auto-width anymore — it spans the viewport minus 12px insets)
@@ -92,6 +93,59 @@ Order on all viewports: `ascnd.` logo (mobile only) → headline → video card 
 - No gradient header blocks — replaced with `.card-video` placeholders
 - READ MORE button: glass pill, `height: 36px`, hover inverts to white
 - **Mobile card-content layout**: on `≤768px`, `.card-content` becomes a CSS grid (`grid-template-areas: "title btn" / "desc desc"`) so the title and READ MORE button sit on the same row (button shrinks to `height:28px; font-size:9px`) and the description wraps full-width below. `align-content:start` + zeroing `.card-desc`'s base `flex:1`/`margin-bottom:20px` prevents the dead vertical space that grid's default row-stretching + the old flex-fill would otherwise leave at the bottom of the card.
+
+### Work & Products galleries (`page-work` / `page-products`)
+Both pages render off the **same** `projects` array (in the big `<script>` block) — there is no separate data source for Products.
+
+**`projects` array fields:**
+- `id`, `title`, `client`, `oneLiner`, `problem`, `solution`, `result`, `status`, `buildTime`, `tags[]` — used by the card + the shared detail view
+- `category` / `categorySlug` — display label + filter key for the **Work page** filters (`all` / `products` / `automations` / `websites` / `ai-films`)
+- `useCases` (array, e.g. `["operations", "creative"]`) — filter key(s) for the **Products page** filters (`all` / `operations` / `creative` / `daily-use`). A project can belong to multiple use cases (e.g. Streaming Platform Website is in all three) — filtering does `useCases.includes(filter)`, not equality.
+- `productsOnly` (optional bool, currently unused by any entry) — reserved flag: when set, `filterProjects()`/`updateFilterCounts()`/the initial Work-page render exclude that project, so it can exist only on the Products page. This is how "all Work items show in Products, but not all Products items need show in Work" is meant to be implemented for future entries.
+
+**Work page (`page-work`):**
+- Headline: "Made to be used by people, not replace them." (`.work-hero .section-title`, white)
+- Filter bar (`.work-filters`): search pill + filter pills on one row, `flex-wrap: wrap`. Search pill: fixed `width: 260px`, same vertical padding (`10px 20px`) as `.filter-tab` so both pills are the same height.
+- Grid ordered by **build date** — i.e. literal array order in `projects`. Current order: Time Management System, Partner Matching Engine, AI Video Assets, Wakefit Website, prompterdoer Website, Streaming Platform Website, App Vault, Online Video Library.
+- Cards, filtering, search, and the detail-view overlay (`#work-detail`, `openDetailView(index)`) are the canonical implementation — Products page reuses `openDetailView` rather than duplicating a detail view.
+
+**Products page (`page-products`):**
+- Headline: "Let's solve a problem." — `padding-top: 72px` on its `<section>` matches `.work-hero`'s so both headlines sit at the exact same vertical position on their respective pages.
+- Same visual gallery markup/CSS as Work (`.work-filters`, `.work-grid`, `.work-card`, etc. are shared classes), but its own DOM ids (`products-search-input`, `products-filter-tabs`, `products-grid`, `products-no-results`) and its own JS state (`productsCurrentFilter`, `filterProductsProjects()`, `renderProductsGallery()`, `updateProductsFilterCounts()`) — kept fully separate from the Work page's `currentFilter`/`filterTabs`/etc. so clicking a filter on one page can't cross-wire the other.
+- "All" shows every project in `projects` (not just `categorySlug === 'products'`) — sorted **alphabetically by title** via `.sort((a,b) => a.title.localeCompare(b.title))` (Work page stays in date/array order; Products always re-sorts alphabetically after filtering).
+- Filter pills are **not** the Work page's category filters — they're `useCases`: All / Operations / Creative / Daily Use, and a project can appear under more than one.
+- Clicking a card does `showPage('work')` then `openDetailView(index)` — it borrows the Work page's detail view rather than building a second one.
+
+**Card anatomy (`.work-card`, shared by both galleries):**
+```css
+.work-card {
+  border-radius: 20px; padding: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: saturate(180%) brightness(1.05) blur(12px);
+}
+```
+Same recipe as the home `.service-card` — this was a deliberate redesign from the original flat white `.work-card` to match the rest of the site's dark glass language. `.work-card-video` is an empty glass placeholder (icon + "Video coming soon" text) — no "Live, daily use" status line anymore (removed).
+
+`.work-card-category-row` stacks **client logo above category label** (`flex-direction: column`), left-aligned. Logos come from a small lookup:
+```js
+const clientLogos = {
+  "Talented Grid": "assets/images/talented-logo.webp",
+  "Wakefit": "assets/images/wakefit-logo.webp",
+  "The New Thing": "assets/images/tnt-logo.webp",
+  "prompterdoer": "assets/images/prompterdoer-logo.webp"
+};
+```
+Only rendered when `clientLogos[project.client]` exists — projects without a matching client (none currently) just show the category label alone. Logo styling: `height:14px`, `filter: brightness(0) invert(1); opacity:0.75` (same white-silhouette treatment as the hero trust logos).
+
+**Grid layout:** `.work-grid-section .section-inner` overrides the shared `.section-inner`'s `max-width: 1200px` back to `max-width: none` with its own `padding-left/right` (48px desktop, 24px mobile ≤768px) — so the gallery grid stretches edge-to-edge instead of being boxed to the site's usual 1200px content width. `.work-grid` is `repeat(4, 1fr)` desktop, `repeat(2, 1fr)` ≤1024px, `1fr` ≤640px.
+
+### Session persistence (page + scroll survive refresh)
+Two small IIFEs near the top of the `<script>` block, both keyed off `sessionStorage` (clears per-tab-session, not permanent — matches the existing `ascnd_scroll_pos` / `lc_*` lead-capture keys already in use):
+1. **Page restore** runs *first*: reads `ascnd_page` from `sessionStorage` and, if it's set and isn't `'home'`, swaps the `.page-view.active` class directly (no `showPage()` call, so it doesn't trigger the scroll-to-0 that a real nav click does).
+2. **Scroll restore** runs *second* (existing code, unchanged): reads `ascnd_scroll_pos` and calls `window.scrollTo`.
+Order matters — the page must already be swapped before the scroll position is applied, or the saved Y coordinate is measured against the wrong page's height.
+`showPage(pageId)` writes `sessionStorage.setItem('ascnd_page', pageId)` on every navigation (nav tabs, logo click, card-read-more links, back buttons — anything routed through `showPage`), so this is a single choke point with no other place that needs to remember to persist it.
 
 ### Liquid glass (`assets/js/liquid-glass.js`)
 Applied only to `#card-automation-home` via `liquidGlass()` in a `requestAnimationFrame` at end of `<body>`.

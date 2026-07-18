@@ -235,6 +235,22 @@ Title stays left-aligned; READ MORE sits directly beside it (smaller pill) inste
 
 ---
 
+## Work & Products galleries (`.work-card`, `.work-filters`, `.work-grid`)
+
+Both `page-work` and `page-products` render the same gallery UI over the same `projects` data — Work sorts by build date and filters by category (Products/Automations/Websites/AI Films & Assets); Products sorts alphabetically and filters by `useCases` (Operations/Creative/Daily Use, non-exclusive — a project can carry more than one). See `CLAUDE.md` for the full data-shape/JS breakdown.
+
+**Headline treatment:** both pages use the same white `.section-title` on the dark hero image (`color:#ffffff`), not the light-page `#222` variant — `page-products`' `<section>` uses the same `padding-top:72px` as `.work-hero` so "Made to be used by people, not replace them." and "Let's solve a problem." land at the identical vertical position on their respective pages.
+
+**Filter bar (`.work-filters`):** search pill + filter pills share one row (`display:flex; flex-wrap:wrap; gap:12px`). The search pill is deliberately small and fixed-width (`width:260px`) rather than stretched full-bleed — same `10px 20px` padding as `.filter-tab` so the two pill types line up at identical height.
+
+**Cards (`.work-card`)** were redesigned from a flat white card to the same dark-glass recipe as the home `.service-card` — see that section above for the exact values (`border-radius:20px`, `padding:14px`, `rgba(255,255,255,0.08)` bg, `blur(12px)`). No more status line ("Live, daily use" text was removed from the card face — still available as `project.status` in the detail view). `.work-card-video` is an empty glass box (`rgba(255,255,255,0.05)` bg, faint icon), same visual family as `.card-video` on the home service cards.
+
+**Client logo on card (`.work-card-category-row`):** stacked column — logo first, category label below, left-aligned. Logo styling matches the hero trust logos exactly: `filter: brightness(0) invert(1); opacity:0.75` flattens every brand mark to a white silhouette regardless of source colors, at a small `14px` height so it reads as a caption-level detail, not a competing brand moment.
+
+**Grid stretches edge-to-edge:** `.work-grid-section .section-inner` opts out of the sitewide `.section-inner` 1200px cap (`max-width:none`) and sets its own side padding (48px desktop / 24px ≤768px) instead — this is the one place on the site where content isn't boxed to the usual 1200px column. 4-up grid desktop, 2-up ≤1024px, 1-up ≤640px.
+
+---
+
 ## Liquid glass (`assets/js/liquid-glass.js`)
 
 MIT — deepika-builds/liquid-glass. Applied only to `#card-automation-home`.
